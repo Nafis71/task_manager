@@ -17,6 +17,9 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_svg: ^2.0.10+1
   widget_and_text_animator: ^1.1.5
+  gap: ^3.0.1
+  provider: ^6.1.2
+  device_preview_minus: ^1.0.6
 
 dev_dependencies:
   flutter_test:
@@ -33,10 +36,10 @@ flutter:
   assets:
     - assets/images/
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: Poppins
+       fonts:
+         - asset: assets/fonts/Poppins-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
