@@ -118,11 +118,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final AuthViewModel authViewModel =
         Provider.of<AuthViewModel>(context, listen: false);
     bool status = await authViewModel.registerUser(
-        email: _emailTEController.text,
-        firstName: _firstNameTEController.text,
-        lastName: _lastNameTEController.text,
-        mobileNumber: _mobileNumberTEController.text,
-        password: _passwordTEController.text);
+        email: _emailTEController.text.trim(),
+        firstName: _firstNameTEController.text.trim(),
+        lastName: _lastNameTEController.text.trim(),
+        mobileNumber: _mobileNumberTEController.text.trim(),
+        password: _passwordTEController.text.trim());
     if (mounted && status) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
