@@ -9,7 +9,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final Widget? suffixIcon;
   final Function(String)? onFieldSubmitted;
-  final String hintText,errorText;
+  final String hintText,errorText,regEx;
   final TextInputType inputType;
 
   const AppTextField(
@@ -20,13 +20,14 @@ class AppTextField extends StatelessWidget {
       this.suffixIcon,
       this.onFieldSubmitted,
       required this.hintText,
-      required this.inputType, required this.errorText});
+      required this.inputType, required this.errorText, this.regEx=""});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: inputType,
       focusNode: focusNode,
+      autofocus: false,
       controller: controller,
       obscureText: isObscureText,
       obscuringCharacter: AppStrings.obscuringChar,
@@ -36,8 +37,11 @@ class AppTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
       ),
       onFieldSubmitted: onFieldSubmitted,
+      onTapOutside: (value){
+        FocusScope.of(context).unfocus();
+      },
       validator: (value){
-        if(value!.isEmpty){
+        if(value!.isEmpty || (regEx.isNotEmpty && !RegExp(regEx).hasMatch(value))){
           return errorText;
         }
         return null;

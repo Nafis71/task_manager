@@ -7,4 +7,7 @@ class AppColor{
   static const Color bodyMediumTextColor = Colors.black;
   static Color textFieldHintColor = Colors.grey.shade400;
   static const Color elevatedButtonForegroundColor = Colors.white;
+  static const Color circularProgressbarColor = Colors.white;
+  static const Color snackBarSuccessColor = appPrimaryColor;
+  static  Color snackBarFailureColor = Colors.red;
 }

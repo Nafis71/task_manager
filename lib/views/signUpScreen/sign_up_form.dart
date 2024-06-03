@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/views/widgets/circular_progressbar.dart';
 
 import '../../utils/app_color.dart';
 import '../../utils/app_strings.dart';
@@ -49,6 +50,7 @@ class SignUpForm extends StatelessWidget {
             focusNode: emailFocusNode,
             controller: emailTEController,
             hintText: AppStrings.emailTextFieldHint,
+            regEx: AppStrings.emailRegEx,
             onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(firstNameFocusNode);
             },
@@ -60,6 +62,7 @@ class SignUpForm extends StatelessWidget {
             focusNode: firstNameFocusNode,
             controller: firstNameTEController,
             hintText: AppStrings.firstNameTextFieldHint,
+            regEx: AppStrings.nameRegEX,
             onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(lastNameFocusNode);
             },
@@ -71,6 +74,7 @@ class SignUpForm extends StatelessWidget {
             focusNode: lastNameFocusNode,
             controller: lastNameTEController,
             hintText: AppStrings.lastNameTextFieldHint,
+            regEx: AppStrings.nameRegEX,
             onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(mobileNumberFocusNode);
             },
@@ -82,6 +86,7 @@ class SignUpForm extends StatelessWidget {
             focusNode: mobileNumberFocusNode,
             controller: mobileNumberTEController,
             hintText: AppStrings.mobileNumberTextFieldHint,
+            regEx: AppStrings.digitsRegEx,
             onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(passwordFocusNode);
             },
@@ -103,16 +108,22 @@ class SignUpForm extends StatelessWidget {
           SizedBox(
             width: screenWidth * 0.9,
             height: 45,
-            child: ElevatedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  registerUser();
-                }
+            child: Consumer<AuthViewModel>(
+              builder: (_, viewModel, __) {
+                return ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate() &&
+                        !viewModel.isLoading) {
+                      registerUser();
+                    }
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: (viewModel.isLoading)
+                      ? const CircularProgressbar(
+                          color: AppColor.circularProgressbarColor)
+                      : const Icon(Icons.arrow_circle_right_outlined, size: 30),
+                );
               },
-              child: const Icon(
-                Icons.arrow_circle_right_outlined,
-                size: 30,
-              ),
             ),
           )
         ],

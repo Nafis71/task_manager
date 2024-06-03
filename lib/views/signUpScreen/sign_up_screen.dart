@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/views/signUpScreen/sign_up_form.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
+import 'package:task_manager/views/widgets/app_snackbar.dart';
 
 import '../../utils/app_color.dart';
 import '../../utils/app_routes.dart';
@@ -94,9 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           TextSpan(
                             text: AppStrings.signUpBottomTextTwo,
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                Navigator.pop(context);
-                              },
+                              ..onTap = gotoSignIn,
                             style: const TextStyle(
                               color: AppColor.appPrimaryColor,
                             ),
@@ -115,17 +115,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void registerUser() async {
-    final AuthViewModel authViewModel = Provider.of<AuthViewModel>(context,listen: false);
+    final AuthViewModel authViewModel =
+        Provider.of<AuthViewModel>(context, listen: false);
     bool status = await authViewModel.registerUser(
         email: _emailTEController.text,
         firstName: _firstNameTEController.text,
         lastName: _lastNameTEController.text,
         mobileNumber: _mobileNumberTEController.text,
         password: _passwordTEController.text);
-    print(status);
-    if(mounted){
-      Navigator.pop(context);
+    if (mounted && status) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.registrationSuccessTitle,
+            content: AppStrings.registrationSuccessMessage,
+            contentType: ContentType.success,
+            color: AppColor.snackBarSuccessColor));
+      gotoSignIn();
     }
+    if (mounted && !status) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.registrationFailureTitle,
+            content: AppStrings.registrationFailureMessage,
+            contentType: ContentType.failure,
+            color: AppColor.snackBarFailureColor));
+    }
+  }
+
+  void gotoSignIn() {
+    AuthViewModel authViewModel =
+        Provider.of<AuthViewModel>(context, listen: false);
+    authViewModel.setPasswordObscure = true;
+    Navigator.pop(context);
   }
 
   @override

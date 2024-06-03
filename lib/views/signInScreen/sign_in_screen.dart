@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
+import 'package:task_manager/viewModels/auth_view_model.dart';
 import 'package:task_manager/views/signInScreen/sign_in_screen_form.dart';
 import '../widgets/background_widget.dart';
 
@@ -76,9 +78,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         children:  [
                           TextSpan(
                             text: AppStrings.signInBottomTextTwo,
-                            recognizer: TapGestureRecognizer()..onTap = (){
-                              Navigator.pushNamed(context, AppRoutes.signUpScreen);
-                            },
+                            recognizer: TapGestureRecognizer()..onTap = gotoSignUp,
                             style: const TextStyle(
                               color: AppColor.appPrimaryColor,
                             ),
@@ -94,6 +94,15 @@ class _SignInScreenState extends State<SignInScreen> {
         );
       },),
     );
+  }
+
+  void gotoSignUp(){
+    AuthViewModel authViewModel = Provider.of<AuthViewModel>(context,listen: false);
+    authViewModel.setPasswordObscure = true;
+    Navigator.pushNamed(context, AppRoutes.signUpScreen).then((value){
+      _emailFocusNode.unfocus();
+      _passwordFocusNode.unfocus();
+    });
   }
 
   @override
