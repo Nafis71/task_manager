@@ -9,7 +9,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final Widget? suffixIcon;
   final Function(String)? onFieldSubmitted;
-  final String hintText;
+  final String hintText,errorText;
   final TextInputType inputType;
 
   const AppTextField(
@@ -20,7 +20,7 @@ class AppTextField extends StatelessWidget {
       this.suffixIcon,
       this.onFieldSubmitted,
       required this.hintText,
-      required this.inputType});
+      required this.inputType, required this.errorText});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +36,13 @@ class AppTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
       ),
       onFieldSubmitted: onFieldSubmitted,
+      validator: (value){
+        if(value!.isEmpty){
+          return errorText;
+        }
+        return null;
+      },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 }

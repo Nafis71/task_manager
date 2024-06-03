@@ -20,6 +20,7 @@ dependencies:
   gap: ^3.0.1
   provider: ^6.1.2
   device_preview_minus: ^1.0.6
+  http: ^1.2.1
 
 dev_dependencies:
   flutter_test:

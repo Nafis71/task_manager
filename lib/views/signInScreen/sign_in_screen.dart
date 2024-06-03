@@ -18,8 +18,8 @@ class _SignInScreenState extends State<SignInScreen> {
   late final TextEditingController _emailTEController;
   late final TextEditingController _passwordTEController;
   late final GlobalKey<FormState> _formKey;
-  late final FocusNode emailFocusNode = FocusNode();
-  late final FocusNode passwordFocusNode = FocusNode();
+  late final FocusNode _emailFocusNode = FocusNode();
+  late final FocusNode _passwordFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -55,8 +55,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       emailTEController: _emailTEController,
                       passwordTEController: _passwordTEController,
                       formKey: _formKey,
-                      emailFocusNode: emailFocusNode,
-                      passwordFocusNode: passwordFocusNode,
+                      emailFocusNode: _emailFocusNode,
+                      passwordFocusNode: _passwordFocusNode,
                       screenWidth: screenWidth,
                     ),
                   ),
@@ -71,11 +71,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   Center(
                     child: RichText(
                       text: TextSpan(
-                        text: AppStrings.signUpTextOne,
+                        text: AppStrings.signInBottomTextOne,
                         style: Theme.of(context).textTheme.bodyMedium,
                         children:  [
                           TextSpan(
-                            text: AppStrings.signUpTextTwo,
+                            text: AppStrings.signInBottomTextTwo,
                             recognizer: TapGestureRecognizer()..onTap = (){
                               Navigator.pushNamed(context, AppRoutes.signUpScreen);
                             },
@@ -100,6 +100,8 @@ class _SignInScreenState extends State<SignInScreen> {
   void dispose() {
     _emailTEController.dispose();
     _passwordTEController.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
     super.dispose();
   }
 }
