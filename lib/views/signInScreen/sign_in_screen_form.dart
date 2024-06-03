@@ -37,6 +37,7 @@ class SignInScreenForm extends StatelessWidget {
             focusNode: emailFocusNode,
             controller: emailTEController,
             hintText: AppStrings.emailTextFieldHint,
+            regEx: AppStrings.emailRegEx,
             onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(passwordFocusNode);
             },
