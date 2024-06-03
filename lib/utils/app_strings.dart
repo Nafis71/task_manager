@@ -2,6 +2,8 @@ class AppStrings{
   //api credentials
   static const String baseUrl = "https://task.teamrabbil.com/api/v1/";
   static const String registrationEndpoint = "registration";
+  static const String signInEndpoint = "login";
+  static const String unknownResponseText = "Unknown Error";
 
   //regularExpression
   static const String nameRegEX = r'^[a-z A-Z]+$';
@@ -28,6 +30,8 @@ class AppStrings{
   static const String mobileNumberErrorText = "Invalid mobile number";
 
   //registration SnackBar
+  static const String signInFailureTitle = "Login Failed";
+  static const String signInFailureMessage = "Please use correct credentials";
   static const String registrationSuccessTitle = "Success!";
   static const String registrationFailureTitle = "Oops!";
   static const String registrationSuccessMessage = "You have been registered successfully";

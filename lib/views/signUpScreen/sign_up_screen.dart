@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     ));
   }
 
-  void registerUser() async {
+  Future<void> registerUser() async {
     final AuthViewModel authViewModel =
         Provider.of<AuthViewModel>(context, listen: false);
     bool status = await authViewModel.registerUser(

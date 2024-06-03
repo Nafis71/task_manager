@@ -14,6 +14,7 @@ class SignInScreenForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final FocusNode emailFocusNode, passwordFocusNode;
   final double screenWidth;
+  final Function signInUser;
 
   const SignInScreenForm(
       {super.key,
@@ -22,7 +23,8 @@ class SignInScreenForm extends StatelessWidget {
       required this.formKey,
       required this.emailFocusNode,
       required this.passwordFocusNode,
-      required this.screenWidth});
+      required this.screenWidth,
+      required this.signInUser});
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +61,14 @@ class SignInScreenForm extends StatelessWidget {
               screenWidth: screenWidth,
               childWidget: (viewModel.isLoading)
                   ? const CircularProgressbar(
-                  color: AppColor.circularProgressbarColor)
+                      color: AppColor.circularProgressbarColor)
                   : const Icon(
-                Icons.arrow_circle_right_outlined,
-                size: 30,
-              ),
+                      Icons.arrow_circle_right_outlined,
+                      size: 30,
+                    ),
               onPressed: () {
                 if (formKey.currentState!.validate() && !viewModel.isLoading) {
+                  signInUser();
                 }
                 FocusScope.of(context).unfocus();
               },
@@ -76,8 +79,7 @@ class SignInScreenForm extends StatelessWidget {
     );
   }
 
-  IconButton getPasswordFieldIcon(
-      AuthViewModel viewModel) {
+  IconButton getPasswordFieldIcon(AuthViewModel viewModel) {
     IconData icon;
     (viewModel.isPasswordObscure)
         ? icon = Icons.visibility

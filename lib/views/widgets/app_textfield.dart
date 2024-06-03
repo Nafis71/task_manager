@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:task_manager/utils/app_color.dart';
 
 import '../../utils/app_strings.dart';
@@ -9,8 +10,9 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final Widget? suffixIcon;
   final Function(String)? onFieldSubmitted;
-  final String hintText,errorText,regEx;
+  final String hintText, errorText, regEx;
   final TextInputType inputType;
+  final int? maxLength;
 
   const AppTextField(
       {super.key,
@@ -20,7 +22,10 @@ class AppTextField extends StatelessWidget {
       this.suffixIcon,
       this.onFieldSubmitted,
       required this.hintText,
-      required this.inputType, required this.errorText, this.regEx=""});
+      required this.inputType,
+      required this.errorText,
+      this.regEx = "",
+      this.maxLength});
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +34,22 @@ class AppTextField extends StatelessWidget {
       focusNode: focusNode,
       autofocus: false,
       controller: controller,
+      maxLength: maxLength,
       obscureText: isObscureText,
       obscuringCharacter: AppStrings.obscuringChar,
       cursorColor: AppColor.appPrimaryColor,
       decoration: InputDecoration(
         hintText: hintText,
         suffixIcon: suffixIcon,
+        counterText: ""
       ),
       onFieldSubmitted: onFieldSubmitted,
-      onTapOutside: (value){
+      onTapOutside: (value) {
         FocusScope.of(context).unfocus();
       },
-      validator: (value){
-        if(value!.isEmpty || (regEx.isNotEmpty && !RegExp(regEx).hasMatch(value))){
+      validator: (value) {
+        if (value!.isEmpty ||
+            (regEx.isNotEmpty && !RegExp(regEx).hasMatch(value))) {
           return errorText;
         }
         return null;

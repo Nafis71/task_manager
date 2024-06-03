@@ -1,4 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task_manager/models/loginModels/login_model.dart';
+import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/auth_service.dart';
 
 import '../models/loginModels/user_data.dart';
@@ -6,7 +9,9 @@ import '../models/loginModels/user_data.dart';
 class AuthViewModel extends ChangeNotifier{
   bool _isPasswordObscured = true;
   bool _isLoading = false;
+  late Object response;
   AuthService authService = AuthService();
+  late SharedPreferences preferences;
 
   bool get isPasswordObscure => _isPasswordObscured;
   bool get isLoading => _isLoading;
@@ -30,18 +35,35 @@ class AuthViewModel extends ChangeNotifier{
       mobile: mobileNumber,
       password: password,
     );
-    try{
-      status = await authService.registration(userData);
-    }catch(e){
-      if(kDebugMode){
-        debugPrint(e.toString());
-        setLoading(false);
-        status = false;
-      }
-    }finally{
-      setLoading(false);
-    }
+    response = await authService.registration(userData);
+    (response is Success) ? status = true : status = false;
+    setLoading(false);
     return(status);
+  }
+
+  Future<bool> signInUser({required String email, required String password}) async{
+    bool status = false;
+    setLoading(true);
+    response = await authService.signIn(email, password);
+    if(response is Success) {
+      LoginModel loginModel = (response as Success).response as LoginModel;
+      status = true;
+      preferences = await SharedPreferences.getInstance();
+      saveUserData(preferences,loginModel);
+    } else{
+      status = false;
+    }
+    setLoading(false);
+    return(status);
+  }
+
+  void saveUserData(SharedPreferences preferences, LoginModel loginModel){
+    preferences.setString("token", loginModel.token.toString());
+    preferences.setString("email", loginModel.data!.email.toString());
+    preferences.setString("firstName", loginModel.data!.firstName.toString());
+    preferences.setString("lastName", loginModel.data!.lastName.toString());
+    preferences.setString("mobile", loginModel.data!.mobile.toString());
+    preferences.setString("photo", loginModel.data!.photo.toString());
   }
 
   set setPasswordObscure(bool value){

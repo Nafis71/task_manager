@@ -9,5 +9,5 @@ class AppColor{
   static const Color elevatedButtonForegroundColor = Colors.white;
   static const Color circularProgressbarColor = Colors.white;
   static const Color snackBarSuccessColor = appPrimaryColor;
-  static  Color snackBarFailureColor = Colors.red;
+  static  Color snackBarFailureColor = Colors.red.shade300;
 }
