@@ -10,6 +10,7 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Function(String)? onFieldSubmitted;
   final String hintText;
+  final TextInputType inputType;
 
   const AppTextField(
       {super.key,
@@ -17,11 +18,14 @@ class AppTextField extends StatelessWidget {
       this.isObscureText = false,
       required this.controller,
       this.suffixIcon,
-      this.onFieldSubmitted, required this.hintText});
+      this.onFieldSubmitted,
+      required this.hintText,
+      required this.inputType});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: inputType,
       focusNode: focusNode,
       controller: controller,
       obscureText: isObscureText,

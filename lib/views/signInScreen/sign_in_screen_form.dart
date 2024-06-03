@@ -29,6 +29,7 @@ class SignInScreenForm extends StatelessWidget {
       child: Column(
         children: [
           AppTextField(
+            inputType: TextInputType.emailAddress,
             focusNode: emailFocusNode,
             controller: emailTEController,
             hintText: AppStrings.emailTextFieldHint,
@@ -39,6 +40,7 @@ class SignInScreenForm extends StatelessWidget {
           const Gap(15),
           Consumer<AuthenticationViewModel>(
             builder: (_, viewModel, __) => AppTextField(
+              inputType: TextInputType.visiblePassword,
               focusNode: passwordFocusNode,
               controller: passwordTEController,
               hintText: AppStrings.passwordTextFieldHint,
