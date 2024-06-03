@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import '../../utils/app_color.dart';
 import '../../utils/app_strings.dart';
 import '../../viewModels/auth_view_model.dart';
+import '../widgets/app_elevated_button.dart';
 import '../widgets/app_textfield.dart';
+import '../widgets/circular_progressbar.dart';
 
 class SignInScreenForm extends StatelessWidget {
   final TextEditingController emailTEController;
@@ -51,17 +53,24 @@ class SignInScreenForm extends StatelessWidget {
             ),
           ),
           const Gap(20),
-          SizedBox(
-            width: screenWidth * 0.9,
-            height: 45,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Icon(
+          Consumer<AuthViewModel>(builder: (_, viewModel, __) {
+            return AppElevatedButton(
+              formKey: formKey,
+              screenWidth: screenWidth,
+              childWidget: (viewModel.isLoading)
+                  ? const CircularProgressbar(
+                  color: AppColor.circularProgressbarColor)
+                  : const Icon(
                 Icons.arrow_circle_right_outlined,
                 size: 30,
               ),
-            ),
-          )
+              onPressed: () {
+                if (formKey.currentState!.validate() && !viewModel.isLoading) {
+                }
+                FocusScope.of(context).unfocus();
+              },
+            );
+          }),
         ],
       ),
     );

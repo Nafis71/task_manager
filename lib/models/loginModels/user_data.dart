@@ -1,7 +1,7 @@
-class UserModel {
-  String email, firstName, lastName, mobile, password, photo;
+class UserData {
+  String? email, firstName, lastName, mobile, password, photo;
 
-  UserModel({
+  UserData({
     required this.email,
     required this.firstName,
     required this.lastName,
@@ -9,6 +9,14 @@ class UserModel {
     required this.password,
     this.photo = "",
   });
+
+  UserData.fromJson(Map<String, dynamic> json) {
+    email = json['email'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    mobile = json['mobile'];
+    photo = json['photo'];
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

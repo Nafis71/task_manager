@@ -1,6 +1,6 @@
 class AppStrings{
   //api credentials
-  static const String baseUrl = "https://task.teamrabbil.com/api/v1";
+  static const String baseUrl = "https://task.teamrabbil.com/api/v1/";
   static const String registrationEndpoint = "registration";
 
   //regularExpression

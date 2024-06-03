@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:task_manager/services/auth_service.dart';
 
-import '../models/user_model.dart';
+import '../models/loginModels/user_data.dart';
 
 class AuthViewModel extends ChangeNotifier{
   bool _isPasswordObscured = true;
@@ -23,7 +23,7 @@ class AuthViewModel extends ChangeNotifier{
     required String password})async {
     bool status = false;
     setLoading(true);
-    UserModel userModel =  UserModel(
+    UserData userData =  UserData(
       email: email,
       firstName: firstName,
       lastName: lastName,
@@ -31,7 +31,7 @@ class AuthViewModel extends ChangeNotifier{
       password: password,
     );
     try{
-      status = await authService.registration(userModel);
+      status = await authService.registration(userData);
     }catch(e){
       if(kDebugMode){
         debugPrint(e.toString());

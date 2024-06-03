@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/views/widgets/app_elevated_button.dart';
 import 'package:task_manager/views/widgets/circular_progressbar.dart';
 
 import '../../utils/app_color.dart';
@@ -105,27 +106,25 @@ class SignUpForm extends StatelessWidget {
             ),
           ),
           const Gap(20),
-          SizedBox(
-            width: screenWidth * 0.9,
-            height: 45,
-            child: Consumer<AuthViewModel>(
-              builder: (_, viewModel, __) {
-                return ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate() &&
-                        !viewModel.isLoading) {
-                      registerUser();
-                    }
-                    FocusScope.of(context).unfocus();
-                  },
-                  child: (viewModel.isLoading)
-                      ? const CircularProgressbar(
-                          color: AppColor.circularProgressbarColor)
-                      : const Icon(Icons.arrow_circle_right_outlined, size: 30),
-                );
+          Consumer<AuthViewModel>(builder: (_, viewModel, __) {
+            return AppElevatedButton(
+              formKey: formKey,
+              screenWidth: screenWidth,
+              childWidget: (viewModel.isLoading)
+                  ? const CircularProgressbar(
+                      color: AppColor.circularProgressbarColor)
+                  : const Icon(
+                      Icons.arrow_circle_right_outlined,
+                      size: 30,
+                    ),
+              onPressed: () {
+                if (formKey.currentState!.validate() && !viewModel.isLoading) {
+                  registerUser();
+                }
+                FocusScope.of(context).unfocus();
               },
-            ),
-          )
+            );
+          }),
         ],
       ),
     );
