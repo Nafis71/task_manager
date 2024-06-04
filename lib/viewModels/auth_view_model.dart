@@ -1,17 +1,19 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/loginModels/login_model.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/auth_service.dart';
-
 import '../models/loginModels/user_data.dart';
 
 class AuthViewModel extends ChangeNotifier{
   bool _isPasswordObscured = true;
   bool _isLoading = false;
+  bool status = false;
   late Object response;
   AuthService authService = AuthService();
   late SharedPreferences preferences;
+  Map<String,String> resetPasswordInformation = {};
 
   bool get isPasswordObscure => _isPasswordObscured;
   bool get isLoading => _isLoading;
@@ -26,7 +28,7 @@ class AuthViewModel extends ChangeNotifier{
     required String lastName,
     required String mobileNumber,
     required String password})async {
-    bool status = false;
+    status = false;
     setLoading(true);
     UserData userData =  UserData(
       email: email,
@@ -42,7 +44,7 @@ class AuthViewModel extends ChangeNotifier{
   }
 
   Future<bool> signInUser({required String email, required String password}) async{
-    bool status = false;
+    status = false;
     setLoading(true);
     response = await authService.signIn(email, password);
     if(response is Success) {

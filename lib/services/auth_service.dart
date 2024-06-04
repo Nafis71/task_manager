@@ -31,6 +31,7 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
+        finalResponse = Failure(500, exception.toString());
       }
     }
     return finalResponse;
@@ -59,6 +60,7 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
+        finalResponse = Failure(500, exception.toString());
       }
     }
     return finalResponse;

@@ -7,6 +7,7 @@ import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/views/signUpScreen/sign_up_form.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
+import 'package:task_manager/views/widgets/sign_in_bottom_text.dart';
 
 import '../../utils/app_color.dart';
 import '../../utils/app_routes.dart';
@@ -87,24 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     registerUser: registerUser,
                   ),
                   const Gap(30),
-                  Center(
-                    child: RichText(
-                      text: TextSpan(
-                        text: AppStrings.signUpBottomTextOne,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        children: [
-                          TextSpan(
-                            text: AppStrings.signUpBottomTextTwo,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = gotoSignIn,
-                            style: const TextStyle(
-                              color: AppColor.appPrimaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                  SignInBottomText(route: gotoSignIn)
                 ],
               ),
             ),

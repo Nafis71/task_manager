@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_color.dart';
+import 'package:task_manager/utils/app_navigation.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
 import 'package:task_manager/views/signInScreen/sign_in_screen_form.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
+import 'package:task_manager/views/widgets/sign_in_bottom_text.dart';
 import '../widgets/background_widget.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -66,14 +68,19 @@ class _SignInScreenState extends State<SignInScreen> {
                         emailFocusNode: _emailFocusNode,
                         passwordFocusNode: _passwordFocusNode,
                         screenWidth: screenWidth,
-                        signInUser: signInUser,
+                        signInUser: initiateSignIn,
                       ),
                     ),
                     const Gap(50),
                     Center(
-                      child: Text(
-                        AppStrings.forgetPasswordText,
-                        style: Theme.of(context).textTheme.bodySmall,
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        onTap: () => Navigator.pushNamed(
+                            context, AppRoutes.emailVerificationScreen),
+                        child: Text(
+                          AppStrings.forgetPasswordText,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
                       ),
                     ),
                     const Gap(10),
@@ -86,7 +93,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             TextSpan(
                               text: AppStrings.signInBottomTextTwo,
                               recognizer: TapGestureRecognizer()
-                                ..onTap = gotoSignUp,
+                                ..onTap = ()=> AppNavigation.gotoSignUp(
+                                  context,_emailFocusNode,_passwordFocusNode
+                                ),
                               style: const TextStyle(
                                 color: AppColor.appPrimaryColor,
                               ),
@@ -94,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           ],
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -105,7 +114,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Future<void> signInUser() async {
+  Future<void> initiateSignIn() async {
     AuthViewModel viewModel =
         Provider.of<AuthViewModel>(context, listen: false);
     bool status = await viewModel.signInUser(
@@ -126,16 +135,6 @@ class _SignInScreenState extends State<SignInScreen> {
               color: AppColor.snackBarFailureColor),
         );
     }
-  }
-
-  void gotoSignUp() {
-    AuthViewModel authViewModel =
-        Provider.of<AuthViewModel>(context, listen: false);
-    authViewModel.setPasswordObscure = true;
-    Navigator.pushNamed(context, AppRoutes.signUpScreen).then((value) {
-      _emailFocusNode.unfocus();
-      _passwordFocusNode.unfocus();
-    });
   }
 
   @override

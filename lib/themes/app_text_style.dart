@@ -15,7 +15,8 @@ class AppTextStyle{
       fontSize: 12,
       color: AppColor.bodySmallTextColor,
       fontFamily: "Poppins",
-      letterSpacing: 0.5
+      letterSpacing: 0.5,
+      fontWeight: FontWeight.bold
     ),
     bodyMedium: TextStyle(
         fontSize: 13,

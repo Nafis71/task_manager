@@ -6,14 +6,12 @@ import '../../viewModels/auth_view_model.dart';
 import 'circular_progressbar.dart';
 
 class AppElevatedButton extends StatelessWidget {
-  final GlobalKey<FormState> formKey;
   final double screenWidth;
   final Function onPressed;
   final Widget childWidget;
 
   const AppElevatedButton(
       {super.key,
-      required this.formKey,
       required this.screenWidth,
       required this.childWidget,
       required this.onPressed});

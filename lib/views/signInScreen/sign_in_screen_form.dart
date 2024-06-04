@@ -58,7 +58,6 @@ class SignInScreenForm extends StatelessWidget {
           const Gap(20),
           Consumer<AuthViewModel>(builder: (_, viewModel, __) {
             return AppElevatedButton(
-              formKey: formKey,
               screenWidth: screenWidth,
               childWidget: (viewModel.isLoading)
                   ? const CircularProgressbar(

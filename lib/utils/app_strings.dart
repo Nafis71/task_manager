@@ -1,4 +1,4 @@
-class AppStrings{
+class AppStrings {
   //api credentials
   static const String baseUrl = "https://task.teamrabbil.com/api/v1/";
   static const String registrationEndpoint = "registration";
@@ -8,7 +8,8 @@ class AppStrings{
   //regularExpression
   static const String nameRegEX = r'^[a-z A-Z]+$';
   static const String digitsRegEx = r'^[0-9]+$';
-  static const String emailRegEx = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+  static const String emailRegEx =
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
 
   static const String emailTextFieldHint = "Email";
   static const String passwordTextFieldHint = "Password";
@@ -28,12 +29,17 @@ class AppStrings{
   static const String firstNameErrorText = "Invalid first name";
   static const String lastNameErrorText = "Invalid last name";
   static const String mobileNumberErrorText = "Invalid mobile number";
+  static const String emailVerificationHeaderText = "Your Email Address";
+  static const String emailVerificationBodyText =
+      "A 6 digit verification pin will send to your email address";
 
   //registration SnackBar
   static const String signInFailureTitle = "Login Failed";
   static const String signInFailureMessage = "Please use correct credentials";
   static const String registrationSuccessTitle = "Success!";
   static const String registrationFailureTitle = "Oops!";
-  static const String registrationSuccessMessage = "You have been registered successfully";
-  static const String registrationFailureMessage = "Something went wrong, try again later";
+  static const String registrationSuccessMessage =
+      "You have been registered successfully";
+  static const String registrationFailureMessage =
+      "Something went wrong, try again later";
 }
