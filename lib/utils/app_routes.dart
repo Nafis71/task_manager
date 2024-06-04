@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/views/dashboardScreen/dashboard_screen.dart';
 import 'package:task_manager/views/forgetPasswordScreen/emailVerificationScreen/email_verification_screen.dart';
+import 'package:task_manager/views/forgetPasswordScreen/pinVerification/pin_verification_screen.dart';
 import 'package:task_manager/views/signInScreen/sign_in_screen.dart';
 import 'package:task_manager/views/signUpScreen/sign_up_screen.dart';
 import 'package:task_manager/views/splashScreen/splash_screen.dart';
@@ -11,6 +12,7 @@ class AppRoutes {
   static const signUpScreen = "/signUpScreen";
   static const dashboardScreen = "/dashboardScreen";
   static const emailVerificationScreen = "/emailVerificationScreen";
+  static const pinVerificationScreen = "/pinVerificationScreen";
 
   static MaterialPageRoute? generateRoute(RouteSettings routeSettings) {
     final Map<String, WidgetBuilder> routes = {
@@ -19,6 +21,7 @@ class AppRoutes {
       signUpScreen: (context) => const SignUpScreen(),
       dashboardScreen: (context) => const DashboardScreen(),
       emailVerificationScreen: (context) => const EmailVerificationScreen(),
+      pinVerificationScreen: (context) => const PinVerificationScreen(),
     };
     final WidgetBuilder? builder = routes[routeSettings.name];
     return (builder != null) ? MaterialPageRoute(builder: builder) : null;

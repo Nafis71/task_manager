@@ -13,24 +13,33 @@ class AppTextField extends StatelessWidget {
   final String hintText, errorText, regEx;
   final TextInputType inputType;
   final int? maxLength;
+  final TextAlign? textAlign;
+  final TextStyle? textStyle;
+  final bool disableValidation;
+  final Function(String value)? onChanged;
 
-  const AppTextField(
-      {super.key,
-      required this.focusNode,
-      this.isObscureText = false,
-      required this.controller,
-      this.suffixIcon,
-      this.onFieldSubmitted,
-      required this.hintText,
-      required this.inputType,
-      required this.errorText,
-      this.regEx = "",
-      this.maxLength});
+  const AppTextField({super.key,
+    required this.focusNode,
+    this.isObscureText = false,
+    required this.controller,
+    this.suffixIcon,
+    this.onFieldSubmitted,
+    this.hintText = "",
+    required this.inputType,
+    this.errorText = "",
+    this.regEx = "",
+    this.maxLength,
+    this.onChanged,
+    this.disableValidation = false,
+    this.textStyle,
+    this.textAlign});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textAlign: textAlign ?? TextAlign.start,
       keyboardType: inputType,
+      style: textStyle,
       focusNode: focusNode,
       autofocus: false,
       controller: controller,
@@ -39,22 +48,20 @@ class AppTextField extends StatelessWidget {
       obscuringCharacter: AppStrings.obscuringChar,
       cursorColor: AppColor.appPrimaryColor,
       decoration: InputDecoration(
-        hintText: hintText,
-        suffixIcon: suffixIcon,
-        counterText: ""
-      ),
+          hintText: hintText, suffixIcon: suffixIcon, counterText: ""),
       onFieldSubmitted: onFieldSubmitted,
+      onChanged: onChanged,
       onTapOutside: (value) {
         FocusScope.of(context).unfocus();
       },
       validator: (value) {
-        if (value!.isEmpty ||
+        if (value!.isEmpty && !disableValidation ||
             (regEx.isNotEmpty && !RegExp(regEx).hasMatch(value))) {
           return errorText;
         }
         return null;
       },
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: (!disableValidation) ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
     );
   }
 }

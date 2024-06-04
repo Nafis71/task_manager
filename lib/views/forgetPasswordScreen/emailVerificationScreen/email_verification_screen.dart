@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_navigation.dart';
+import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
 import 'package:task_manager/views/widgets/app_elevated_button.dart';
@@ -55,7 +56,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                       AppStrings.emailVerificationHeaderText,
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
-                    const Gap(10),
+                    const Gap(5),
                     Text(
                       AppStrings.emailVerificationBodyText,
                       style: Theme.of(context).textTheme.bodySmall,
@@ -85,14 +86,17 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                   Icons.arrow_circle_right_outlined,
                                   size: 30,
                                 ),
-                                onPressed: (){},
+                                onPressed: (){
+                                  //TODO will change the logic later
+                                  Navigator.pushReplacementNamed(context, AppRoutes.pinVerificationScreen);
+                                },
                               );
                             },
                           ),
                         ],
                       ),
                     ),
-                    const Gap(30),
+                    const Gap(20),
                     SignInBottomText(route: (){
                       AppNavigation.gotoSignIn(context);
                     })

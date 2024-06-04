@@ -5,6 +5,7 @@ class AppTextFieldStyle{
   static InputDecorationTheme getTextFieldTheme() => InputDecorationTheme(
       fillColor: Colors.white,
       filled: true,
+      contentPadding: const EdgeInsets.all(8),
       hintStyle: TextStyle(
         color: AppColor.textFieldHintColor,
         fontSize: 13,

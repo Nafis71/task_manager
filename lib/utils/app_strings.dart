@@ -32,6 +32,10 @@ class AppStrings {
   static const String emailVerificationHeaderText = "Your Email Address";
   static const String emailVerificationBodyText =
       "A 6 digit verification pin will send to your email address";
+  static const String pinVerificationHeaderText = "Pin Verification";
+  static const String pinVerificationBodyText =
+      "A 6 digit verification pin will send to your email address";
+  static const String pinVerificationButtonText = "Verify";
 
   //registration SnackBar
   static const String signInFailureTitle = "Login Failed";
