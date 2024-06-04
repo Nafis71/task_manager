@@ -30,7 +30,6 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
-    double textFieldWidth = screenWidth * 0.11;
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -51,7 +50,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                   context, AppRoutes.setPasswordScreen);
             },
             child: PinVerificationForm(
-              textFieldWidth: textFieldWidth,
+              textFieldWidth: (orientation == Orientation.portrait) ? screenWidth * 0.11 : screenWidth * 0.09,
               pinTEControllers: pinTEControllers,
               focusNodes: focusNodes,
             ),
