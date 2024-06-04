@@ -51,7 +51,7 @@ class AuthViewModel extends ChangeNotifier{
       LoginModel loginModel = (response as Success).response as LoginModel;
       status = true;
       preferences = await SharedPreferences.getInstance();
-      saveUserData(preferences,loginModel);
+      saveUserData(loginModel);
     } else{
       status = false;
     }
@@ -59,7 +59,7 @@ class AuthViewModel extends ChangeNotifier{
     return(status);
   }
 
-  void saveUserData(SharedPreferences preferences, LoginModel loginModel){
+  void saveUserData(LoginModel loginModel){
     preferences.setString("token", loginModel.token.toString());
     preferences.setString("email", loginModel.data!.email.toString());
     preferences.setString("firstName", loginModel.data!.firstName.toString());
