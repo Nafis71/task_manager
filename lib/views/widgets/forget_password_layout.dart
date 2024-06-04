@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
 import 'package:task_manager/views/widgets/sign_in_bottom_text.dart';
 
+import '../../utils/app_color.dart';
 import '../../viewModels/auth_view_model.dart';
 import 'app_elevated_button.dart';
+import 'circular_progressbar.dart';
 
 class ForgetPasswordLayout extends StatelessWidget {
   final double horizontalMargin, verticalMargin;
@@ -13,7 +15,7 @@ class ForgetPasswordLayout extends StatelessWidget {
   final Orientation orientation;
   final Widget child, buttonWidget;
   final String headerText, bodyText;
-  final Function onPressed;
+  final Function(dynamic) onPressed;
 
   const ForgetPasswordLayout(
       {super.key,
@@ -51,13 +53,13 @@ class ForgetPasswordLayout extends StatelessWidget {
               const Gap(20),
               child,
               const Gap(20),
-              Consumer<AuthViewModel>(builder: (_, viewModel, __) {
-                return AppElevatedButton(
-                  screenWidth: screenWidth,
-                  childWidget: buttonWidget,
-                  onPressed: () => onPressed(),
-                );
-              }),
+              AppElevatedButton(
+                screenWidth: screenWidth,
+                onPressed: onPressed,
+                loadingChild: const CircularProgressbar(
+                    color: AppColor.circularProgressbarColor),
+                placeHolderChild: buttonWidget,
+                ),
               const Gap(30),
               SignInBottomText(route: (){
                 Navigator.pop(context);

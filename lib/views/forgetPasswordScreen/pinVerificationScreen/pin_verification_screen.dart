@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_strings.dart';
-import 'package:task_manager/viewModels/auth_view_model.dart';
 import 'package:task_manager/views/forgetPasswordScreen/pinVerificationScreen/pin_verification_form.dart';
 import 'package:task_manager/views/widgets/forget_password_layout.dart';
-import '../../../utils/app_color.dart';
+
 import '../../../utils/app_routes.dart';
-import '../../widgets/circular_progressbar.dart';
 
 class PinVerificationScreen extends StatefulWidget {
   const PinVerificationScreen({super.key});
@@ -46,15 +43,10 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
             headerText: AppStrings.pinVerificationHeaderText,
             bodyText: AppStrings.pinVerificationBodyText,
             screenWidth: screenWidth,
-            buttonWidget: Consumer<AuthViewModel>(
-              builder: (_, viewModel, __) {
-                return (viewModel.isLoading)
-                    ? const CircularProgressbar(
-                        color: AppColor.circularProgressbarColor)
-                    : const Text(AppStrings.pinVerificationButtonText);
-              },
+            buttonWidget: const Text(
+              AppStrings.pinVerificationButtonText,
             ),
-            onPressed: () {
+            onPressed: (value) {
               Navigator.pushReplacementNamed(
                   context, AppRoutes.setPasswordScreen);
             },

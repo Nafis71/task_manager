@@ -7,23 +7,28 @@ import 'circular_progressbar.dart';
 
 class AppElevatedButton extends StatelessWidget {
   final double screenWidth;
-  final Function onPressed;
-  final Widget childWidget;
+  final Function(AuthViewModel viewModel) onPressed;
+  final Widget loadingChild, placeHolderChild;
 
   const AppElevatedButton(
       {super.key,
       required this.screenWidth,
-      required this.childWidget,
-      required this.onPressed});
+      required this.onPressed,
+      required this.loadingChild,
+      required this.placeHolderChild});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: screenWidth * 0.9,
       height: 45,
-      child: ElevatedButton(
-        onPressed: () => onPressed(),
-        child: childWidget,
+      child: Consumer<AuthViewModel>(
+        builder: (_, viewModel, __) {
+          return ElevatedButton(
+            onPressed: () => onPressed(viewModel),
+            child: (viewModel.isLoading) ? loadingChild : placeHolderChild,
+          );
+        },
       ),
     );
   }

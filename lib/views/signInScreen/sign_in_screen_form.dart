@@ -14,7 +14,7 @@ class SignInScreenForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final FocusNode emailFocusNode, passwordFocusNode;
   final double screenWidth;
-  final Function signInUser;
+  final Function initiateSignIn;
 
   const SignInScreenForm(
       {super.key,
@@ -24,7 +24,7 @@ class SignInScreenForm extends StatelessWidget {
       required this.emailFocusNode,
       required this.passwordFocusNode,
       required this.screenWidth,
-      required this.signInUser});
+      required this.initiateSignIn});
 
   @override
   Widget build(BuildContext context) {
@@ -56,24 +56,21 @@ class SignInScreenForm extends StatelessWidget {
             ),
           ),
           const Gap(20),
-          Consumer<AuthViewModel>(builder: (_, viewModel, __) {
-            return AppElevatedButton(
-              screenWidth: screenWidth,
-              childWidget: (viewModel.isLoading)
-                  ? const CircularProgressbar(
-                      color: AppColor.circularProgressbarColor)
-                  : const Icon(
-                      Icons.arrow_circle_right_outlined,
-                      size: 30,
-                    ),
-              onPressed: () {
-                if (formKey.currentState!.validate() && !viewModel.isLoading) {
-                  signInUser();
-                }
-                FocusScope.of(context).unfocus();
-              },
-            );
-          }),
+          AppElevatedButton(
+            screenWidth: screenWidth,
+            onPressed: (viewModel) {
+              if (formKey.currentState!.validate() && !viewModel.isLoading) {
+                initiateSignIn();
+              }
+              FocusScope.of(context).unfocus();
+            },
+            loadingChild: const CircularProgressbar(
+                color: AppColor.circularProgressbarColor),
+            placeHolderChild: const Icon(
+              Icons.arrow_circle_right_outlined,
+              size: 30,
+            ),
+          ),
         ],
       ),
     );

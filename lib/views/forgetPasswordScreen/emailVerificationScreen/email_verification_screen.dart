@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:provider/provider.dart';
-import 'package:task_manager/utils/app_navigation.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
-import 'package:task_manager/viewModels/auth_view_model.dart';
-import 'package:task_manager/views/widgets/app_elevated_button.dart';
 import 'package:task_manager/views/widgets/app_textfield.dart';
-import 'package:task_manager/views/widgets/background_widget.dart';
 import 'package:task_manager/views/widgets/forget_password_layout.dart';
-
-import '../../../utils/app_color.dart';
-import '../../widgets/circular_progressbar.dart';
-import '../../widgets/sign_in_bottom_text.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({super.key});
@@ -51,18 +42,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             headerText: AppStrings.emailVerificationHeaderText,
             bodyText: AppStrings.emailVerificationBodyText,
             screenWidth: screenWidth,
-            buttonWidget: Consumer<AuthViewModel>(
-              builder: (_, viewModel, __) {
-                return (viewModel.isLoading)
-                    ? const CircularProgressbar(
-                    color: AppColor.circularProgressbarColor)
-                    : const Icon(
-                  Icons.arrow_circle_right_outlined,
-                  size: 30,
-                );
-              },
+            buttonWidget: const Icon(
+              Icons.arrow_circle_right_outlined,
+              size: 30,
             ),
-            onPressed: () {
+            onPressed: (value) {
               Navigator.pushReplacementNamed(
                   context, AppRoutes.pinVerificationScreen);
             },

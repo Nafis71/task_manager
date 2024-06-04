@@ -10,7 +10,6 @@ import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
 import 'package:task_manager/views/signInScreen/sign_in_screen_form.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
-import 'package:task_manager/views/widgets/sign_in_bottom_text.dart';
 import '../widgets/background_widget.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -68,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         emailFocusNode: _emailFocusNode,
                         passwordFocusNode: _passwordFocusNode,
                         screenWidth: screenWidth,
-                        signInUser: initiateSignIn,
+                        initiateSignIn: initiateSignIn,
                       ),
                     ),
                     const Gap(50),

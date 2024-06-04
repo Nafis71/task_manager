@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/views/widgets/app_textfield.dart';
-import 'package:task_manager/views/widgets/background_widget.dart';
 import 'package:task_manager/views/widgets/forget_password_layout.dart';
-
-import '../../../utils/app_color.dart';
-import '../../../viewModels/auth_view_model.dart';
-import '../../widgets/circular_progressbar.dart';
 
 class SetPasswordScreen extends StatefulWidget {
   const SetPasswordScreen({super.key});
@@ -48,15 +42,8 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
             headerText: AppStrings.setPasswordHeaderText,
             bodyText: AppStrings.setPasswordBodyText,
             screenWidth: screenWidth,
-            buttonWidget: Consumer<AuthViewModel>(
-              builder: (_, viewModel, __) {
-                return (viewModel.isLoading)
-                    ? const CircularProgressbar(
-                        color: AppColor.circularProgressbarColor)
-                    : const Text(AppStrings.setPasswordButtonText);
-              },
-            ),
-            onPressed: () {},
+            buttonWidget: const Text(AppStrings.setPasswordButtonText),
+            onPressed: (value) {},
             child: Form(
               child: Column(
                 children: [

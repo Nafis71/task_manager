@@ -107,24 +107,21 @@ class SignUpForm extends StatelessWidget {
             ),
           ),
           const Gap(20),
-          Consumer<AuthViewModel>(builder: (_, viewModel, __) {
-            return AppElevatedButton(
-              screenWidth: screenWidth,
-              childWidget: (viewModel.isLoading)
-                  ? const CircularProgressbar(
-                      color: AppColor.circularProgressbarColor)
-                  : const Icon(
-                      Icons.arrow_circle_right_outlined,
-                      size: 30,
-                    ),
-              onPressed: () {
-                if (formKey.currentState!.validate() && !viewModel.isLoading) {
-                  registerUser();
-                }
-                FocusScope.of(context).unfocus();
-              },
-            );
-          }),
+          AppElevatedButton(
+            screenWidth: screenWidth,
+            onPressed: (viewModel) {
+              if (formKey.currentState!.validate() && !viewModel.isLoading) {
+                registerUser();
+              }
+              FocusScope.of(context).unfocus();
+            },
+            loadingChild: const CircularProgressbar(
+                color: AppColor.circularProgressbarColor),
+            placeHolderChild: const Icon(
+              Icons.arrow_circle_right_outlined,
+              size: 30,
+            ),
+          ),
         ],
       ),
     );
