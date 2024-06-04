@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:provider/provider.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
 import 'package:task_manager/views/widgets/sign_in_bottom_text.dart';
 
@@ -15,7 +14,7 @@ class ForgetPasswordLayout extends StatelessWidget {
   final Orientation orientation;
   final Widget child, buttonWidget;
   final String headerText, bodyText;
-  final Function(dynamic) onPressed;
+  final Function(AuthViewModel viewModel) onPressed;
 
   const ForgetPasswordLayout(
       {super.key,
