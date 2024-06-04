@@ -15,6 +15,7 @@ class AppStrings {
   static const String passwordTextFieldHint = "Password";
   static const String firstNameTextFieldHint = "First Name";
   static const String lastNameTextFieldHint = "Last Name";
+  static const String confirmPassTextFieldHint = "Confirm Password";
   static const String mobileNumberTextFieldHint = "Mobile";
   static const String signInHeaderText = "Get Started With";
   static const String obscuringChar = "*";
@@ -26,6 +27,7 @@ class AppStrings {
   static const String signUpHeaderText = "Join With Us";
   static const String emailErrorText = "Invalid email address";
   static const String passwordErrorText = "Invalid password";
+  static const String confirmPasswordErrorText = "Password didn't match";
   static const String firstNameErrorText = "Invalid first name";
   static const String lastNameErrorText = "Invalid last name";
   static const String mobileNumberErrorText = "Invalid mobile number";
@@ -36,6 +38,10 @@ class AppStrings {
   static const String pinVerificationBodyText =
       "A 6 digit verification pin will send to your email address";
   static const String pinVerificationButtonText = "Verify";
+  static const String setPasswordHeaderText = "Set Password";
+  static const String setPasswordBodyText =
+      "Minimum length password 8 character with letter and number combination";
+  static const String setPasswordButtonText = "Confirm";
 
   //registration SnackBar
   static const String signInFailureTitle = "Login Failed";

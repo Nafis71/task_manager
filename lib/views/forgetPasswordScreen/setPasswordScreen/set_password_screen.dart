@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
+import 'package:task_manager/utils/app_strings.dart';
+import 'package:task_manager/views/widgets/app_textfield.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
+import 'package:task_manager/views/widgets/forget_password_layout.dart';
+
+import '../../../utils/app_color.dart';
+import '../../../viewModels/auth_view_model.dart';
+import '../../widgets/circular_progressbar.dart';
 
 class SetPasswordScreen extends StatefulWidget {
   const SetPasswordScreen({super.key});
@@ -9,6 +18,19 @@ class SetPasswordScreen extends StatefulWidget {
 }
 
 class _SetPasswordScreenState extends State<SetPasswordScreen> {
+  late final TextEditingController _passwordTEController;
+  late final TextEditingController _confirmPasswordTEController;
+  late final FocusNode _passwordFocusNode;
+  late final FocusNode _confirmPasswordFocusNode;
+
+  @override
+  void initState() {
+    _passwordFocusNode = FocusNode();
+    _confirmPasswordFocusNode = FocusNode();
+    _passwordTEController = TextEditingController();
+    _confirmPasswordTEController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +39,74 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
-          return BackgroundWidget(
-            childWidget: SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.1,
-                    vertical: (orientation == Orientation.portrait)
-                        ? screenHeight * 0.25
-                        : screenHeight * 0.15),
+          return ForgetPasswordLayout(
+            orientation: orientation,
+            horizontalMargin: screenWidth * 0.1,
+            verticalMargin: (orientation == Orientation.portrait)
+                ? screenHeight * 0.25
+                : screenHeight * 0.15,
+            headerText: AppStrings.setPasswordHeaderText,
+            bodyText: AppStrings.setPasswordBodyText,
+            screenWidth: screenWidth,
+            buttonWidget: Consumer<AuthViewModel>(
+              builder: (_, viewModel, __) {
+                return (viewModel.isLoading)
+                    ? const CircularProgressbar(
+                        color: AppColor.circularProgressbarColor)
+                    : const Text(AppStrings.setPasswordButtonText);
+              },
+            ),
+            onPressed: () {},
+            child: Form(
+              child: Column(
+                children: [
+                  AppTextField(
+                    focusNode: _passwordFocusNode,
+                    controller: _passwordTEController,
+                    inputType: TextInputType.text,
+                    hintText: AppStrings.passwordTextFieldHint,
+                    errorText: AppStrings.passwordErrorText,
+                    onFieldSubmitted: (value){
+                      if(value.isNotEmpty){
+                        FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
+                      }
+                    },
+                  ),
+                  const Gap(10),
+                  AppTextField(
+                    focusNode: _confirmPasswordFocusNode,
+                    controller: _confirmPasswordTEController,
+                    inputType: TextInputType.text,
+                    hintText: AppStrings.confirmPassTextFieldHint,
+                    errorText: AppStrings.confirmPasswordErrorText,
+                    onFieldSubmitted: (value){
+                      if(value.isNotEmpty){
+                        FocusScope.of(context).unfocus();
+                      }
+                    },
+                    setCustomValidation: true,
+                    customValidation: (String value){
+                      if(value.isNotEmpty && (_passwordTEController.text != _confirmPasswordTEController.text)){
+                        return false;
+                      }
+                      return true;
+                      },
+                  ),
+                ],
               ),
             ),
           );
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _passwordTEController.dispose();
+    _confirmPasswordTEController.dispose();
+    _confirmPasswordFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
   }
 }
