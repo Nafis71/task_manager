@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/views/dashboardScreen/dashboard_screen.dart';
 import 'package:task_manager/views/forgetPasswordScreen/emailVerificationScreen/email_verification_screen.dart';
-import 'package:task_manager/views/forgetPasswordScreen/pinVerification/pin_verification_screen.dart';
 import 'package:task_manager/views/forgetPasswordScreen/setPasswordScreen/set_password_screen.dart';
 import 'package:task_manager/views/signInScreen/sign_in_screen.dart';
 import 'package:task_manager/views/signUpScreen/sign_up_screen.dart';
 import 'package:task_manager/views/splashScreen/splash_screen.dart';
+
+import '../views/forgetPasswordScreen/pinVerificationScreen/pin_verification_screen.dart';
 
 class AppRoutes {
   static const splashScreen = "/splashScreen";

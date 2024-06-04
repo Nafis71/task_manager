@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
-import 'package:task_manager/views/forgetPasswordScreen/pinVerification/pin_verification_form.dart';
+import 'package:task_manager/views/forgetPasswordScreen/pinVerificationScreen/pin_verification_form.dart';
 import 'package:task_manager/views/widgets/forget_password_layout.dart';
 import '../../../utils/app_color.dart';
 import '../../../utils/app_routes.dart';
