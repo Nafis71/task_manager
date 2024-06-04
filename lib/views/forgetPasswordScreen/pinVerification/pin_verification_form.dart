@@ -39,7 +39,7 @@ class PinVerificationForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             width: textFieldWidth,
