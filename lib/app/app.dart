@@ -5,9 +5,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/themes/app_elevated_button_style.dart';
 import 'package:task_manager/themes/app_text_style.dart';
 import 'package:task_manager/themes/app_textfield_style.dart';
+import 'package:task_manager/themes/appbar_style.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
+import 'package:task_manager/viewModels/dashboard_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
 
 class TaskManager extends StatelessWidget {
@@ -19,6 +21,7 @@ class TaskManager extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_)=> AuthViewModel()),
         ChangeNotifierProvider(create: (_)=> UserViewModel()),
+        ChangeNotifierProvider(create: (_)=> DashboardViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -34,6 +37,7 @@ class TaskManager extends StatelessWidget {
           textTheme: AppTextStyle.getTextStyle(),
           inputDecorationTheme: AppTextFieldStyle.getTextFieldTheme(),
           elevatedButtonTheme: AppElevatedButtonStyle.getElevatedButtonStyle(),
+          appBarTheme: AppbarStyle.getAppbarStyle()
         ),
       ),
     );

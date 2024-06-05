@@ -114,26 +114,28 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> initiateSignIn() async {
-    AuthViewModel viewModel =
-        Provider.of<AuthViewModel>(context, listen: false);
-    bool status = await viewModel.signInUser(
-      email: _emailTEController.text.trim(),
-      password: _passwordTEController.text.trim(),
-    );
-    if (mounted && status) {
-      Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
-    }
-    if (mounted && !status) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(
-          getSnackBar(
-              title: AppStrings.signInFailureTitle,
-              content: AppStrings.signInFailureMessage,
-              contentType: ContentType.failure,
-              color: AppColor.snackBarFailureColor),
-        );
-    }
+    //TODO Just for testing
+    Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+    // AuthViewModel viewModel =
+    //     Provider.of<AuthViewModel>(context, listen: false);
+    // bool status = await viewModel.signInUser(
+    //   email: _emailTEController.text.trim(),
+    //   password: _passwordTEController.text.trim(),
+    // );
+    // if (mounted && status) {
+    //   Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+    // }
+    // if (mounted && !status) {
+    //   ScaffoldMessenger.of(context)
+    //     ..hideCurrentSnackBar()
+    //     ..showSnackBar(
+    //       getSnackBar(
+    //           title: AppStrings.signInFailureTitle,
+    //           content: AppStrings.signInFailureMessage,
+    //           contentType: ContentType.failure,
+    //           color: AppColor.snackBarFailureColor),
+    //     );
+    // }
   }
 
   @override

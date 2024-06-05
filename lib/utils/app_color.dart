@@ -5,9 +5,12 @@ class AppColor{
   static const Color headLineTextLargeColor = Colors.black;
   static const Color bodySmallTextColor = Colors.grey;
   static const Color bodyMediumTextColor = Colors.black;
+  static const Color labelSmallTextColor = Colors.white;
   static Color textFieldHintColor = Colors.grey.shade400;
   static const Color elevatedButtonForegroundColor = Colors.white;
   static const Color circularProgressbarColor = Colors.white;
   static const Color snackBarSuccessColor = appPrimaryColor;
   static  Color snackBarFailureColor = Colors.red.shade300;
+  static const Color appBarForegroundColor = Colors.white;
+  static const Color appBarBackgroundColor = appPrimaryColor;
 }
