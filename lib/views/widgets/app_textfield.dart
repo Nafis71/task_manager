@@ -64,13 +64,12 @@ class AppTextField extends StatelessWidget {
         if (disableValidation) {
           return null;
         }
-        if (!setCustomValidation) {
-          if (value!.isEmpty ||
-              (regEx.isNotEmpty && !RegExp(regEx).hasMatch(value))) {
-            return errorText;
-          }
-        } else {
+        if (setCustomValidation) {
           return customValidation!(value.toString());
+        }
+        if (value!.isEmpty ||
+            (regEx.isNotEmpty && !RegExp(regEx).hasMatch(value))) {
+          return errorText;
         }
         return null;
       },
