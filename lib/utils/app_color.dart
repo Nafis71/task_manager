@@ -13,4 +13,7 @@ class AppColor{
   static  Color snackBarFailureColor = Colors.red.shade300;
   static const Color appBarForegroundColor = Colors.white;
   static const Color appBarBackgroundColor = appPrimaryColor;
+  static const Color bottomBarUnselectedColor = Colors.black;
+  static const Color bottomBarSelectedColor = appPrimaryColor;
+  static const Color bottomBarBackgroundColor = Colors.white;
 }

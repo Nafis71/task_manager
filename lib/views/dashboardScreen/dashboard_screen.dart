@@ -22,15 +22,15 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> bottomBarIcons = const [
     Icon(Icons.watch_later_outlined, size: 25),
-    Icon(Icons.add, size: 25),
     Icon(Icons.done_all, size: 25),
     Icon(Icons.cancel_outlined, size: 25),
+    Icon(Icons.add, size: 25),
   ];
   List<String> bottomBarLabels = [
     AppStrings.bottomBarProgress,
-    AppStrings.bottomBarAdd,
     AppStrings.bottomBarCompleted,
-    AppStrings.bottomBarCanceled
+    AppStrings.bottomBarCanceled,
+    AppStrings.bottomBarAdd,
   ];
   late final List<BottomNavigationBarItem> bottomNavigationBarItem;
 
@@ -48,9 +48,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   List<Widget> screens = const [
     TaskProgressScreen(),
-    TaskAddScreen(),
     TaskCompletedScreen(),
-    TaskCancelledScreen()
+    TaskCancelledScreen(),
+    TaskAddScreen(),
   ];
 
   int myIndex = 0;
@@ -102,12 +102,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
       bottomNavigationBar: Consumer<DashboardViewModel>(
         builder: (context, viewModel, child) {
           return BottomNavigationBar(
+            enableFeedback: true,
+            useLegacyColorScheme: false,
             elevation: 0,
             type: BottomNavigationBarType.shifting,
             showUnselectedLabels: false,
-            selectedItemColor: AppColor.appPrimaryColor,
-            unselectedItemColor: Colors.black,
-            backgroundColor: Colors.white,
+            selectedItemColor: AppColor.bottomBarSelectedColor,
+            unselectedItemColor: AppColor.bottomBarUnselectedColor,
+            backgroundColor: AppColor.bottomBarBackgroundColor,
+            selectedFontSize: 12,
             currentIndex: viewModel.index,
             onTap: (value) {
               viewModel.setIndex = value;
