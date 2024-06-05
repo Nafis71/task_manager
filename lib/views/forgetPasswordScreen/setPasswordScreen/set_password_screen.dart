@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/views/widgets/app_textfield.dart';
 import 'package:task_manager/views/widgets/forget_password_layout.dart';
@@ -43,7 +44,9 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
             bodyText: AppStrings.setPasswordBodyText,
             screenWidth: screenWidth,
             buttonWidget: const Text(AppStrings.setPasswordButtonText),
-            onPressed: (value) {},
+            onPressed: (value) {
+              Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+            },
             child: Form(
               child: Column(
                 children: [

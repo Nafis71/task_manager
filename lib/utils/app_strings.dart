@@ -11,6 +11,12 @@ class AppStrings {
   static const String emailRegEx =
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
 
+  //bottomNavigationBar
+  static const String bottomBarProgress = "Progress";
+  static const String bottomBarCompleted = "Completed";
+  static const String bottomBarCanceled = "Canceled";
+  static const String bottomBarAdd = "New Task";
+
   static const String emailTextFieldHint = "Email";
   static const String passwordTextFieldHint = "Password";
   static const String firstNameTextFieldHint = "First Name";

@@ -29,6 +29,7 @@ class TaskManager extends StatelessWidget {
           return AppRoutes.generateRoute(routeSettings);
         },
         theme: ThemeData(
+          useMaterial3: false,
           scaffoldBackgroundColor: AppColor.scaffoldBackgroundColor,
           textTheme: AppTextStyle.getTextStyle(),
           inputDecorationTheme: AppTextFieldStyle.getTextFieldTheme(),
