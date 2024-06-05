@@ -58,39 +58,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Consumer<UserViewModel>(
-        builder: (_, viewModel, __) {
-          return Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.white,
-                backgroundImage: (viewModel.userData.photo!.isEmpty)
-                    ? const AssetImage(AppAssets.userDefaultImage)
-                    : MemoryImage(
-                        base64Decode(
-                          viewModel.userData.photo.toString(),
+      appBar: AppBar(
+        title: Consumer<UserViewModel>(
+          builder: (_, viewModel, __) {
+            return Row(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.white,
+                  backgroundImage: (viewModel.userData.photo!.isEmpty)
+                      ? const AssetImage(AppAssets.userDefaultImage)
+                      : MemoryImage(
+                          base64Decode(
+                            viewModel.userData.photo.toString(),
+                          ),
                         ),
-                      ),
-              ),
-              const Gap(10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Nafis Hasan Tonmoy",
-                    style: Theme.of(context).textTheme.labelMedium,
-                  ),
-                  Text(
-                    "nhtonmoy2@gmail.com",
-                    style: Theme.of(context).textTheme.labelSmall,
-                  )
-                ],
-              )
-            ],
-          );
-        },
-      ),automaticallyImplyLeading: false,),
+                ),
+                const Gap(10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Nafis Hasan Tonmoy",
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                    Text(
+                      "nhtonmoy2@gmail.com",
+                      style: Theme.of(context).textTheme.labelSmall,
+                    )
+                  ],
+                )
+              ],
+            );
+          },
+        ),
+      ),
       body: Consumer<DashboardViewModel>(
         builder: (context, viewModel, child) {
           return IndexedStack(
