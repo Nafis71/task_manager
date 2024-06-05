@@ -22,11 +22,19 @@ class AppTextStyle {
           fontFamily: "Poppins",
           fontWeight: FontWeight.bold,
           letterSpacing: 0.5),
-      labelSmall: TextStyle(
+      labelMedium: TextStyle(
         fontSize: 11,
         color: AppColor.labelSmallTextColor,
         fontFamily: "Poppins",
         fontWeight: FontWeight.bold,
         letterSpacing: 0.5,
-      ));
+      ),
+    labelSmall: TextStyle(
+      fontSize: 9,
+      color: AppColor.labelSmallTextColor,
+      fontFamily: "Poppins",
+      fontWeight: FontWeight.bold,
+      letterSpacing: 0.5,
+    ),
+  );
 }

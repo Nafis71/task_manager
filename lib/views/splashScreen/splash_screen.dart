@@ -31,13 +31,11 @@ class _SplashScreenState extends State<SplashScreen> {
     try{
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? token = preferences.getString("token");
-      if (token != null) {
-        if (!JwtDecoder.isExpired(token) && mounted) {
-          await loadUserData(preferences);
-          Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
-          });
-        }
+      if (token != null && !JwtDecoder.isExpired(token) && mounted) {
+        await loadUserData(preferences);
+        Future.delayed(const Duration(seconds: 3), () {
+          Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+        });
       } else {
         Future.delayed(const Duration(seconds: 3), () {
           Navigator.pushReplacementNamed(context, AppRoutes.signInScreen);
