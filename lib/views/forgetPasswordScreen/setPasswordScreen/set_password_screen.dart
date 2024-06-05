@@ -56,6 +56,13 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     inputType: TextInputType.text,
                     hintText: AppStrings.passwordTextFieldHint,
                     errorText: AppStrings.passwordErrorText,
+                    setCustomValidation: true,
+                    customValidation: (String value){
+                      if(_passwordTEController.text.length < 8 || value.isEmpty){
+                        return AppStrings.passwordLengthErrorText;
+                      }
+                      return null;
+                    },
                     onFieldSubmitted: (value){
                       if(value.isNotEmpty){
                         FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
@@ -68,7 +75,6 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     controller: _confirmPasswordTEController,
                     inputType: TextInputType.text,
                     hintText: AppStrings.confirmPassTextFieldHint,
-                    errorText: AppStrings.confirmPasswordErrorText,
                     onFieldSubmitted: (value){
                       if(value.isNotEmpty){
                         FocusScope.of(context).unfocus();
@@ -76,10 +82,13 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     },
                     setCustomValidation: true,
                     customValidation: (String value){
-                      if(value.isNotEmpty && (_passwordTEController.text != _confirmPasswordTEController.text)){
-                        return false;
+                      if(value.isEmpty){
+                        return AppStrings.confirmPasswordErrorText;
                       }
-                      return true;
+                      if(_passwordTEController.text != _confirmPasswordTEController.text){
+                        return AppStrings.confirmPasswordErrorText;
+                      }
+                      return null;
                       },
                   ),
                 ],

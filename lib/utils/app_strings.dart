@@ -33,6 +33,7 @@ class AppStrings {
   static const String signUpHeaderText = "Join With Us";
   static const String emailErrorText = "Invalid email address";
   static const String passwordErrorText = "Invalid password";
+  static const String passwordLengthErrorText = "Please give at least 8 characters";
   static const String confirmPasswordErrorText = "Password didn't match";
   static const String firstNameErrorText = "Invalid first name";
   static const String lastNameErrorText = "Invalid last name";

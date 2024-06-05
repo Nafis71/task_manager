@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/utils/app_color.dart';
 import '../../widgets/app_textfield.dart';
 
 class PinVerificationForm extends StatelessWidget {
@@ -17,10 +18,10 @@ class PinVerificationForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: List.generate(focusNodes.length, (index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 4),
             child: SizedBox(
               width: textFieldWidth,
               height: textFieldHeight,
@@ -34,13 +35,18 @@ class PinVerificationForm extends StatelessWidget {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
+                outlineInputBorder: const OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: AppColor.appPrimaryColor, width: 2),
+                ),
                 disableValidation: true,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     if (index == focusNodes.length - 1) {
                       FocusScope.of(context).unfocus();
                     } else {
-                      FocusScope.of(context).requestFocus(focusNodes[index + 1]);
+                      FocusScope.of(context)
+                          .requestFocus(focusNodes[index + 1]);
                     }
                   }
                 },

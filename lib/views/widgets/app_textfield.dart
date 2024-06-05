@@ -17,6 +17,7 @@ class AppTextField extends StatelessWidget {
   final TextStyle? textStyle;
   final bool disableValidation, setCustomValidation;
   final Function(String value)? onChanged, customValidation;
+  final OutlineInputBorder? outlineInputBorder;
 
   const AppTextField(
       {super.key,
@@ -35,7 +36,7 @@ class AppTextField extends StatelessWidget {
       this.customValidation,
       this.disableValidation = false,
       this.textStyle,
-      this.textAlign});
+      this.textAlign, this.outlineInputBorder});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,9 @@ class AppTextField extends StatelessWidget {
       obscuringCharacter: AppStrings.obscuringChar,
       cursorColor: AppColor.appPrimaryColor,
       decoration: InputDecoration(
-          hintText: hintText, suffixIcon: suffixIcon, counterText: ""),
+          hintText: hintText, suffixIcon: suffixIcon, counterText: "",
+      focusedBorder: outlineInputBorder
+      ),
       onFieldSubmitted: onFieldSubmitted,
       onChanged: onChanged,
       onTapOutside: (value) {
@@ -67,13 +70,7 @@ class AppTextField extends StatelessWidget {
             return errorText;
           }
         } else {
-          bool isMatched = customValidation!(value.toString());
-          if (isMatched && value!.isEmpty) {
-            return AppStrings.passwordErrorText;
-          }
-          if (!isMatched) {
-            return errorText;
-          }
+          return customValidation!(value.toString());
         }
         return null;
       },
