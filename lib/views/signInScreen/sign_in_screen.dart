@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/models/responseModel/failure.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_navigation.dart';
 import 'package:task_manager/utils/app_routes.dart';
@@ -124,12 +125,13 @@ class _SignInScreenState extends State<SignInScreen> {
       Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
     }
     if (mounted && !status) {
+      Failure failure = viewModel.response as Failure;
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
           getSnackBar(
               title: AppStrings.signInFailureTitle,
-              content: AppStrings.signInFailureMessage,
+              content: failure.message,
               contentType: ContentType.failure,
               color: AppColor.snackBarFailureColor),
         );

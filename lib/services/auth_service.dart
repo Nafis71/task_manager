@@ -26,12 +26,11 @@ class AuthService {
             response.statusCode,
             ResponseCode.httpStatusMessages[response.statusCode] ??
                 AppStrings.unknownResponseText);
-        throw Exception("Failed to register user, ${response.statusCode}");
       }
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(500, exception.toString());
+        finalResponse = Failure(500, AppStrings.unknownResponseText);
       }
     }
     return finalResponse;
@@ -55,12 +54,11 @@ class AuthService {
             response.statusCode,
             ResponseCode.httpStatusMessages[response.statusCode] ??
                 AppStrings.unknownResponseText);
-        throw Exception("Failed to register user, ${response.statusCode}");
       }
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(500, exception.toString());
+        finalResponse = Failure(500, AppStrings.unknownResponseText);
       }
     }
     return finalResponse;
