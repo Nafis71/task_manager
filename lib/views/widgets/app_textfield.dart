@@ -18,24 +18,26 @@ class AppTextField extends StatelessWidget {
   final Function(String value)? onChanged, customValidation;
   final OutlineInputBorder? outlineInputBorder;
 
-  const AppTextField(
-      {super.key,
-      required this.focusNode,
-      this.isObscureText = false,
-      required this.controller,
-      this.suffixIcon,
-      this.onFieldSubmitted,
-      this.hintText = "",
-      required this.inputType,
-      this.errorText = "",
-      this.regEx = "",
-      this.maxLength,
-      this.onChanged,
-      this.setCustomValidation = false,
-      this.customValidation,
-      this.disableValidation = false,
-      this.textStyle,
-      this.textAlign, this.outlineInputBorder});
+  const AppTextField({
+    super.key,
+    required this.focusNode,
+    this.isObscureText = false,
+    required this.controller,
+    this.suffixIcon,
+    this.onFieldSubmitted,
+    this.hintText = "",
+    required this.inputType,
+    this.errorText = "",
+    this.regEx = "",
+    this.maxLength,
+    this.onChanged,
+    this.setCustomValidation = false,
+    this.customValidation,
+    this.disableValidation = false,
+    this.textStyle,
+    this.textAlign,
+    this.outlineInputBorder,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +53,10 @@ class AppTextField extends StatelessWidget {
       obscuringCharacter: AppStrings.obscuringChar,
       cursorColor: AppColor.appPrimaryColor,
       decoration: InputDecoration(
-          hintText: hintText, suffixIcon: suffixIcon, counterText: "",
-      focusedBorder: outlineInputBorder
-      ),
+          hintText: hintText,
+          suffixIcon: suffixIcon,
+          counterText: "",
+          focusedBorder: outlineInputBorder),
       onFieldSubmitted: onFieldSubmitted,
       onChanged: onChanged,
       onTapOutside: (value) {

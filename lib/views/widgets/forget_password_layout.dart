@@ -14,7 +14,7 @@ class ForgetPasswordLayout extends StatelessWidget {
   final Orientation orientation;
   final Widget child, buttonWidget;
   final String headerText, bodyText;
-  final Function(AuthViewModel viewModel) onPressed;
+  final Function(AuthViewModel viewModel) onButtonPressed;
 
   const ForgetPasswordLayout(
       {super.key,
@@ -26,7 +26,7 @@ class ForgetPasswordLayout extends StatelessWidget {
       required this.bodyText,
       required this.screenWidth,
       required this.buttonWidget,
-      required this.onPressed});
+      required this.onButtonPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ForgetPasswordLayout extends StatelessWidget {
               const Gap(20),
               AppElevatedButton(
                 screenWidth: screenWidth,
-                onPressed: onPressed,
+                onPressed: onButtonPressed,
                 loadingChild: const CircularProgressbar(
                     color: AppColor.circularProgressbarColor),
                 placeHolderChild: buttonWidget,

@@ -30,7 +30,7 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(500, AppStrings.unknownResponseText);
+        finalResponse = Failure(600, AppStrings.unknownResponseText);
       }
     }
     return finalResponse;
@@ -47,7 +47,7 @@ class AuthService {
           body: jsonEncode(signInCredentials),
           headers: {"content-type": "application/json"});
       if (response.statusCode == 200) {
-        Map<String,dynamic> jsonData = jsonDecode(response.body);
+        Map<String, dynamic> jsonData = jsonDecode(response.body);
         finalResponse = Success(response: LoginModel.fromJson(jsonData));
       } else {
         finalResponse = Failure(
@@ -58,7 +58,50 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(500, AppStrings.unknownResponseText);
+        finalResponse = Failure(600, AppStrings.unknownResponseText);
+      }
+    }
+    return finalResponse;
+  }
+
+  Future<Object> requestOTP(String email) async {
+    try {
+      Response response = await http.get(Uri.parse(
+          "${AppStrings.baseUrl}${AppStrings.recoverEmailEndpoint}/$email"));
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = jsonDecode(response.body);
+        finalResponse = Success(response: jsonData["status"]);
+      } else {
+        finalResponse = Failure(
+            response.statusCode,
+            ResponseCode.httpStatusMessages[response.statusCode] ??
+                AppStrings.unknownResponseText);
+      }
+    } catch (exception) {
+      if (kDebugMode) {
+        debugPrint(exception.toString());
+        finalResponse = Failure(600, AppStrings.unknownResponseText);
+      }
+    }
+    return finalResponse;
+  }
+  Future<Object> verifyOTP(String pinCode, String email) async {
+    try {
+      Response response = await http.get(Uri.parse(
+          "${AppStrings.baseUrl}${AppStrings.verifyOTPEndpoint}/$email/$pinCode"));
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonData = jsonDecode(response.body);
+        finalResponse = Success(response: jsonData["status"]);
+      } else {
+        finalResponse = Failure(
+            response.statusCode,
+            ResponseCode.httpStatusMessages[response.statusCode] ??
+                AppStrings.unknownResponseText);
+      }
+    } catch (exception) {
+      if (kDebugMode) {
+        debugPrint(exception.toString());
+        finalResponse = Failure(600, AppStrings.unknownResponseText);
       }
     }
     return finalResponse;

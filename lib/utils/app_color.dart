@@ -11,6 +11,7 @@ class AppColor{
   static const Color circularProgressbarColor = Colors.white;
   static const Color snackBarSuccessColor = appPrimaryColor;
   static  Color snackBarFailureColor = Colors.red.shade300;
+  static  Color snackBarWarningColor = const Color(0xFFFFCC00);
   static const Color appBarForegroundColor = Colors.white;
   static const Color appBarBackgroundColor = appPrimaryColor;
   static const Color bottomBarUnselectedColor = Colors.black;

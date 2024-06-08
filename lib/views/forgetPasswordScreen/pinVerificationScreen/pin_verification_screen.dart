@@ -1,6 +1,11 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_strings.dart';
+import 'package:task_manager/viewModels/auth_view_model.dart';
 import 'package:task_manager/views/forgetPasswordScreen/pinVerificationScreen/pin_verification_form.dart';
+import 'package:task_manager/views/widgets/app_snackbar.dart';
 import 'package:task_manager/views/widgets/forget_password_layout.dart';
 
 import '../../../utils/app_routes.dart';
@@ -16,6 +21,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
   late final List<TextEditingController> pinTEControllers;
 
   late final List<FocusNode> focusNodes;
+  late GlobalKey<FormState> _formKey;
 
   final double textFieldHeight = 50;
 
@@ -23,13 +29,20 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
   void initState() {
     pinTEControllers = List.generate(6, (index) => TextEditingController());
     focusNodes = List.generate(6, (index) => FocusNode());
+    _formKey = GlobalKey<FormState>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -45,12 +58,24 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
             buttonWidget: const Text(
               AppStrings.pinVerificationButtonText,
             ),
-            onPressed: (value) {
-              Navigator.pushReplacementNamed(
-                  context, AppRoutes.setPasswordScreen);
+            onButtonPressed: (value) {
+              if (_formKey.currentState!.validate()) {
+                initiatePinVerification();
+                return;
+              }
+              ScaffoldMessenger.of(context)
+                ..clearSnackBars()
+                ..showSnackBar(getSnackBar(
+                    title: AppStrings.emptyPinVerificationFieldTitle,
+                    content: AppStrings.emptyPinVerificationFieldMessage,
+                    contentType: ContentType.warning,
+                    color: AppColor.snackBarWarningColor));
             },
             child: PinVerificationForm(
-              textFieldWidth: (orientation == Orientation.portrait) ? screenWidth * 0.11 : screenWidth * 0.09,
+              formKey: _formKey,
+              textFieldWidth: (orientation == Orientation.portrait)
+                  ? screenWidth * 0.11
+                  : screenWidth * 0.09,
               pinTEControllers: pinTEControllers,
               focusNodes: focusNodes,
             ),
@@ -58,6 +83,26 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
         },
       ),
     );
+  }
+
+  Future<void> initiatePinVerification() async {
+    String pinCode = "";
+    for (TextEditingController controller in pinTEControllers) {
+      pinCode = pinCode + controller.text.trim();
+    }
+    bool status = await context.read<AuthViewModel>().verifyOTP(pinCode);
+    if (status && mounted) {
+      Navigator.pushReplacementNamed(context, AppRoutes.setPasswordScreen);
+      return;
+    }
+    if (mounted) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(getSnackBar(title: AppStrings.wrongPinVerificationFieldTitle,
+            content: AppStrings.wrongPinVerificationFieldMessage,
+            contentType: ContentType.failure,
+            color: AppColor.snackBarFailureColor));
+    }
   }
 
   @override

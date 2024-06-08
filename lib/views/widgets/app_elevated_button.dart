@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/app_color.dart';
 import '../../viewModels/auth_view_model.dart';
-import 'circular_progressbar.dart';
 
 class AppElevatedButton extends StatelessWidget {
   final double screenWidth;
@@ -23,7 +21,7 @@ class AppElevatedButton extends StatelessWidget {
       width: screenWidth * 0.9,
       height: 45,
       child: Consumer<AuthViewModel>(
-        builder: (_, viewModel, __) {
+        builder: (_,viewModel, __) {
           return ElevatedButton(
             onPressed: () => onPressed(viewModel),
             child: (viewModel.isLoading) ? loadingChild : placeHolderChild,

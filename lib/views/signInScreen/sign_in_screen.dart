@@ -115,19 +115,18 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> initiateSignIn() async {
-    AuthViewModel viewModel =
-        Provider.of<AuthViewModel>(context, listen: false);
-    bool status = await viewModel.signInUser(
+    bool status = await context.read<AuthViewModel>().signInUser(
       email: _emailTEController.text.trim(),
       password: _passwordTEController.text.trim(),
     );
     if (mounted && status) {
       Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+      return;
     }
-    if (mounted && !status) {
-      Failure failure = viewModel.response as Failure;
+    if (mounted) {
+      Failure failure = context.read<AuthViewModel>().response as Failure;
       ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
+        ..clearSnackBars()
         ..showSnackBar(
           getSnackBar(
               title: AppStrings.signInFailureTitle,

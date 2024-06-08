@@ -10,6 +10,7 @@ class AuthViewModel extends ChangeNotifier{
   bool _isPasswordObscured = true;
   bool _isLoading = false;
   bool status = false;
+  String _recoveryEmail = "";
   late Object response;
   AuthService authService = AuthService();
   late SharedPreferences preferences;
@@ -17,6 +18,9 @@ class AuthViewModel extends ChangeNotifier{
 
   bool get isPasswordObscure => _isPasswordObscured;
   bool get isLoading => _isLoading;
+
+
+
 
   void setLoading(value){
     _isLoading = value;
@@ -57,6 +61,36 @@ class AuthViewModel extends ChangeNotifier{
     }
     setLoading(false);
     return(status);
+  }
+
+  Future<bool> sendOTP(String email) async{
+    status = false;
+    setLoading(true);
+    response = await authService.requestOTP(email);
+    if(response is Success){
+      String status = (response as Success).response as String;
+      if(status == "success"){
+        _recoveryEmail = email;
+        setLoading(false);
+        return true;
+      }
+    }
+    setLoading(false);
+    return false;
+  }
+  Future<bool> verifyOTP(String pinCode) async{
+    status = false;
+    setLoading(true);
+    response = await authService.verifyOTP(pinCode,_recoveryEmail);
+    if(response is Success){
+      String status = (response as Success).response as String;
+      if(status == "success"){
+        setLoading(false);
+        return true;
+      }
+    }
+    setLoading(false);
+    return false;
   }
 
   void saveUserData(LoginModel loginModel){

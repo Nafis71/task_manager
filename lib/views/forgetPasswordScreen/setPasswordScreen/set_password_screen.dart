@@ -44,7 +44,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
             bodyText: AppStrings.setPasswordBodyText,
             screenWidth: screenWidth,
             buttonWidget: const Text(AppStrings.setPasswordButtonText),
-            onPressed: (value) {
+            onButtonPressed: (value) {
               Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
             },
             child: Form(

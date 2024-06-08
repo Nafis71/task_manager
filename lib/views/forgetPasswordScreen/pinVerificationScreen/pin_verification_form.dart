@@ -5,6 +5,7 @@ import '../../widgets/app_textfield.dart';
 class PinVerificationForm extends StatelessWidget {
   final List<TextEditingController> pinTEControllers;
   final List<FocusNode> focusNodes;
+  final GlobalKey<FormState> formKey;
   final double textFieldHeight = 50;
   final double textFieldWidth;
 
@@ -12,11 +13,13 @@ class PinVerificationForm extends StatelessWidget {
       {super.key,
       required this.textFieldWidth,
       required this.pinTEControllers,
-      required this.focusNodes});
+      required this.focusNodes,
+      required this.formKey});
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formKey,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: List.generate(focusNodes.length, (index) {
@@ -34,10 +37,6 @@ class PinVerificationForm extends StatelessWidget {
                 textStyle: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
-                ),
-                outlineInputBorder: const OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: AppColor.appPrimaryColor, width: 2),
                 ),
                 disableValidation: true,
                 onChanged: (value) {
