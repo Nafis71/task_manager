@@ -79,11 +79,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Nafis Hasan Tonmoy",
+                      "${viewModel.userData.firstName} ${viewModel.userData.lastName}",
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     Text(
-                      "nhtonmoy2@gmail.com",
+                      viewModel.userData.email.toString(),
                       style: Theme.of(context).textTheme.labelSmall,
                     )
                   ],

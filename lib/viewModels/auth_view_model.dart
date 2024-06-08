@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/loginModels/login_model.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/auth_service.dart';
+import 'package:task_manager/viewModels/user_view_model.dart';
 import '../models/loginModels/user_data.dart';
 
 class AuthViewModel extends ChangeNotifier {
@@ -48,7 +50,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<bool> signInUser(
-      {required String email, required String password}) async {
+      {required String email, required String password, required UserViewModel userViewModel}) async {
     status = false;
     setLoading(true);
     response = await authService.signIn(email, password);
@@ -56,7 +58,7 @@ class AuthViewModel extends ChangeNotifier {
       LoginModel loginModel = (response as Success).response as LoginModel;
       status = true;
       preferences = await SharedPreferences.getInstance();
-      saveUserData(loginModel);
+      saveUserData(loginModel,userViewModel);
     } else {
       status = false;
     }
@@ -115,13 +117,22 @@ class AuthViewModel extends ChangeNotifier {
     return false;
   }
 
-  void saveUserData(LoginModel loginModel) {
+  void saveUserData(LoginModel loginModel,UserViewModel userViewModel) {
     preferences.setString("token", loginModel.token.toString());
     preferences.setString("email", loginModel.data!.email.toString());
     preferences.setString("firstName", loginModel.data!.firstName.toString());
     preferences.setString("lastName", loginModel.data!.lastName.toString());
     preferences.setString("mobile", loginModel.data!.mobile.toString());
     preferences.setString("photo", loginModel.data!.photo.toString());
+    userViewModel.setToken = loginModel.token.toString();
+    userViewModel.setUserData = UserData(
+      email: loginModel.data!.email.toString(),
+      firstName: loginModel.data!.firstName.toString(),
+      lastName: loginModel.data!.lastName.toString(),
+      mobile: loginModel.data!.mobile.toString(),
+      photo: loginModel.data!.photo.toString(),
+      password: "",
+    );
   }
 
   set setPasswordObscure(bool value) {

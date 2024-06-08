@@ -9,6 +9,7 @@ import 'package:task_manager/utils/app_navigation.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
+import 'package:task_manager/viewModels/user_view_model.dart';
 import 'package:task_manager/views/signInScreen/sign_in_screen_form.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
 import '../widgets/background_widget.dart';
@@ -118,6 +119,7 @@ class _SignInScreenState extends State<SignInScreen> {
     bool status = await context.read<AuthViewModel>().signInUser(
       email: _emailTEController.text.trim(),
       password: _passwordTEController.text.trim(),
+      userViewModel: context.read<UserViewModel>()
     );
     if (mounted && status) {
       Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
