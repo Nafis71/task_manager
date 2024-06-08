@@ -2,11 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/models/taskStatusCountModels/task_status_count_model.dart';
 import 'package:task_manager/services/task_service.dart';
-
-import '../models/taskStatusCountModels/data.dart';
+import '../models/taskStatusCountModels/status_data.dart';
 
 class TaskViewModel extends ChangeNotifier{
-  List<Data> _taskStatusData =[];
+  List<StatusData> _taskStatusData =[];
   Map<String,String> taskStatusCount ={};
   bool _isLoading = false;
   bool status = false;
@@ -20,16 +19,16 @@ class TaskViewModel extends ChangeNotifier{
   }
 
 
-  List<Data> get taskStatusData => _taskStatusData;
+  List<StatusData> get taskStatusData => _taskStatusData;
 
   Future<bool> fetchTaskStatusData(String token) async{
     status = false;
     response = await taskService.fetchTaskStatusCount(token);
     if(response is Success){
       TaskStatusCountModel taskStatusCountModel = (response as Success).response as TaskStatusCountModel;
-      if(taskStatusCountModel.data != null && taskStatusCountModel.data!.isNotEmpty){
-        _taskStatusData = List.from(taskStatusCountModel.data as Iterable);
-        for(Data data in _taskStatusData){
+      if(taskStatusCountModel.statusData != null && taskStatusCountModel.statusData!.isNotEmpty){
+        _taskStatusData = List.from(taskStatusCountModel.statusData as Iterable);
+        for(StatusData data in _taskStatusData){
           if(data.sId != null){
             taskStatusCount.putIfAbsent(data.sId.toString(), ()=> data.sum.toString());
           }
@@ -37,7 +36,6 @@ class TaskViewModel extends ChangeNotifier{
       }
       setIsLoading(false);
       status = true;
-      print(taskStatusCount);
     }
     return status;
   }

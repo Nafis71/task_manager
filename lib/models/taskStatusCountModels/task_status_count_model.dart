@@ -1,17 +1,17 @@
-import 'data.dart';
+import 'package:task_manager/models/taskStatusCountModels/status_data.dart';
 
 class TaskStatusCountModel {
   String? status;
-  List<Data>? data;
+  List<StatusData>? statusData;
 
-  TaskStatusCountModel({this.status, this.data});
+  TaskStatusCountModel({this.status, this.statusData});
 
   TaskStatusCountModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['data'] != null) {
-      data = <Data>[];
+      statusData = <StatusData>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        statusData!.add(StatusData.fromJson(v));
       });
     }
   }
@@ -19,8 +19,8 @@ class TaskStatusCountModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (this.statusData != null) {
+      data['data'] = this.statusData!.map((v) => v.toJson()).toList();
     }
     return data;
   }

@@ -24,6 +24,7 @@ dependencies:
   awesome_snackbar_content: ^0.1.3
   shared_preferences: ^2.2.3
   jwt_decoder: ^2.0.1
+  ionicons: ^0.2.2
 
 dev_dependencies:
   flutter_test:

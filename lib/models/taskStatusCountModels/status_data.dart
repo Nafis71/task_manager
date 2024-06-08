@@ -1,10 +1,10 @@
-class Data {
+class StatusData {
   String? sId;
   int? sum;
 
-  Data({this.sId, this.sum});
+  StatusData({this.sId, this.sum});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  StatusData.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     sum = json['sum'];
   }

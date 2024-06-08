@@ -30,8 +30,8 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(600, AppStrings.unknownResponseText);
       }
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
     return finalResponse;
   }
@@ -58,8 +58,8 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(600, AppStrings.unknownResponseText);
       }
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
     return finalResponse;
   }
@@ -80,8 +80,8 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(600, AppStrings.unknownResponseText);
       }
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
     return finalResponse;
   }
@@ -102,8 +102,8 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(600, AppStrings.unknownResponseText);
       }
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
     return finalResponse;
   }
@@ -126,8 +126,8 @@ class AuthService {
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
-        finalResponse = Failure(600, AppStrings.unknownResponseText);
       }
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
     return finalResponse;
   }

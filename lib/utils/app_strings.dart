@@ -7,6 +7,7 @@ class AppStrings {
   static const String verifyOTPEndpoint = "RecoverVerifyOTP";
   static const String resetPasswordEndpoint = "RecoverResetPass";
   static const String taskStatusCountEndpoint = "taskStatusCount";
+  static const String listTaskByStatusEndpoint = "listTaskByStatus";
   static const String unknownResponseText = "Unknown Error";
 
   //regularExpression

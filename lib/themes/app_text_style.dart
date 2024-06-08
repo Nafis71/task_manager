@@ -17,6 +17,20 @@ class AppTextStyle {
           fontFamily: "Poppins",
           letterSpacing: 0.5
       ),
+      titleMedium: TextStyle(
+          fontSize: 15,
+          color: AppColor.headLineTextLargeColor,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Poppins",
+          letterSpacing: 0.5
+      ),
+      titleSmall: TextStyle(
+          fontSize: 10,
+          color: AppColor.headLineTextLargeColor,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Poppins",
+          letterSpacing: 0.5
+      ),
       bodySmall: TextStyle(
           fontSize: 11,
           color: AppColor.bodySmallTextColor,

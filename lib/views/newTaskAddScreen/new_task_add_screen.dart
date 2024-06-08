@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/views/widgets/task_status_card.dart';
 
 import '../../viewModels/task_view_model.dart';
@@ -73,6 +76,64 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
                   },
                 ),
               ),
+              const Gap(10),
+              SizedBox(
+                width: screenWidth,
+                child: Card(
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 13.00),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Study Math",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.8,
+                          child: Text(
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.justify,
+                            "It is a long established fact that a reader will be distracted by the readable coontent of a page when looking at its's layout",
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                        const Gap(10),
+                        Text(
+                          "Date: 02/02/2020",
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        const Gap(5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Chip(
+                              label: const Text("New"),
+                              backgroundColor: AppColor.newTaskChipColor,
+                              labelPadding:
+                              const EdgeInsets.symmetric(horizontal: 34,vertical: 0),
+                              labelStyle: const TextStyle(
+                                color: AppColor.newTaskChipTextColor,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                IconButton(onPressed: (){}, icon: const Icon(Icons.edit_note_outlined,color: AppColor.editIconColor,)),
+                                IconButton(onPressed: (){}, icon: const Icon(Ionicons.trash,color: AppColor.deleteIconColor,))
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
