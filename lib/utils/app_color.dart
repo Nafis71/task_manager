@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 class AppColor{
   static const Color appPrimaryColor = Color(0xFF21BF73);
-  static const Color scaffoldBackgroundColor = Colors.white;
+  static const Color scaffoldBackgroundColor = Color(0xFFFAF8F6);
   static const Color headLineTextLargeColor = Colors.black;
   static const Color bodySmallTextColor = Colors.grey;
   static const Color bodyMediumTextColor = Colors.black;
@@ -16,5 +16,5 @@ class AppColor{
   static const Color appBarBackgroundColor = appPrimaryColor;
   static const Color bottomBarUnselectedColor = Colors.black;
   static const Color bottomBarSelectedColor = appPrimaryColor;
-  static const Color bottomBarBackgroundColor = Colors.white;
+  static const Color bottomBarBackgroundColor = scaffoldBackgroundColor;
 }

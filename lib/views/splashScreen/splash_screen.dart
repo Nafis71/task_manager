@@ -51,6 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> loadUserData(SharedPreferences preferences) async {
     UserViewModel viewModel = Provider.of<UserViewModel>(context,listen: false);
+    viewModel.setToken = preferences.getString("token")!;
     viewModel.setUserData = UserData(
       email: preferences.getString("email"),
       firstName: preferences.getString("firstName"),

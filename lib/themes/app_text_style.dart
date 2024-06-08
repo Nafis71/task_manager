@@ -10,8 +10,15 @@ class AppTextStyle {
           fontWeight: FontWeight.bold,
           fontFamily: "Poppins",
           letterSpacing: 0.5),
+      titleLarge: TextStyle(
+          fontSize: 20,
+          color: AppColor.headLineTextLargeColor,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Poppins",
+          letterSpacing: 0.5
+      ),
       bodySmall: TextStyle(
-          fontSize: 12,
+          fontSize: 11,
           color: AppColor.bodySmallTextColor,
           fontFamily: "Poppins",
           letterSpacing: 0.5,
@@ -23,7 +30,7 @@ class AppTextStyle {
           fontWeight: FontWeight.bold,
           letterSpacing: 0.5),
       labelMedium: TextStyle(
-        fontSize: 11,
+        fontSize: 14.5,
         color: AppColor.labelSmallTextColor,
         fontFamily: "Poppins",
         fontWeight: FontWeight.bold,

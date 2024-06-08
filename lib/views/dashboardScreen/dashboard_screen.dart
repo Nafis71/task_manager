@@ -6,11 +6,13 @@ import 'package:task_manager/utils/app_assets.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/dashboard_view_model.dart';
+import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
-import 'package:task_manager/views/taskAddScreen/task_add_screen.dart';
 import 'package:task_manager/views/taskCancelledScreen/task_cancelled_screen.dart';
 import 'package:task_manager/views/taskCompletedScreen/task_completed_screen.dart';
 import 'package:task_manager/views/taskProgressScreen/task_progress_screen.dart';
+
+import '../newTaskAddScreen/new_task_add_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -21,16 +23,18 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> bottomBarIcons = const [
+    Icon(Icons.add, size: 25),
     Icon(Icons.watch_later_outlined, size: 25),
     Icon(Icons.done_all, size: 25),
     Icon(Icons.cancel_outlined, size: 25),
-    Icon(Icons.add, size: 25),
+
   ];
   List<String> bottomBarLabels = [
+    AppStrings.bottomBarAdd,
     AppStrings.bottomBarProgress,
     AppStrings.bottomBarCompleted,
     AppStrings.bottomBarCanceled,
-    AppStrings.bottomBarAdd,
+
   ];
   late final List<BottomNavigationBarItem> bottomNavigationBarItem;
 
@@ -46,11 +50,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
   }
 
+
+
   List<Widget> screens = const [
+    NewTaskAddScreen(),
     TaskProgressScreen(),
     TaskCompletedScreen(),
     TaskCancelledScreen(),
-    TaskAddScreen(),
   ];
 
   int myIndex = 0;

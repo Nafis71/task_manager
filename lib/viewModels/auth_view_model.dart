@@ -11,7 +11,7 @@ import '../models/loginModels/user_data.dart';
 class AuthViewModel extends ChangeNotifier {
   bool _isPasswordObscured = true;
   bool _isLoading = false;
-  bool status = false;
+  bool finalStatus = false;
   String _recoveryEmail = "";
   String _OTP = "";
   late Object response;
@@ -34,7 +34,7 @@ class AuthViewModel extends ChangeNotifier {
       required String lastName,
       required String mobileNumber,
       required String password}) async {
-    status = false;
+    finalStatus = false;
     setLoading(true);
     UserData userData = UserData(
       email: email,
@@ -44,30 +44,30 @@ class AuthViewModel extends ChangeNotifier {
       password: password,
     );
     response = await authService.registration(userData);
-    (response is Success) ? status = true : status = false;
+    (response is Success) ? finalStatus = true : finalStatus = false;
     setLoading(false);
-    return (status);
+    return (finalStatus);
   }
 
   Future<bool> signInUser(
       {required String email, required String password, required UserViewModel userViewModel}) async {
-    status = false;
+    finalStatus = false;
     setLoading(true);
     response = await authService.signIn(email, password);
     if (response is Success) {
       LoginModel loginModel = (response as Success).response as LoginModel;
-      status = true;
+      finalStatus = true;
       preferences = await SharedPreferences.getInstance();
       saveUserData(loginModel,userViewModel);
     } else {
-      status = false;
+      finalStatus = false;
     }
     setLoading(false);
-    return (status);
+    return (finalStatus);
   }
 
   Future<bool> sendOTP(String email) async {
-    status = false;
+    finalStatus = false;
     setLoading(true);
     response = await authService.requestOTP(email);
     if (response is Success) {
@@ -83,7 +83,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<bool> verifyOTP(String otp) async {
-    status = false;
+    finalStatus = false;
     setLoading(true);
     response = await authService.verifyOTP(otp, _recoveryEmail);
     if (response is Success) {
@@ -91,15 +91,15 @@ class AuthViewModel extends ChangeNotifier {
       if (status == "success") {
         setLoading(false);
         _OTP = otp;
-        return true;
+        finalStatus = true;
       }
     }
     setLoading(false);
-    return false;
+    return finalStatus;
   }
 
   Future<bool> resetPassword(String newPassword) async {
-    status = false;
+    finalStatus = false;
     setLoading(true);
     resetPasswordInformation.putIfAbsent("email", () => _recoveryEmail);
     resetPasswordInformation.putIfAbsent("OTP", () => _OTP);
@@ -110,11 +110,11 @@ class AuthViewModel extends ChangeNotifier {
       if (status == "success") {
         resetPasswordInformation = {};
         setLoading(false);
-        return true;
+        finalStatus = true;
       }
     }
     setLoading(false);
-    return false;
+    return finalStatus;
   }
 
   void saveUserData(LoginModel loginModel,UserViewModel userViewModel) {
