@@ -99,14 +99,14 @@ class AuthViewModel extends ChangeNotifier {
   Future<bool> resetPassword(String newPassword) async {
     status = false;
     setLoading(true);
-    resetPasswordInformation.putIfAbsent("email",()=> _recoveryEmail);
-    resetPasswordInformation.putIfAbsent("OTP",()=> _OTP);
-    resetPasswordInformation.putIfAbsent("password",()=> newPassword);
+    resetPasswordInformation.putIfAbsent("email", () => _recoveryEmail);
+    resetPasswordInformation.putIfAbsent("OTP", () => _OTP);
+    resetPasswordInformation.putIfAbsent("password", () => newPassword);
     response = await authService.resetPassword(resetPasswordInformation);
     if (response is Success) {
       String status = (response as Success).response as String;
       if (status == "success") {
-        resetPasswordInformation ={};
+        resetPasswordInformation = {};
         setLoading(false);
         return true;
       }

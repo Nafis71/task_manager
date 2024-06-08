@@ -89,8 +89,7 @@ class AuthService {
   Future<Object> verifyOTP(String otp, String email) async {
     try {
       Response response = await http.get(Uri.parse(
-          "${AppStrings.baseUrl}${AppStrings
-              .verifyOTPEndpoint}/$email/$otp"));
+          "${AppStrings.baseUrl}${AppStrings.verifyOTPEndpoint}/$email/$otp"));
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = jsonDecode(response.body);
         finalResponse = Success(response: jsonData["status"]);
@@ -113,12 +112,12 @@ class AuthService {
     try {
       Response response = await http.post(
           Uri.parse("${AppStrings.baseUrl}${AppStrings.resetPasswordEndpoint}"),
-          body:jsonEncode(data),
-          headers:{"content-type" : "application/json"});
-      if(response.statusCode == 200){
+          body: jsonEncode(data),
+          headers: {"content-type": "application/json"});
+      if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = jsonDecode(response.body);
         finalResponse = Success(response: jsonData["status"]);
-      }else {
+      } else {
         finalResponse = Failure(
             response.statusCode,
             ResponseCode.httpStatusMessages[response.statusCode] ??
@@ -132,5 +131,4 @@ class AuthService {
     }
     return finalResponse;
   }
-
 }
