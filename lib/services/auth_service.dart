@@ -85,10 +85,12 @@ class AuthService {
     }
     return finalResponse;
   }
-  Future<Object> verifyOTP(String pinCode, String email) async {
+
+  Future<Object> verifyOTP(String otp, String email) async {
     try {
       Response response = await http.get(Uri.parse(
-          "${AppStrings.baseUrl}${AppStrings.verifyOTPEndpoint}/$email/$pinCode"));
+          "${AppStrings.baseUrl}${AppStrings
+              .verifyOTPEndpoint}/$email/$otp"));
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = jsonDecode(response.body);
         finalResponse = Success(response: jsonData["status"]);
@@ -106,4 +108,29 @@ class AuthService {
     }
     return finalResponse;
   }
+
+  Future<Object> resetPassword(Map<String, String> data) async {
+    try {
+      Response response = await http.post(
+          Uri.parse("${AppStrings.baseUrl}${AppStrings.resetPasswordEndpoint}"),
+          body:jsonEncode(data),
+          headers:{"content-type" : "application/json"});
+      if(response.statusCode == 200){
+        Map<String, dynamic> jsonData = jsonDecode(response.body);
+        finalResponse = Success(response: jsonData["status"]);
+      }else {
+        finalResponse = Failure(
+            response.statusCode,
+            ResponseCode.httpStatusMessages[response.statusCode] ??
+                AppStrings.unknownResponseText);
+      }
+    } catch (exception) {
+      if (kDebugMode) {
+        debugPrint(exception.toString());
+        finalResponse = Failure(600, AppStrings.unknownResponseText);
+      }
+    }
+    return finalResponse;
+  }
+
 }

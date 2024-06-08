@@ -1,7 +1,12 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:task_manager/utils/app_routes.dart';
+import 'package:provider/provider.dart';
+import 'package:task_manager/models/responseModel/failure.dart';
+import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_strings.dart';
+import 'package:task_manager/viewModels/auth_view_model.dart';
+import 'package:task_manager/views/widgets/app_snackbar.dart';
 import 'package:task_manager/views/widgets/app_textfield.dart';
 import 'package:task_manager/views/widgets/forget_password_layout.dart';
 
@@ -17,6 +22,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
   late final TextEditingController _confirmPasswordTEController;
   late final FocusNode _passwordFocusNode;
   late final FocusNode _confirmPasswordFocusNode;
+  late final GlobalKey<FormState> _formKey;
 
   @override
   void initState() {
@@ -24,13 +30,20 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
     _confirmPasswordFocusNode = FocusNode();
     _passwordTEController = TextEditingController();
     _confirmPasswordTEController = TextEditingController();
+    _formKey = GlobalKey<FormState>();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -45,9 +58,12 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
             screenWidth: screenWidth,
             buttonWidget: const Text(AppStrings.setPasswordButtonText),
             onButtonPressed: (value) {
-              Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+              if (_formKey.currentState!.validate()) {
+                initiatePasswordReset();
+              }
             },
             child: Form(
+              key: _formKey,
               child: Column(
                 children: [
                   AppTextField(
@@ -57,15 +73,17 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     hintText: AppStrings.passwordTextFieldHint,
                     errorText: AppStrings.passwordErrorText,
                     setCustomValidation: true,
-                    customValidation: (String value){
-                      if(_passwordTEController.text.length < 8 || value.isEmpty){
+                    customValidation: (String value) {
+                      if (_passwordTEController.text.length < 8 ||
+                          value.isEmpty) {
                         return AppStrings.passwordLengthErrorText;
                       }
                       return null;
                     },
-                    onFieldSubmitted: (value){
-                      if(value.isNotEmpty){
-                        FocusScope.of(context).requestFocus(_confirmPasswordFocusNode);
+                    onFieldSubmitted: (value) {
+                      if (value.isNotEmpty) {
+                        FocusScope.of(context)
+                            .requestFocus(_confirmPasswordFocusNode);
                       }
                     },
                   ),
@@ -75,21 +93,22 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     controller: _confirmPasswordTEController,
                     inputType: TextInputType.text,
                     hintText: AppStrings.confirmPassTextFieldHint,
-                    onFieldSubmitted: (value){
-                      if(value.isNotEmpty){
+                    onFieldSubmitted: (value) {
+                      if (value.isNotEmpty) {
                         FocusScope.of(context).unfocus();
                       }
                     },
                     setCustomValidation: true,
-                    customValidation: (String value){
-                      if(value.isEmpty){
+                    customValidation: (String value) {
+                      if (value.isEmpty) {
                         return AppStrings.confirmPasswordErrorText;
                       }
-                      if(_passwordTEController.text != _confirmPasswordTEController.text){
+                      if (_passwordTEController.text !=
+                          _confirmPasswordTEController.text) {
                         return AppStrings.confirmPasswordErrorText;
                       }
                       return null;
-                      },
+                    },
                   ),
                 ],
               ),
@@ -98,6 +117,42 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
         },
       ),
     );
+  }
+
+  Future<void> initiatePasswordReset() async {
+    bool status = await context
+        .read<AuthViewModel>()
+        .resetPassword(_passwordTEController.text.trim());
+    if (status && mounted) {
+      callSnackBar(title: AppStrings.resetPasswordSuccessTitle,
+          content: AppStrings.resetPasswordSuccessMessage,
+          contentType: ContentType.success,
+          color: AppColor.snackBarSuccessColor);
+      Navigator.pop(context);
+      return;
+    }
+    if (mounted) {
+      Failure failure = context
+          .read<AuthViewModel>()
+          .response as Failure;
+      callSnackBar(title: AppStrings.resetPasswordFailureTitle,
+          content: failure.message,
+          contentType: ContentType.failure,
+          color: AppColor.snackBarFailureColor);
+    }
+  }
+
+  void callSnackBar({required String title,
+    required String content,
+    required ContentType contentType,
+    required Color color}) {
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(getSnackBar(
+          title: title,
+          content: content,
+          contentType: contentType,
+          color: color));
   }
 
   @override

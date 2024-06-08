@@ -5,6 +5,7 @@ class AppStrings {
   static const String signInEndpoint = "login";
   static const String recoverEmailEndpoint = "RecoverVerifyEmail";
   static const String verifyOTPEndpoint = "RecoverVerifyOTP";
+  static const String resetPasswordEndpoint = "RecoverResetPass";
   static const String unknownResponseText = "Unknown Error";
 
   //regularExpression
@@ -61,10 +62,13 @@ class AppStrings {
       "You have been registered successfully";
   static const String registrationFailureMessage =
       "Something went wrong, try again later";
-  static const String sendOTPFailureTitle = "Failed";
+  static const String sendOTPFailureTitle = "Failed!";
   static const String sendOTPFailureMessage = "No user found with this email!";
   static const String emptyPinVerificationFieldTitle = "Invalid Pin";
   static const String wrongPinVerificationFieldTitle = "Wrong Pin";
   static const String emptyPinVerificationFieldMessage = "Please insert all fields";
   static const String wrongPinVerificationFieldMessage = "Enter correct pin and try again";
+  static const String resetPasswordFailureTitle = "Failed!";
+  static const String resetPasswordSuccessTitle = "Success!";
+  static const String resetPasswordSuccessMessage = "Your password has been reset successfully";
 }

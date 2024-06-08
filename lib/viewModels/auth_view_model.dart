@@ -6,35 +6,35 @@ import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/auth_service.dart';
 import '../models/loginModels/user_data.dart';
 
-class AuthViewModel extends ChangeNotifier{
+class AuthViewModel extends ChangeNotifier {
   bool _isPasswordObscured = true;
   bool _isLoading = false;
   bool status = false;
   String _recoveryEmail = "";
+  String _OTP = "";
   late Object response;
   AuthService authService = AuthService();
   late SharedPreferences preferences;
-  Map<String,String> resetPasswordInformation = {};
+  Map<String, String> resetPasswordInformation = {};
 
   bool get isPasswordObscure => _isPasswordObscured;
+
   bool get isLoading => _isLoading;
 
-
-
-
-  void setLoading(value){
+  void setLoading(value) {
     _isLoading = value;
     notifyListeners();
   }
 
-  Future<bool> registerUser({required String email,
-    required String firstName,
-    required String lastName,
-    required String mobileNumber,
-    required String password})async {
+  Future<bool> registerUser(
+      {required String email,
+      required String firstName,
+      required String lastName,
+      required String mobileNumber,
+      required String password}) async {
     status = false;
     setLoading(true);
-    UserData userData =  UserData(
+    UserData userData = UserData(
       email: email,
       firstName: firstName,
       lastName: lastName,
@@ -44,32 +44,33 @@ class AuthViewModel extends ChangeNotifier{
     response = await authService.registration(userData);
     (response is Success) ? status = true : status = false;
     setLoading(false);
-    return(status);
+    return (status);
   }
 
-  Future<bool> signInUser({required String email, required String password}) async{
+  Future<bool> signInUser(
+      {required String email, required String password}) async {
     status = false;
     setLoading(true);
     response = await authService.signIn(email, password);
-    if(response is Success) {
+    if (response is Success) {
       LoginModel loginModel = (response as Success).response as LoginModel;
       status = true;
       preferences = await SharedPreferences.getInstance();
       saveUserData(loginModel);
-    } else{
+    } else {
       status = false;
     }
     setLoading(false);
-    return(status);
+    return (status);
   }
 
-  Future<bool> sendOTP(String email) async{
+  Future<bool> sendOTP(String email) async {
     status = false;
     setLoading(true);
     response = await authService.requestOTP(email);
-    if(response is Success){
+    if (response is Success) {
       String status = (response as Success).response as String;
-      if(status == "success"){
+      if (status == "success") {
         _recoveryEmail = email;
         setLoading(false);
         return true;
@@ -78,13 +79,34 @@ class AuthViewModel extends ChangeNotifier{
     setLoading(false);
     return false;
   }
-  Future<bool> verifyOTP(String pinCode) async{
+
+  Future<bool> verifyOTP(String otp) async {
     status = false;
     setLoading(true);
-    response = await authService.verifyOTP(pinCode,_recoveryEmail);
-    if(response is Success){
+    response = await authService.verifyOTP(otp, _recoveryEmail);
+    if (response is Success) {
       String status = (response as Success).response as String;
-      if(status == "success"){
+      if (status == "success") {
+        setLoading(false);
+        _OTP = otp;
+        return true;
+      }
+    }
+    setLoading(false);
+    return false;
+  }
+
+  Future<bool> resetPassword(String newPassword) async {
+    status = false;
+    setLoading(true);
+    resetPasswordInformation.putIfAbsent("email",()=> _recoveryEmail);
+    resetPasswordInformation.putIfAbsent("OTP",()=> _OTP);
+    resetPasswordInformation.putIfAbsent("password",()=> newPassword);
+    response = await authService.resetPassword(resetPasswordInformation);
+    if (response is Success) {
+      String status = (response as Success).response as String;
+      if (status == "success") {
+        resetPasswordInformation ={};
         setLoading(false);
         return true;
       }
@@ -93,7 +115,7 @@ class AuthViewModel extends ChangeNotifier{
     return false;
   }
 
-  void saveUserData(LoginModel loginModel){
+  void saveUserData(LoginModel loginModel) {
     preferences.setString("token", loginModel.token.toString());
     preferences.setString("email", loginModel.data!.email.toString());
     preferences.setString("firstName", loginModel.data!.firstName.toString());
@@ -102,7 +124,7 @@ class AuthViewModel extends ChangeNotifier{
     preferences.setString("photo", loginModel.data!.photo.toString());
   }
 
-  set setPasswordObscure(bool value){
+  set setPasswordObscure(bool value) {
     _isPasswordObscured = value;
     notifyListeners();
   }

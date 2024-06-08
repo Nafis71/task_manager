@@ -86,11 +86,11 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
   }
 
   Future<void> initiatePinVerification() async {
-    String pinCode = "";
+    String otp = "";
     for (TextEditingController controller in pinTEControllers) {
-      pinCode = pinCode + controller.text.trim();
+      otp = otp + controller.text.trim();
     }
-    bool status = await context.read<AuthViewModel>().verifyOTP(pinCode);
+    bool status = await context.read<AuthViewModel>().verifyOTP(otp);
     if (status && mounted) {
       Navigator.pushReplacementNamed(context, AppRoutes.setPasswordScreen);
       return;
