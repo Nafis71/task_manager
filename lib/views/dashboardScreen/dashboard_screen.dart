@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:task_manager/utils/app_assets.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_strings.dart';
@@ -23,34 +24,27 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> bottomBarIcons = const [
+    // Icons.add,
+    // Icons.watch_later_outlined,
+    // Icons.done_all, Icons.cancel_outlined
+
     Icon(Icons.add, size: 25),
     Icon(Icons.watch_later_outlined, size: 25),
     Icon(Icons.done_all, size: 25),
     Icon(Icons.cancel_outlined, size: 25),
-
   ];
   List<String> bottomBarLabels = [
     AppStrings.bottomBarAdd,
     AppStrings.bottomBarProgress,
     AppStrings.bottomBarCompleted,
     AppStrings.bottomBarCanceled,
-
   ];
   late final List<BottomNavigationBarItem> bottomNavigationBarItem;
 
   @override
   void initState() {
-    bottomNavigationBarItem = List.generate(
-      4,
-      (index) => BottomNavigationBarItem(
-        icon: bottomBarIcons[index],
-        label: bottomBarLabels[index],
-      ),
-    );
     super.initState();
   }
-
-
 
   List<Widget> screens = const [
     NewTaskAddScreen(),
@@ -107,23 +101,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {}, backgroundColor: AppColor.appPrimaryColor,
+        child: const Icon(Icons.add, size: 27),
+        //params
+      ),
+
       bottomNavigationBar: Consumer<DashboardViewModel>(
         builder: (context, viewModel, child) {
-          return BottomNavigationBar(
-            enableFeedback: true,
-            useLegacyColorScheme: false,
-            elevation: 0,
-            type: BottomNavigationBarType.shifting,
-            showUnselectedLabels: false,
-            selectedItemColor: AppColor.bottomBarSelectedColor,
-            unselectedItemColor: AppColor.bottomBarUnselectedColor,
-            backgroundColor: AppColor.bottomBarBackgroundColor,
-            selectedFontSize: 12,
+          return SalomonBottomBar(
             currentIndex: viewModel.index,
-            onTap: (value) {
-              viewModel.setIndex = value;
-            },
-            items: bottomNavigationBarItem,
+            onTap: (index) => viewModel.setIndex = index,
+            items: [
+              SalomonBottomBarItem(
+                icon: const Icon(Icons.add),
+                title: const Text("New Task"),
+                selectedColor: AppColor.appPrimaryColor,
+              ),
+              SalomonBottomBarItem(
+                icon: const Icon(Icons.watch_later_outlined),
+                title: const Text("Progress"),
+                selectedColor: AppColor.appPrimaryColor,
+              ),
+
+              SalomonBottomBarItem(
+                icon: const Icon(Icons.done_outline_rounded),
+                title: const Text("Completed"),
+                selectedColor: AppColor.appPrimaryColor,
+              ),
+
+              SalomonBottomBarItem(
+                icon: const Icon(Icons.cancel_outlined),
+                title: const Text("Canceled"),
+                selectedColor: AppColor.appPrimaryColor,
+              ),
+            ],
           );
         },
       ),
