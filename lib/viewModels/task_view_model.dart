@@ -37,7 +37,7 @@ class TaskViewModel extends ChangeNotifier{
         _taskStatusData = List.from(taskStatusCountModel.statusData as Iterable);
         for(StatusData data in _taskStatusData){
           if(data.sId != null){
-            taskStatusCount.putIfAbsent(data.sId.toString(), ()=> data.sum.toString());
+            taskStatusCount[data.sId.toString()] = data.sum.toString();
           }
         }
       }
