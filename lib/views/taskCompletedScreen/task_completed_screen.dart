@@ -19,7 +19,7 @@ class _TaskCompletedScreenState extends State<TaskCompletedScreen> {
   @override
   void initState() {
     super.initState();
-    fetchStatusData();
+    fetchListData();
   }
 
   @override
@@ -31,7 +31,7 @@ class _TaskCompletedScreenState extends State<TaskCompletedScreen> {
         child: RefreshIndicator(
           color: AppColor.appPrimaryColor,
           onRefresh: () async {
-            await fetchStatusData();
+            await fetchListData();
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,13 +56,6 @@ class _TaskCompletedScreenState extends State<TaskCompletedScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> fetchStatusData() async {
-    await context
-        .read<TaskViewModel>()
-        .fetchTaskStatusData(context.read<UserViewModel>().token);
-    await fetchListData();
   }
 
   Future<void> fetchListData() async {
