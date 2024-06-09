@@ -3,8 +3,11 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/app_color.dart';
+import '../../utils/app_strings.dart';
 import '../../viewModels/task_view_model.dart';
 import '../../viewModels/user_view_model.dart';
+import '../widgets/loading_layout.dart';
+import '../widgets/no_data_layout.dart';
 import '../widgets/task_list_card.dart';
 
 class TaskCancelledScreen extends StatefulWidget {
@@ -37,12 +40,11 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
                 if (viewModel.taskDataByStatus["Canceled"] == null) {
-                  return const Expanded(
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: AppColor.appPrimaryColor,
-                      ),
-                    ),
+                  return const LoadingLayout();
+                }
+                if (viewModel.taskDataByStatus["Canceled"]!.isEmpty) {
+                  return const NoDataLayout(
+                    noDataMessage: AppStrings.noNewCanceledData,
                   );
                 }
                 return TaskListCard(

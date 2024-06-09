@@ -39,7 +39,8 @@ class AppStrings {
   static const String signUpHeaderText = "Join With Us";
   static const String emailErrorText = "Invalid email address";
   static const String passwordErrorText = "Invalid password";
-  static const String passwordLengthErrorText = "Please give at least 8 characters";
+  static const String passwordLengthErrorText =
+      "Please give at least 8 characters";
   static const String confirmPasswordErrorText = "Password didn't match";
   static const String firstNameErrorText = "Invalid first name";
   static const String lastNameErrorText = "Invalid last name";
@@ -69,9 +70,23 @@ class AppStrings {
   static const String sendOTPFailureMessage = "No user found with this email!";
   static const String emptyPinVerificationFieldTitle = "Invalid Pin";
   static const String wrongPinVerificationFieldTitle = "Wrong Pin";
-  static const String emptyPinVerificationFieldMessage = "Please insert all fields";
-  static const String wrongPinVerificationFieldMessage = "Enter correct pin and try again";
+  static const String emptyPinVerificationFieldMessage =
+      "Please insert all fields";
+  static const String wrongPinVerificationFieldMessage =
+      "Enter correct pin and try again";
   static const String resetPasswordFailureTitle = "Failed!";
   static const String resetPasswordSuccessTitle = "Success!";
-  static const String resetPasswordSuccessMessage = "Your password has been reset successfully";
+  static const String resetPasswordSuccessMessage =
+      "Your password has been reset successfully";
+  static const String taskItemDeleteSuccessTitle = "Success!";
+  static const String taskItemDeleteFailedTitle = "Failed!";
+  static const String taskItemDeleteSuccessMessage =
+      "Task has been deleted successfully";
+  static const String taskItemDeleteFailureMessage =
+      "Item failed to delete, try again";
+
+  //noData
+  static const String noNewTaskData = "Your new task list is currently empty";
+  static const String noNewCanceledData =
+      "Your canceled task list is currently empty";
 }

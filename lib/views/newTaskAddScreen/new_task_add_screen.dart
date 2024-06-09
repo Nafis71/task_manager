@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/utils/app_assets.dart';
 import 'package:task_manager/utils/app_color.dart';
+import 'package:task_manager/utils/app_strings.dart';
+import 'package:task_manager/views/widgets/loading_layout.dart';
+import 'package:task_manager/views/widgets/no_data_layout.dart';
 import 'package:task_manager/views/widgets/task_list_card.dart';
 import 'package:task_manager/views/widgets/task_status_card.dart';
+import 'package:task_manager/wrappers/svg_image_loader.dart';
 
 import '../../viewModels/task_view_model.dart';
 import '../../viewModels/user_view_model.dart';
@@ -27,6 +32,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.all(8.0),
@@ -79,11 +85,12 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
                 if (viewModel.taskDataByStatus["New"] == null) {
-                  return const Expanded(
-                      child: Center(
-                          child: CircularProgressIndicator(
-                    color: AppColor.appPrimaryColor,
-                  )));
+                  return const LoadingLayout();
+                }
+                if (viewModel.taskDataByStatus["New"]!.isEmpty) {
+                  return const NoDataLayout(
+                    noDataMessage: AppStrings.noNewTaskData,
+                  );
                 }
                 return TaskListCard(
                   screenWidth: screenWidth,

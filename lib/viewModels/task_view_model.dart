@@ -6,36 +6,41 @@ import 'package:task_manager/models/taskStatusCountModels/task_status_count_mode
 import 'package:task_manager/services/task_service.dart';
 import '../models/taskStatusCountModels/status_data.dart';
 
-class TaskViewModel extends ChangeNotifier{
-  List<StatusData> _taskStatusData =[];
+class TaskViewModel extends ChangeNotifier {
+  List<StatusData> _taskStatusData = [];
   Map<String, List<TaskData>> _taskDataByStatus = {};
-  Map<String,String> taskStatusCount ={};
+  Map<String, String> taskStatusCount = {};
+  Map<String, int> selectedIndex = {};
   bool _isLoading = false;
   bool _shouldRefresh = false;
   late Object response;
   TaskService taskService = TaskService();
+
   bool get isLoading => _isLoading;
+
   bool get shouldRefresh => _shouldRefresh;
 
-  void setShouldRefresh(bool value){
+  void setShouldRefresh(bool value) {
     _isLoading = value;
     _shouldRefresh = value;
     notifyListeners();
   }
 
-
-
   List<StatusData> get taskStatusData => _taskStatusData;
+
   Map<String, List<TaskData>> get taskDataByStatus => _taskDataByStatus;
 
-  Future<void> fetchTaskStatusData(String token) async{
+  Future<void> fetchTaskStatusData(String token) async {
     response = await taskService.fetchTaskStatusCount(token);
-    if(response is Success){
-      TaskStatusCountModel taskStatusCountModel = (response as Success).response as TaskStatusCountModel;
-      if(taskStatusCountModel.statusData != null && taskStatusCountModel.statusData!.isNotEmpty){
-        _taskStatusData = List.from(taskStatusCountModel.statusData as Iterable);
-        for(StatusData data in _taskStatusData){
-          if(data.sId != null){
+    if (response is Success) {
+      TaskStatusCountModel taskStatusCountModel =
+          (response as Success).response as TaskStatusCountModel;
+      if (taskStatusCountModel.statusData != null &&
+          taskStatusCountModel.statusData!.isNotEmpty) {
+        _taskStatusData =
+            List.from(taskStatusCountModel.statusData as Iterable);
+        for (StatusData data in _taskStatusData) {
+          if (data.sId != null) {
             taskStatusCount[data.sId.toString()] = data.sum.toString();
           }
         }
@@ -43,24 +48,34 @@ class TaskViewModel extends ChangeNotifier{
     }
   }
 
-  Future<void> fetchTaskList(String token, String taskStatus) async{
+  Future<void> fetchTaskList(String token, String taskStatus) async {
     response = await taskService.fetchTaskList(taskStatus, token);
-    if(response is Success){
-      TaskListModel taskListModel = (response as Success).response as TaskListModel;
-      if(taskListModel.taskData != null && taskListModel.taskData!.isNotEmpty){
-        _taskDataByStatus[taskStatus] = List.from(taskListModel.taskData as Iterable);
+    if (response is Success) {
+      TaskListModel taskListModel =
+          (response as Success).response as TaskListModel;
+      if (taskListModel.taskData != null) {
+        _taskDataByStatus[taskStatus] =
+            List.from(taskListModel.taskData as Iterable);
         setShouldRefresh(false);
       }
     }
   }
 
-  Future<void> deleteTask(String token, String taskId, String taskStatus) async{
+  Future<bool> deleteTask(
+      String token, String taskId, String taskStatus, int index) async {
+    selectedIndex[taskStatus] = index;
+    notifyListeners();
     response = await taskService.deleteTask(taskId, token);
-    if(response is Success){
-      _taskDataByStatus[taskStatus]?.removeWhere((taskData)=> taskData.sId == taskId);
+    if (response is Success) {
+      _taskDataByStatus[taskStatus]
+          ?.removeWhere((taskData) => taskData.sId == taskId);
+      selectedIndex[taskStatus] = -1;
       notifyListeners();
+      return true;
+    } else {
+      selectedIndex[taskStatus] = -1;
+      notifyListeners();
+      return false;
     }
   }
-
-
 }
