@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:provider/provider.dart';
+import 'package:task_manager/viewModels/task_view_model.dart';
+import 'package:task_manager/viewModels/user_view_model.dart';
 
 import '../../models/taskListModel/task_data.dart';
 import '../../utils/app_color.dart';
@@ -11,7 +14,10 @@ class TaskListCard extends StatelessWidget {
   final Color chipColor;
 
   const TaskListCard(
-      {super.key, required this.screenWidth, required this.taskData, required this.chipColor});
+      {super.key,
+      required this.screenWidth,
+      required this.taskData,
+      required this.chipColor});
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +75,7 @@ class TaskListCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               PopupMenuButton(
-                                onSelected: (value){
-                                },
+                                  onSelected: (value) {},
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   elevation: 4,
@@ -80,45 +85,62 @@ class TaskListCard extends StatelessWidget {
                                   ),
                                   itemBuilder: (context) {
                                     return [
-                                       const PopupMenuItem(
-                                         value: "Completed",
+                                      const PopupMenuItem(
+                                        value: "Completed",
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.done_outline_rounded,color: AppColor.completedChipColor,),
+                                            Icon(
+                                              Icons.done_outline_rounded,
+                                              color:
+                                                  AppColor.completedChipColor,
+                                            ),
                                             Gap(8),
                                             Text("Completed"),
                                           ],
                                         ),
                                       ),
                                       PopupMenuItem(
-                                         value: "Progress",
+                                        value: "Progress",
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.watch_later_outlined,color: AppColor.progressChipColor,),
+                                            Icon(
+                                              Icons.watch_later_outlined,
+                                              color: AppColor.progressChipColor,
+                                            ),
                                             const Gap(8),
                                             const Text("Progress"),
                                           ],
                                         ),
                                       ),
-                                       PopupMenuItem(
-                                         value: "Cancel",
+                                      PopupMenuItem(
+                                        value: "Cancel",
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.cancel_outlined,color: AppColor.canceledChipColor,),
+                                            Icon(
+                                              Icons.cancel_outlined,
+                                              color: AppColor.canceledChipColor,
+                                            ),
                                             const Gap(8),
                                             const Text("Cancel"),
                                           ],
                                         ),
                                       ),
                                       PopupMenuItem(
-                                         value: "New",
+                                        value: "New",
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.add,color: AppColor.newTaskChipColor,),
+                                            Icon(
+                                              Icons.add,
+                                              color: AppColor.newTaskChipColor,
+                                            ),
                                             const Gap(8),
                                             const Text("New"),
                                           ],
@@ -127,7 +149,12 @@ class TaskListCard extends StatelessWidget {
                                     ];
                                   }),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.read<TaskViewModel>().deleteTask(
+                                      context.read<UserViewModel>().token,
+                                      taskData[index].sId.toString(),
+                                      taskData[index].status.toString());
+                                },
                                 icon: const Icon(
                                   Ionicons.trash,
                                   color: AppColor.deleteIconColor,

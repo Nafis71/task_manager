@@ -63,4 +63,28 @@ class TaskService {
     }
     return finalResponse;
   }
+  Future<Object> deleteTask(String taskId, String token) async {
+    try {
+      Response response = await http.get(
+          Uri.parse(
+              "${AppStrings.baseUrl}${AppStrings.deleteTaskEndpoint}/$taskId"),
+          headers: {"token": token}
+      );
+      if(response.statusCode == 200){
+        Map<String,dynamic> jsonData = jsonDecode(response.body);
+        finalResponse =  Success(response: jsonData["status"]);
+      } else{
+        finalResponse = Failure(
+            response.statusCode,
+            ResponseCode.httpStatusMessages[response.statusCode] ??
+                AppStrings.unknownResponseText);
+      }
+    } catch (exception) {
+      if (kDebugMode) {
+        debugPrint(exception.toString());
+      }
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
+    }
+    return finalResponse;
+  }
 }

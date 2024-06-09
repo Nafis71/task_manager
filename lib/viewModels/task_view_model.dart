@@ -12,7 +12,6 @@ class TaskViewModel extends ChangeNotifier{
   Map<String,String> taskStatusCount ={};
   bool _isLoading = false;
   bool _shouldRefresh = false;
-  bool status = false;
   late Object response;
   TaskService taskService = TaskService();
   bool get isLoading => _isLoading;
@@ -45,7 +44,6 @@ class TaskViewModel extends ChangeNotifier{
   }
 
   Future<void> fetchTaskList(String token, String taskStatus) async{
-    status = false;
     response = await taskService.fetchTaskList(taskStatus, token);
     if(response is Success){
       TaskListModel taskListModel = (response as Success).response as TaskListModel;
@@ -53,6 +51,14 @@ class TaskViewModel extends ChangeNotifier{
         _taskDataByStatus[taskStatus] = List.from(taskListModel.taskData as Iterable);
         setShouldRefresh(false);
       }
+    }
+  }
+
+  Future<void> deleteTask(String token, String taskId, String taskStatus) async{
+    response = await taskService.deleteTask(taskId, token);
+    if(response is Success){
+      _taskDataByStatus[taskStatus]?.removeWhere((taskData)=> taskData.sId == taskId);
+      notifyListeners();
     }
   }
 
