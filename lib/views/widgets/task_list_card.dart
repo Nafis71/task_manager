@@ -23,6 +23,9 @@ class TaskListCard extends StatelessWidget {
               width: screenWidth,
               child: Card(
                 elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 18.0, vertical: 13.00),
@@ -45,7 +48,7 @@ class TaskListCard extends StatelessWidget {
                       ),
                       const Gap(10),
                       Text(
-                        taskData[index].createdDate.toString().replaceAll("-", "/"),
+                        "Date: ${taskData[index].createdDate.toString().replaceAll("-", "/")}",
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const Gap(5),
