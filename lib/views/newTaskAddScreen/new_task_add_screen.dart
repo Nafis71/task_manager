@@ -32,7 +32,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
         margin: const EdgeInsets.all(8.0),
         child: RefreshIndicator(
           color: AppColor.appPrimaryColor,
-          onRefresh: ()async{
+          onRefresh: () async {
             await fetchStatusData();
           },
           child: Column(
@@ -42,7 +42,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Consumer<TaskViewModel>(
                   builder: (_, viewModel, __) {
-                    if(viewModel.taskStatusCount.isEmpty){
+                    if (viewModel.taskStatusCount.isEmpty) {
                       return const SizedBox.shrink();
                     }
                     return Row(
@@ -79,11 +79,17 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
                 if (viewModel.taskDataByStatus["New"] == null) {
-                  return const Expanded(child: Center(child: CircularProgressIndicator(color: AppColor.appPrimaryColor,)));
+                  return const Expanded(
+                      child: Center(
+                          child: CircularProgressIndicator(
+                    color: AppColor.appPrimaryColor,
+                  )));
                 }
                 return TaskListCard(
-                    screenWidth: screenWidth,
-                    taskData: viewModel.taskDataByStatus["New"]!);
+                  screenWidth: screenWidth,
+                  taskData: viewModel.taskDataByStatus["New"]!,
+                  chipColor: AppColor.newTaskChipColor,
+                );
               })
             ],
           ),

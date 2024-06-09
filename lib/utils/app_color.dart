@@ -18,6 +18,9 @@ class AppColor{
   static const Color bottomBarSelectedColor = appPrimaryColor;
   static const Color bottomBarBackgroundColor = scaffoldBackgroundColor;
   static Color newTaskChipColor = const Color(0xFF17C1E8);
+  static const Color completedChipColor = appPrimaryColor;
+  static Color progressChipColor = const Color(0xFFCB0C9F);
+  static Color canceledChipColor = const Color(0xFFF15056);
   static const Color newTaskChipTextColor = Colors.white;
   static const Color deleteIconColor = Colors.red;
   static const Color editIconColor = appPrimaryColor;
