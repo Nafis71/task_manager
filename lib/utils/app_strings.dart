@@ -87,6 +87,8 @@ class AppStrings {
 
   //noData
   static const String noNewTaskData = "Your new task list is currently empty";
+  static const String noCompletedTaskData = "You haven't completed any task yet";
+  static const String noProgressTaskData = "There is no on going task for you now";
   static const String noNewCanceledData =
       "Your canceled task list is currently empty";
 }
