@@ -40,57 +40,59 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       appBar: getApplicationAppBar(context),
       body: OrientationBuilder(builder: (context, orientation) {
         return BackgroundWidget(
-            childWidget: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppStrings.addTaskScreenTitle,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                const Gap(15),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      AppTextField(
-                        focusNode: subjectFocusNode,
-                        controller: subjectTEController,
-                        inputType: TextInputType.text,
-                        hintText: AppStrings.subjectTextFieldHint,
-                      ),
-                      const Gap(15),
-                      AppTextField(
-                        focusNode: descriptionFocusNode,
-                        controller: descriptionTEController,
-                        inputType: TextInputType.text,
-                        hintText: AppStrings.descriptionTextFieldHint,
-                        maxLines: 16,
-                        minLines: 10,
-                      ),
-                      const Gap(25),
-                      AppElevatedButton(
-                        screenWidth: screenWidth,
-                        onPressed: (viewModel) {},
-                        loadingChild: const CircularProgressbar(
-                            color: AppColor.circularProgressbarColor),
-                        placeHolderChild: const Icon(
-                          Icons.arrow_circle_right_outlined,
-                          size: 30,
-                        ),
-                      ),
-                    ],
+          childWidget: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppStrings.addTaskScreenTitle,
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
-                )
-              ],
+                  const Gap(15),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        AppTextField(
+                          focusNode: subjectFocusNode,
+                          controller: subjectTEController,
+                          inputType: TextInputType.text,
+                          hintText: AppStrings.subjectTextFieldHint,
+                        ),
+                        const Gap(15),
+                        AppTextField(
+                          focusNode: descriptionFocusNode,
+                          controller: descriptionTEController,
+                          inputType: TextInputType.text,
+                          hintText: AppStrings.descriptionTextFieldHint,
+                          maxLines: 16,
+                          minLines: 10,
+                        ),
+                        const Gap(25),
+                        AppElevatedButton(
+                          screenWidth: screenWidth,
+                          onPressed: (viewModel) {},
+                          loadingChild: const CircularProgressbar(
+                              color: AppColor.circularProgressbarColor),
+                          placeHolderChild: const Icon(
+                            Icons.arrow_circle_right_outlined,
+                            size: 30,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
-        ));
+        );
       }),
     );
   }
+
   @override
   void dispose() {
     subjectTEController.dispose();
