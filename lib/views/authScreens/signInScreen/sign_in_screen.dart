@@ -10,9 +10,10 @@ import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
-import 'package:task_manager/views/signInScreen/sign_in_screen_form.dart';
+import 'package:task_manager/views/authScreens/signInScreen/sign_in_screen_form.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
-import '../widgets/background_widget.dart';
+
+import '../../widgets/background_widget.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

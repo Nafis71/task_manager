@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:task_manager/views/widgets/app_elevated_button.dart';
-import 'package:task_manager/views/widgets/circular_progressbar.dart';
 
-import '../../utils/app_color.dart';
-import '../../utils/app_strings.dart';
-import '../../viewModels/auth_view_model.dart';
-import '../widgets/app_textfield.dart';
+import '../../../utils/app_color.dart';
+import '../../../utils/app_strings.dart';
+import '../../../viewModels/auth_view_model.dart';
+import '../../widgets/app_elevated_button.dart';
+import '../../widgets/app_textfield.dart';
+import '../../widgets/circular_progressbar.dart';
 
-class SignUpForm extends StatelessWidget {
+class SignInScreenForm extends StatelessWidget {
   final TextEditingController emailTEController;
   final TextEditingController passwordTEController;
-  final TextEditingController firstNameTEController;
-  final TextEditingController lastNameTEController;
-  final TextEditingController mobileNumberTEController;
   final GlobalKey<FormState> formKey;
-  final FocusNode emailFocusNode,
-      passwordFocusNode,
-      firstNameFocusNode,
-      lastNameFocusNode,
-      mobileNumberFocusNode;
-  final Function registerUser;
+  final FocusNode emailFocusNode, passwordFocusNode;
   final double screenWidth;
+  final Function initiateSignIn;
 
-  const SignUpForm(
+  const SignInScreenForm(
       {super.key,
       required this.emailTEController,
       required this.passwordTEController,
@@ -32,13 +25,7 @@ class SignUpForm extends StatelessWidget {
       required this.emailFocusNode,
       required this.passwordFocusNode,
       required this.screenWidth,
-      required this.firstNameTEController,
-      required this.lastNameTEController,
-      required this.mobileNumberTEController,
-      required this.firstNameFocusNode,
-      required this.lastNameFocusNode,
-      required this.mobileNumberFocusNode,
-      required this.registerUser});
+      required this.initiateSignIn});
 
   @override
   Widget build(BuildContext context) {
@@ -53,46 +40,9 @@ class SignUpForm extends StatelessWidget {
             hintText: AppStrings.emailTextFieldHint,
             regEx: AppStrings.emailRegEx,
             onFieldSubmitted: (value) {
-              FocusScope.of(context).requestFocus(firstNameFocusNode);
-            },
-            errorText: AppStrings.emailErrorText,
-          ),
-          const Gap(15),
-          AppTextField(
-            inputType: TextInputType.name,
-            focusNode: firstNameFocusNode,
-            controller: firstNameTEController,
-            hintText: AppStrings.firstNameTextFieldHint,
-            regEx: AppStrings.nameRegEX,
-            onFieldSubmitted: (value) {
-              FocusScope.of(context).requestFocus(lastNameFocusNode);
-            },
-            errorText: AppStrings.firstNameErrorText,
-          ),
-          const Gap(15),
-          AppTextField(
-            inputType: TextInputType.name,
-            focusNode: lastNameFocusNode,
-            controller: lastNameTEController,
-            hintText: AppStrings.lastNameTextFieldHint,
-            regEx: AppStrings.nameRegEX,
-            onFieldSubmitted: (value) {
-              FocusScope.of(context).requestFocus(mobileNumberFocusNode);
-            },
-            errorText: AppStrings.lastNameErrorText,
-          ),
-          const Gap(15),
-          AppTextField(
-            inputType: TextInputType.number,
-            focusNode: mobileNumberFocusNode,
-            controller: mobileNumberTEController,
-            hintText: AppStrings.mobileNumberTextFieldHint,
-            regEx: AppStrings.digitsRegEx,
-            maxLength: 11,
-            onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(passwordFocusNode);
             },
-            errorText: AppStrings.mobileNumberErrorText,
+            errorText: AppStrings.emailErrorText,
           ),
           const Gap(15),
           Consumer<AuthViewModel>(
@@ -111,7 +61,7 @@ class SignUpForm extends StatelessWidget {
             screenWidth: screenWidth,
             onPressed: (viewModel) {
               if (formKey.currentState!.validate() && !viewModel.isLoading) {
-                registerUser();
+                initiateSignIn();
               }
               FocusScope.of(context).unfocus();
             },

@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_strings.dart';
-import 'package:task_manager/views/signUpScreen/sign_up_form.dart';
+import 'package:task_manager/views/authScreens/signUpScreen/sign_up_form.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
 import 'package:task_manager/views/widgets/sign_in_bottom_text.dart';
 
-import '../../utils/app_color.dart';
-import '../../utils/app_routes.dart';
-import '../../viewModels/auth_view_model.dart';
+import '../../../utils/app_color.dart';
+import '../../../viewModels/auth_view_model.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
