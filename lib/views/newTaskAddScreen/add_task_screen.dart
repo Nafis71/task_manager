@@ -70,7 +70,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         maxLines: 16,
                         minLines: 10,
                       ),
-                      const Gap(20),
+                      const Gap(25),
                       AppElevatedButton(
                         screenWidth: screenWidth,
                         onPressed: (viewModel) {},
