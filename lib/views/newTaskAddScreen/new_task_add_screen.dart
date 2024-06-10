@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_assets.dart';
 import 'package:task_manager/utils/app_color.dart';
+import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/views/widgets/loading_layout.dart';
 import 'package:task_manager/views/widgets/no_data_layout.dart';
@@ -101,6 +102,13 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, AppRoutes.addTaskScreen);
+        }, backgroundColor: AppColor.appPrimaryColor,
+        child: const Icon(Icons.add, size: 27),
+        //params
       ),
     );
   }

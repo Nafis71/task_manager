@@ -17,6 +17,8 @@ class AppTextField extends StatelessWidget {
   final bool disableValidation, setCustomValidation;
   final Function(String value)? onChanged, customValidation;
   final OutlineInputBorder? outlineInputBorder;
+  final bool expands;
+  final int? maxLines,minLines;
 
   const AppTextField({
     super.key,
@@ -36,7 +38,10 @@ class AppTextField extends StatelessWidget {
     this.disableValidation = false,
     this.textStyle,
     this.textAlign,
+    this.maxLines = 1,
+    this.minLines = 1,
     this.outlineInputBorder,
+    this.expands = false,
   });
 
   @override
@@ -49,7 +54,10 @@ class AppTextField extends StatelessWidget {
       autofocus: false,
       controller: controller,
       maxLength: maxLength,
+      maxLines: maxLines,
+      minLines: minLines,
       obscureText: isObscureText,
+      expands: expands,
       obscuringCharacter: AppStrings.obscuringChar,
       cursorColor: AppColor.appPrimaryColor,
       decoration: InputDecoration(
