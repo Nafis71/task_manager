@@ -39,7 +39,7 @@ class TaskViewModel extends ChangeNotifier {
           taskStatusCountModel.statusData!.isNotEmpty) {
         _taskStatusData =
             List.from(taskStatusCountModel.statusData as Iterable);
-        taskStatusCount ={};
+        taskStatusCount = {};
         for (StatusData data in _taskStatusData) {
           if (data.sId != null) {
             taskStatusCount[data.sId.toString()] = data.sum.toString();
@@ -55,26 +55,51 @@ class TaskViewModel extends ChangeNotifier {
       TaskListModel taskListModel =
           (response as Success).response as TaskListModel;
       if (taskListModel.taskData != null) {
-        List<TaskData> taskData =
-            List.from(taskListModel.taskData as Iterable);
+        List<TaskData> taskData = List.from(taskListModel.taskData as Iterable);
         _taskDataByStatus[taskStatus] = taskData.reversed.toList();
         notifyListeners();
       }
     }
   }
 
-  Future<bool> createTask(String token, String taskSubject, String taskDescription) async{
+  Future<bool> createTask(
+      String token, String taskSubject, String taskDescription) async {
     setShouldRefresh(true);
-    Map<String,String> taskData = {
+    Map<String, String> taskData = {
       "title": taskSubject,
       "description": taskDescription,
-      "status":"New"
+      "status": "New"
     };
     response = await taskService.createTask(token, taskData);
-    if(response is Success){
+    if (response is Success) {
       setShouldRefresh(false);
       return true;
     }
+    setShouldRefresh(false);
+    return false;
+  }
+
+  Future<bool> updateTask(
+      {required String token,
+      required String taskId,
+      required String taskStatus,
+      required String currentScreenStatus,
+      required int index}) async {
+    setShouldRefresh(true);
+    selectedIndex[currentScreenStatus] = index;
+    response = await taskService.updateTask(token, taskId, taskStatus);
+    if (response is Success) {
+      List<TaskData> tempData = _taskDataByStatus[currentScreenStatus]!.where((taskData) => taskData.sId == taskId).toList();
+      _taskDataByStatus[currentScreenStatus]!.removeWhere((taskData)=> taskData.sId == taskId);
+      _taskDataByStatus[taskStatus]!.add(tempData[0]);
+      _taskDataByStatus[taskStatus]!.reversed.toList();
+      selectedIndex[currentScreenStatus] = -1;
+      taskStatusCount[currentScreenStatus] = (int.parse(taskStatusCount[currentScreenStatus].toString()) - 1).toString();
+      taskStatusCount[taskStatus] = (int.parse(taskStatusCount[taskStatus].toString()) + 1).toString();
+      setShouldRefresh(false);
+      return true;
+    }
+    selectedIndex[currentScreenStatus] = -1;
     setShouldRefresh(false);
     return false;
   }

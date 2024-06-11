@@ -10,6 +10,7 @@ class AppStrings {
   static const String listTaskByStatusEndpoint = "listTaskByStatus";
   static const String deleteTaskEndpoint = "deleteTask";
   static const String createTaskEndpoint = "createTask";
+  static const String updateTaskEndpoint = "updateTaskStatus";
   static const String unknownResponseText = "Unknown Error";
 
   //regularExpression

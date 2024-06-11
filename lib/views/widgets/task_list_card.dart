@@ -17,18 +17,17 @@ class TaskListCard extends StatelessWidget {
   final List<TaskData> taskData;
   final Color chipColor;
 
-  const TaskListCard({super.key,
-    required this.screenWidth,
-    required this.taskData,
-    required this.chipColor});
+  const TaskListCard(
+      {super.key,
+      required this.screenWidth,
+      required this.taskData,
+      required this.chipColor});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
           itemBuilder: (context, index) {
-            String consumerKey = UniqueKey().toString();
-            Key uKey = UniqueKey();
             return SizedBox(
               width: screenWidth,
               child: Card(
@@ -44,10 +43,7 @@ class TaskListCard extends StatelessWidget {
                     children: [
                       Text(
                         taskData[index].title.toString(),
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleMedium,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       SizedBox(
                         width: screenWidth * 0.8,
@@ -56,20 +52,13 @@ class TaskListCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.justify,
                           taskData[index].description.toString(),
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodySmall,
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
                       const Gap(10),
                       Text(
-                        "Date: ${taskData[index].createdDate.toString()
-                            .replaceAll("-", "/")}",
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleSmall,
+                        "Date: ${taskData[index].createdDate.toString().replaceAll("-", "/")}",
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const Gap(5),
                       Row(
@@ -90,7 +79,9 @@ class TaskListCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               PopupMenuButton(
-                                  onSelected: (value) {},
+                                  onSelected: (value) async {
+                                    await updateItem(context, index, value);
+                                  },
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   elevation: 4,
@@ -104,12 +95,12 @@ class TaskListCard extends StatelessWidget {
                                         value: "Completed",
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.done_outline_rounded,
                                               color:
-                                              AppColor.completedChipColor,
+                                                  AppColor.completedChipColor,
                                             ),
                                             Gap(8),
                                             Text("Completed"),
@@ -120,7 +111,7 @@ class TaskListCard extends StatelessWidget {
                                         value: "Progress",
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.watch_later_outlined,
@@ -132,10 +123,10 @@ class TaskListCard extends StatelessWidget {
                                         ),
                                       ),
                                       PopupMenuItem(
-                                        value: "Cancel",
+                                        value: "Canceled",
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.cancel_outlined,
@@ -150,7 +141,7 @@ class TaskListCard extends StatelessWidget {
                                         value: "New",
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.add,
@@ -176,11 +167,16 @@ class TaskListCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Consumer<TaskViewModel>(
-                          builder: (_,viewModel,__){
-                        if(context.mounted && viewModel.selectedIndex.containsKey(taskData[index].status)){
-                          if(viewModel.selectedIndex.containsValue(index)){
-                            return const SizedBox(height: 1,child: LinearProgressIndicator(color: AppColor.appPrimaryColor,));
+                      Consumer<TaskViewModel>(builder: (_, viewModel, __) {
+                        if (context.mounted &&
+                            viewModel.selectedIndex
+                                .containsKey(taskData[index].status)) {
+                          if (viewModel.selectedIndex.containsValue(index)) {
+                            return const SizedBox(
+                                height: 1,
+                                child: LinearProgressIndicator(
+                                  color: AppColor.appPrimaryColor,
+                                ));
                           }
                         }
                         return const SizedBox.shrink();
@@ -198,29 +194,47 @@ class TaskListCard extends StatelessWidget {
     );
   }
 
-  Future<void> itemDeletion(BuildContext context, int index) async {
-    bool status = await context.read<TaskViewModel>().deleteTask(
-      context
-          .read<UserViewModel>()
-          .token,
-      taskData[index].sId.toString(),
-      taskData[index].status.toString(),
-      index
-      ,
-    );
+  Future<void> updateItem(BuildContext context, int index, String value) async {
+    bool status = await context.read<TaskViewModel>().updateTask(
+        token: context.read<UserViewModel>().token,
+        taskId: taskData[index].sId.toString(),
+        taskStatus: value,
+        currentScreenStatus: taskData[index].status.toString(),
+        index: index);
     if (status && context.mounted) {
       ScaffoldMessenger.of(context)
         ..clearSnackBars()
-        ..showSnackBar(getSnackBar(title: AppStrings.taskItemDeleteSuccessTitle,
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.taskItemDeleteSuccessTitle,
             content: AppStrings.taskItemDeleteSuccessMessage,
             contentType: ContentType.success,
             color: AppColor.snackBarSuccessColor));
       return;
     }
-    if(context.mounted){
+  }
+
+  Future<void> itemDeletion(BuildContext context, int index) async {
+    bool status = await context.read<TaskViewModel>().deleteTask(
+          context.read<UserViewModel>().token,
+          taskData[index].sId.toString(),
+          taskData[index].status.toString(),
+          index,
+        );
+    if (status && context.mounted) {
       ScaffoldMessenger.of(context)
         ..clearSnackBars()
-        ..showSnackBar(getSnackBar(title: AppStrings.taskItemDeleteFailedTitle,
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.taskItemDeleteSuccessTitle,
+            content: AppStrings.taskItemDeleteSuccessMessage,
+            contentType: ContentType.success,
+            color: AppColor.snackBarSuccessColor));
+      return;
+    }
+    if (context.mounted) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.taskItemDeleteFailedTitle,
             content: AppStrings.taskItemDeleteFailureMessage,
             contentType: ContentType.failure,
             color: AppColor.snackBarFailureColor));

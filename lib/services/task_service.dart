@@ -67,8 +67,32 @@ class TaskService {
     try {
       Response response = await http.post(
           Uri.parse("${AppStrings.baseUrl}${AppStrings.createTaskEndpoint}"),
-          headers: {"content-type": "application/json", "token":token},
+          headers: {"content-type": "application/json", "token": token},
           body: jsonEncode(taskData));
+      if (response.statusCode == 200) {
+        finalResponse = Success();
+      } else {
+        finalResponse = Failure(
+            response.statusCode,
+            ResponseCode.httpStatusMessages[response.statusCode] ??
+                AppStrings.unknownResponseText);
+      }
+    } catch (exception) {
+      if (kDebugMode) {
+        debugPrint(exception.toString());
+      }
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
+    }
+    return finalResponse;
+  }
+
+  Future<Object> updateTask(
+      String token, String taskId, String taskStatus) async {
+    try {
+      Response response = await http.get(
+          Uri.parse(
+              "${AppStrings.baseUrl}${AppStrings.updateTaskEndpoint}/$taskId/$taskStatus"),
+          headers: {"token": token});
       if (response.statusCode == 200) {
         finalResponse = Success();
       } else {
