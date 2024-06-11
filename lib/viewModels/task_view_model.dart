@@ -39,6 +39,7 @@ class TaskViewModel extends ChangeNotifier {
           taskStatusCountModel.statusData!.isNotEmpty) {
         _taskStatusData =
             List.from(taskStatusCountModel.statusData as Iterable);
+        taskStatusCount ={};
         for (StatusData data in _taskStatusData) {
           if (data.sId != null) {
             taskStatusCount[data.sId.toString()] = data.sum.toString();
@@ -54,9 +55,10 @@ class TaskViewModel extends ChangeNotifier {
       TaskListModel taskListModel =
           (response as Success).response as TaskListModel;
       if (taskListModel.taskData != null) {
-        _taskDataByStatus[taskStatus] =
+        List<TaskData> taskData =
             List.from(taskListModel.taskData as Iterable);
-        setShouldRefresh(false);
+        _taskDataByStatus[taskStatus] = taskData.reversed.toList();
+        notifyListeners();
       }
     }
   }
@@ -86,6 +88,7 @@ class TaskViewModel extends ChangeNotifier {
       _taskDataByStatus[taskStatus]
           ?.removeWhere((taskData) => taskData.sId == taskId);
       selectedIndex[taskStatus] = -1;
+      await fetchTaskStatusData(token);
       notifyListeners();
       return true;
     } else {

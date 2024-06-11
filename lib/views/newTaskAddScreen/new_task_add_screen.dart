@@ -105,7 +105,12 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.addTaskScreen);
+          Navigator.pushNamed(context, AppRoutes.addTaskScreen).then((value) async{
+            if(value != null){
+              await fetchStatusData();
+              await fetchListData();
+            }
+          });
         }, backgroundColor: AppColor.appPrimaryColor,
         child: const Icon(Icons.add, size: 27),
         //params

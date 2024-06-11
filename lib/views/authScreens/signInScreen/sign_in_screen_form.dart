@@ -58,6 +58,7 @@ class SignInScreenForm extends StatelessWidget {
           const Gap(20),
           SizedBox(
             width: screenWidth * 0.9,
+            height: 45,
             child: Consumer<AuthViewModel>(
               builder: (_, viewModel, __) {
                 return ElevatedButton(
