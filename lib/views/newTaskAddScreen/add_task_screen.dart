@@ -64,6 +64,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           controller: subjectTEController,
                           inputType: TextInputType.text,
                           hintText: AppStrings.subjectTextFieldHint,
+                          onFieldSubmitted: (value){
+                            FocusScope.of(context).requestFocus(descriptionFocusNode);
+                          },
                         ),
                         const Gap(15),
                         AppTextField(
@@ -73,6 +76,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           hintText: AppStrings.descriptionTextFieldHint,
                           maxLines: 16,
                           minLines: 10,
+                          onFieldSubmitted: (value){
+                            FocusScope.of(context).unfocus();
+                          },
                         ),
                         const Gap(25),
                         SizedBox(
