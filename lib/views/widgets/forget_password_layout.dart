@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
 import 'package:task_manager/views/widgets/sign_in_bottom_text.dart';
-
 import '../../utils/app_color.dart';
 import '../../viewModels/auth_view_model.dart';
-import 'app_elevated_button.dart';
 import 'circular_progressbar.dart';
 
 class ForgetPasswordLayout extends StatelessWidget {
@@ -52,15 +51,20 @@ class ForgetPasswordLayout extends StatelessWidget {
               const Gap(20),
               child,
               const Gap(20),
-              AppElevatedButton(
-                screenWidth: screenWidth,
-                onPressed: onButtonPressed,
-                loadingChild: const CircularProgressbar(
-                    color: AppColor.circularProgressbarColor),
-                placeHolderChild: buttonWidget,
-                ),
+              SizedBox(
+                  width: screenWidth * 0.9,
+                  child: Consumer<AuthViewModel>(
+                    builder: (_, viewModel, __) {
+                      return ElevatedButton(
+                          onPressed: () => onButtonPressed(viewModel),
+                          child: viewModel.isLoading
+                              ? const CircularProgressbar(
+                                  color: AppColor.circularProgressbarColor)
+                              : buttonWidget);
+                    },
+                  )),
               const Gap(30),
-              SignInBottomText(route: (){
+              SignInBottomText(route: () {
                 Navigator.pop(context);
               })
             ],

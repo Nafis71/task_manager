@@ -61,6 +61,22 @@ class TaskViewModel extends ChangeNotifier {
     }
   }
 
+  Future<bool> createTask(String token, String taskSubject, String taskDescription) async{
+    setShouldRefresh(true);
+    Map<String,String> taskData = {
+      "title": taskSubject,
+      "description": taskDescription,
+      "status":"New"
+    };
+    response = await taskService.createTask(token, taskData);
+    if(response is Success){
+      setShouldRefresh(false);
+      return true;
+    }
+    setShouldRefresh(false);
+    return false;
+  }
+
   Future<bool> deleteTask(
       String token, String taskId, String taskStatus, int index) async {
     selectedIndex[taskStatus] = index;

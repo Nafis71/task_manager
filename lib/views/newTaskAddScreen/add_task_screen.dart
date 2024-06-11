@@ -1,8 +1,12 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_strings.dart';
+import 'package:task_manager/viewModels/task_view_model.dart';
+import 'package:task_manager/viewModels/user_view_model.dart';
 import 'package:task_manager/views/widgets/app_bar.dart';
-import 'package:task_manager/views/widgets/app_elevated_button.dart';
+import 'package:task_manager/views/widgets/app_snackbar.dart';
 import 'package:task_manager/views/widgets/app_textfield.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
 
@@ -71,14 +75,26 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           minLines: 10,
                         ),
                         const Gap(25),
-                        AppElevatedButton(
-                          screenWidth: screenWidth,
-                          onPressed: (viewModel) {},
-                          loadingChild: const CircularProgressbar(
-                              color: AppColor.circularProgressbarColor),
-                          placeHolderChild: const Icon(
-                            Icons.arrow_circle_right_outlined,
-                            size: 30,
+                        SizedBox(
+                          width: screenWidth * 0.9,
+                          child: Consumer<TaskViewModel>(
+                            builder: (_, viewModel, __) {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    addTask();
+                                  }
+                                },
+                                child: viewModel.isLoading
+                                    ? const CircularProgressbar(
+                                        color:
+                                            AppColor.circularProgressbarColor)
+                                    : const Icon(
+                                        Icons.arrow_circle_right_outlined,
+                                        size: 30,
+                                      ),
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -91,6 +107,33 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         );
       }),
     );
+  }
+
+  void addTask() async {
+    bool status = await context.read<TaskViewModel>().createTask(
+        context.read<UserViewModel>().token,
+        subjectTEController.text,
+        descriptionTEController.text);
+    if (status && mounted) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.newTaskAddSuccessTitle,
+            content: AppStrings.newTaskAddSuccessMessage,
+            contentType: ContentType.success,
+            color: AppColor.snackBarSuccessColor));
+      Navigator.pop(context, true);
+      return;
+    }
+    if (mounted) {
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.newTaskAddFailureTitle,
+            content: AppStrings.newTaskAddFailureMessage,
+            contentType: ContentType.failure,
+            color: AppColor.snackBarFailureColor));
+    }
   }
 
   @override

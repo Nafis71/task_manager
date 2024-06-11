@@ -57,19 +57,27 @@ class SignInScreenForm extends StatelessWidget {
             ),
           ),
           const Gap(20),
-          AppElevatedButton(
-            screenWidth: screenWidth,
-            onPressed: (viewModel) {
-              if (formKey.currentState!.validate() && !viewModel.isLoading) {
-                initiateSignIn();
-              }
-              FocusScope.of(context).unfocus();
-            },
-            loadingChild: const CircularProgressbar(
-                color: AppColor.circularProgressbarColor),
-            placeHolderChild: const Icon(
-              Icons.arrow_circle_right_outlined,
-              size: 30,
+          SizedBox(
+            width: screenWidth * 0.9,
+            child: Consumer<AuthViewModel>(
+              builder: (_, viewModel, __) {
+                return ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate() && !viewModel.isLoading) {
+                      initiateSignIn();
+                    }
+                    FocusScope.of(context).unfocus();
+                  },
+                  child: viewModel.isLoading
+                      ? const CircularProgressbar(
+                      color:
+                      AppColor.circularProgressbarColor)
+                      : const Icon(
+                    Icons.arrow_circle_right_outlined,
+                    size: 30,
+                  ),
+                );
+              },
             ),
           ),
         ],

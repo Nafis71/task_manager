@@ -9,6 +9,7 @@ class AppStrings {
   static const String taskStatusCountEndpoint = "taskStatusCount";
   static const String listTaskByStatusEndpoint = "listTaskByStatus";
   static const String deleteTaskEndpoint = "deleteTask";
+  static const String createTaskEndpoint = "createTask";
   static const String unknownResponseText = "Unknown Error";
 
   //regularExpression
@@ -84,6 +85,10 @@ class AppStrings {
       "Task has been deleted successfully";
   static const String taskItemDeleteFailureMessage =
       "Item failed to delete, try again";
+  static const String newTaskAddSuccessTitle = "Success!";
+  static const String newTaskAddFailureTitle = "Failed!";
+  static const String newTaskAddSuccessMessage = "New Task has been added successfully";
+  static const String newTaskAddFailureMessage = "Failed to add new task, something went wrong!";
 
   //noData
   static const String noNewTaskData = "Your new task list is currently empty";
