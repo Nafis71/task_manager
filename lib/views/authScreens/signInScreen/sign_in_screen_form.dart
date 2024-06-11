@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../../utils/app_color.dart';
 import '../../../utils/app_strings.dart';
 import '../../../viewModels/auth_view_model.dart';
-import '../../widgets/app_elevated_button.dart';
 import '../../widgets/app_textfield.dart';
 import '../../widgets/circular_progressbar.dart';
 

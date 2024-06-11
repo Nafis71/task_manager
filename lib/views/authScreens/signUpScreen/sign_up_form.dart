@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:task_manager/views/widgets/app_elevated_button.dart';
 import 'package:task_manager/views/widgets/circular_progressbar.dart';
 
 import '../../../utils/app_color.dart';
