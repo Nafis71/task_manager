@@ -53,6 +53,7 @@ class _TaskCompletedScreenState extends State<TaskCompletedScreen> {
                   screenWidth: screenWidth,
                   taskData: viewModel.taskDataByStatus["Completed"]!,
                   chipColor: AppColor.completedChipColor,
+                  currentScreen: "Completed",
                 );
               })
             ],

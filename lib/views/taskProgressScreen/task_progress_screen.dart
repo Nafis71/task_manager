@@ -53,6 +53,7 @@ class _TaskProgressScreenState extends State<TaskProgressScreen> {
                   screenWidth: screenWidth,
                   taskData: viewModel.taskDataByStatus["Progress"]!,
                   chipColor: AppColor.progressChipColor,
+                  currentScreen: "Progress",
                 );
               })
             ],

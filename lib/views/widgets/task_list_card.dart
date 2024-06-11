@@ -15,13 +15,14 @@ import '../../utils/app_color.dart';
 class TaskListCard extends StatelessWidget {
   final double screenWidth;
   final List<TaskData> taskData;
+  final String currentScreen;
   final Color chipColor;
 
   const TaskListCard(
       {super.key,
       required this.screenWidth,
       required this.taskData,
-      required this.chipColor});
+      required this.chipColor, required this.currentScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -195,21 +196,23 @@ class TaskListCard extends StatelessWidget {
   }
 
   Future<void> updateItem(BuildContext context, int index, String value) async {
-    bool status = await context.read<TaskViewModel>().updateTask(
-        token: context.read<UserViewModel>().token,
-        taskId: taskData[index].sId.toString(),
-        taskStatus: value,
-        currentScreenStatus: taskData[index].status.toString(),
-        index: index);
-    if (status && context.mounted) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.taskItemDeleteSuccessTitle,
-            content: AppStrings.taskItemDeleteSuccessMessage,
-            contentType: ContentType.success,
-            color: AppColor.snackBarSuccessColor));
-      return;
+    if(value != currentScreen){
+      bool status = await context.read<TaskViewModel>().updateTask(
+          token: context.read<UserViewModel>().token,
+          taskId: taskData[index].sId.toString(),
+          taskStatus: value,
+          currentScreenStatus: currentScreen,
+          index: index);
+      if (status && context.mounted) {
+        ScaffoldMessenger.of(context)
+          ..clearSnackBars()
+          ..showSnackBar(getSnackBar(
+              title: AppStrings.taskStatusUpdateSuccessTitle,
+              content: AppStrings.taskStatusUpdateSuccessMessage,
+              contentType: ContentType.success,
+              color: AppColor.snackBarSuccessColor));
+        return;
+      }
     }
   }
 

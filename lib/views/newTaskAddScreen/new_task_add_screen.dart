@@ -56,9 +56,9 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
                       children: [
                         TaskStatusCard(
                             screenWidth: screenWidth,
-                            titleText: viewModel.taskStatusCount["Canceled"]
+                            titleText: (viewModel.taskStatusCount["Canceled"] != "0") ? viewModel.taskStatusCount["Canceled"]
                                     ?.padLeft(2, "0") ??
-                                "0",
+                                "0": "0",
                             subtitleText: "Canceled"),
                         TaskStatusCard(
                             screenWidth: screenWidth,
@@ -97,6 +97,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
                   screenWidth: screenWidth,
                   taskData: viewModel.taskDataByStatus["New"]!,
                   chipColor: AppColor.newTaskChipColor,
+                  currentScreen: "New",
                 );
               })
             ],

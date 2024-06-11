@@ -51,6 +51,7 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
                   screenWidth: screenWidth,
                   taskData: viewModel.taskDataByStatus["Canceled"]!,
                   chipColor: AppColor.canceledChipColor,
+                  currentScreen: "Canceled",
                 );
               })
             ],

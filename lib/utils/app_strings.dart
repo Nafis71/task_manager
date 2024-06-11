@@ -97,6 +97,9 @@ class AppStrings {
   static const String noProgressTaskData = "There is no on going task for you now";
   static const String noNewCanceledData =
       "Your canceled task list is currently empty";
+  static const String taskStatusUpdateSuccessTitle = "Success!";
+  static const String taskStatusUpdateSuccessMessage = "Your task status has been updated successfully";
+
   static const String addTaskScreenTitle = "Add New Task";
   static const String subjectTextFieldHint = "Subject";
   static const String descriptionTextFieldHint = "Description";
