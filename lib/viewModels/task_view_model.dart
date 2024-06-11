@@ -95,7 +95,7 @@ class TaskViewModel extends ChangeNotifier {
       _taskDataByStatus[taskStatus]!.reversed.toList();
       selectedIndex[currentScreenStatus] = -1;
       taskStatusCount[currentScreenStatus] = (int.parse(taskStatusCount[currentScreenStatus].toString()) - 1).toString();
-      taskStatusCount[taskStatus] = (int.parse(taskStatusCount[taskStatus].toString()) + 1).toString();
+      taskStatusCount[taskStatus] = (int.tryParse(taskStatusCount[taskStatus].toString())?? 0 + 1).toString();
       setShouldRefresh(false);
       return true;
     }
@@ -113,7 +113,7 @@ class TaskViewModel extends ChangeNotifier {
       _taskDataByStatus[taskStatus]
           ?.removeWhere((taskData) => taskData.sId == taskId);
       selectedIndex[taskStatus] = -1;
-      await fetchTaskStatusData(token);
+      taskStatusCount[taskStatus] = (int.parse(taskStatusCount[taskStatus].toString()) - 1).toString();
       notifyListeners();
       return true;
     } else {
