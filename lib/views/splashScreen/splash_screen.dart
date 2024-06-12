@@ -38,7 +38,9 @@ class _SplashScreenState extends State<SplashScreen> {
         });
       } else {
         Future.delayed(const Duration(seconds: 3), () {
-          Navigator.pushReplacementNamed(context, AppRoutes.signInScreen);
+          if(mounted){
+            Navigator.pushReplacementNamed(context, AppRoutes.signInScreen);
+          }
         });
       }
     }catch(exception){

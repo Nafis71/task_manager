@@ -89,17 +89,14 @@ class TaskViewModel extends ChangeNotifier {
     selectedIndex[currentScreenStatus] = index;
     response = await taskService.updateTask(token, taskId, taskStatus);
     if (response is Success) {
-      print(_taskDataByStatus[currentScreenStatus]);
       List<TaskData>? tempData = _taskDataByStatus[currentScreenStatus]?.where((taskData) => taskData.sId == taskId).toList();
       if(tempData != null){
-        print(tempData);
-        print(currentScreenStatus);
+        tempData[0].status = taskStatus;
         _taskDataByStatus[currentScreenStatus]!.removeWhere((taskData)=> taskData.sId == taskId);
         _taskDataByStatus[taskStatus]?.add(tempData[0]);
         _taskDataByStatus[taskStatus]!.reversed.toList();
         selectedIndex[currentScreenStatus] = -1;
         taskStatusCount[currentScreenStatus] = (int.parse(taskStatusCount[currentScreenStatus].toString()) - 1).toString();
-        print(taskStatusCount[currentScreenStatus]);
         taskStatusCount[taskStatus] = (int.tryParse(taskStatusCount[taskStatus].toString())?? 0 + 1).toString();
       }
       setShouldRefresh(false);
