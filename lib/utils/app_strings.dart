@@ -1,5 +1,5 @@
 class AppStrings {
-  //api credentials
+  //api constants
   static const String baseUrl = "https://task.teamrabbil.com/api/v1/";
   static const String registrationEndpoint = "registration";
   static const String signInEndpoint = "login";
@@ -11,7 +11,9 @@ class AppStrings {
   static const String deleteTaskEndpoint = "deleteTask";
   static const String createTaskEndpoint = "createTask";
   static const String updateTaskEndpoint = "updateTaskStatus";
+  static const String profileUpdateEndpoint = "profileUpdate";
   static const String unknownResponseText = "Unknown Error";
+
 
   //regularExpression
   static const String nameRegEX = r'^[a-z A-Z]+$';
@@ -103,4 +105,6 @@ class AppStrings {
   static const String addTaskScreenTitle = "Add New Task";
   static const String subjectTextFieldHint = "Subject";
   static const String descriptionTextFieldHint = "Description";
+  static const String updateProfileScreenTitle = "Update Profile";
+  static const String photoPickerText = "Photos";
 }

@@ -24,4 +24,5 @@ class AppColor{
   static const Color newTaskChipTextColor = Colors.white;
   static const Color deleteIconColor = Colors.red;
   static const Color editIconColor = appPrimaryColor;
+  static const Color photoPickerColor = Colors.grey;
 }
