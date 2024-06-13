@@ -15,15 +15,7 @@ class NetworkRequest {
       {required String uri, Map<String, String>? headers}) async {
     try {
       Response response = await get(Uri.parse(uri), headers: headers);
-      if(response.statusCode == 200){
-        final jsonData = jsonDecode(response.body);
-        finalResponse = Success(response: jsonData);
-      } else{
-        finalResponse = Failure(
-            response.statusCode,
-            ResponseCode.httpStatusMessages[response.statusCode] ??
-                AppStrings.unknownResponseText);
-      }
+      finalResponse = getResponse(response);
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
@@ -31,5 +23,29 @@ class NetworkRequest {
       finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
     return finalResponse;
+  }
+  static Future<Object> postRequest(
+      {required String uri, Map<String, String>? headers,required Map<String,dynamic> body}) async {
+    try {
+      Response response = await post(Uri.parse(uri), headers: headers,body: jsonEncode(body));
+      finalResponse = getResponse(response);
+    } catch (exception) {
+      if (kDebugMode) {
+        debugPrint(exception.toString());
+      }
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
+    }
+    return finalResponse;
+  }
+  static Object getResponse(Response response){
+    if(response.statusCode == 200){
+      final jsonData = jsonDecode(response.body);
+      return Success(response: jsonData);
+    } else{
+      return Failure(
+          response.statusCode,
+          ResponseCode.httpStatusMessages[response.statusCode] ??
+              AppStrings.unknownResponseText);
+    }
   }
 }

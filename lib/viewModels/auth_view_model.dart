@@ -54,7 +54,7 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(true);
     response = await authService.signIn(email, password);
     if (response is Success) {
-      LoginModel loginModel = (response as Success).response as LoginModel;
+      LoginModel loginModel = LoginModel.fromJson((response as Success).response as Map<String,dynamic>);
       finalStatus = true;
       preferences = await SharedPreferences.getInstance();
       saveUserData(loginModel,userViewModel,password);
@@ -105,8 +105,8 @@ class AuthViewModel extends ChangeNotifier {
     resetPasswordInformation.putIfAbsent("password", () => newPassword);
     response = await authService.resetPassword(resetPasswordInformation);
     if (response is Success) {
-      String status = (response as Success).response as String;
-      if (status == "success") {
+      Map<String,dynamic> status = (response as Success).response as Map<String,dynamic>;
+      if (status["success"] == "success") {
         resetPasswordInformation = {};
         setLoading(false);
         finalStatus = true;

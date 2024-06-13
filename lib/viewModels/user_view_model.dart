@@ -62,11 +62,9 @@ class UserViewModel extends ChangeNotifier {
       password: password,
       photo: base64Image,
     );
-    print(base64Image);
     response = await UserInfoService.updateUserProfile(token, userData);
     if(response is Success){
       _userData = userData;
-      print(base64Image);
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("email", email);
       preferences.setString("firstName", firstName);

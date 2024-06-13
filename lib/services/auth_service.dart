@@ -15,54 +15,23 @@ class AuthService {
   late Object finalResponse;
 
   Future<Object> registration(UserData userData) async {
-    try {
-      Response response = await http.post(
-          Uri.parse("${AppStrings.baseUrl}${AppStrings.registrationEndpoint}"),
-          body: jsonEncode(userData.toJson()),
-          headers: {"content-type": "application/json"});
-      if (response.statusCode == 200) {
-        finalResponse = Success();
-      } else {
-        finalResponse = Failure(
-            response.statusCode,
-            ResponseCode.httpStatusMessages[response.statusCode] ??
-                AppStrings.unknownResponseText);
-      }
-    } catch (exception) {
-      if (kDebugMode) {
-        debugPrint(exception.toString());
-      }
-      finalResponse = Failure(600, AppStrings.unknownResponseText);
-    }
-    return finalResponse;
+    return await NetworkRequest.postRequest(
+      uri: "${AppStrings.baseUrl}${AppStrings.registrationEndpoint}",
+      body: userData.toJson(),
+      headers: {"content-type": "application/json"},
+    );
   }
 
   Future<Object> signIn(String email, String password) async {
-    try {
-      Map<String, String> signInCredentials = {
-        "email": email,
-        "password": password,
-      };
-      Response response = await http.post(
-          Uri.parse("${AppStrings.baseUrl}${AppStrings.signInEndpoint}"),
-          body: jsonEncode(signInCredentials),
-          headers: {"content-type": "application/json"});
-      if (response.statusCode == 200) {
-        Map<String, dynamic> jsonData = jsonDecode(response.body);
-        finalResponse = Success(response: LoginModel.fromJson(jsonData));
-      } else {
-        finalResponse = Failure(
-            response.statusCode,
-            ResponseCode.httpStatusMessages[response.statusCode] ??
-                AppStrings.unknownResponseText);
-      }
-    } catch (exception) {
-      if (kDebugMode) {
-        debugPrint(exception.toString());
-      }
-      finalResponse = Failure(600, AppStrings.unknownResponseText);
-    }
-    return finalResponse;
+    Map<String, String> signInCredentials = {
+      "email": email,
+      "password": password,
+    };
+    return NetworkRequest.postRequest(
+      uri: "${AppStrings.baseUrl}${AppStrings.signInEndpoint}",
+      body: signInCredentials,
+      headers: {"content-type": "application/json"},
+    );
   }
 
   Future<Object> requestOTP(String email) async {
@@ -78,26 +47,10 @@ class AuthService {
   }
 
   Future<Object> resetPassword(Map<String, String> data) async {
-    try {
-      Response response = await http.post(
-          Uri.parse("${AppStrings.baseUrl}${AppStrings.resetPasswordEndpoint}"),
-          body: jsonEncode(data),
-          headers: {"content-type": "application/json"});
-      if (response.statusCode == 200) {
-        Map<String, dynamic> jsonData = jsonDecode(response.body);
-        finalResponse = Success(response: jsonData["status"]);
-      } else {
-        finalResponse = Failure(
-            response.statusCode,
-            ResponseCode.httpStatusMessages[response.statusCode] ??
-                AppStrings.unknownResponseText);
-      }
-    } catch (exception) {
-      if (kDebugMode) {
-        debugPrint(exception.toString());
-      }
-      finalResponse = Failure(600, AppStrings.unknownResponseText);
-    }
-    return finalResponse;
+    return await NetworkRequest.postRequest(
+      uri: "${AppStrings.baseUrl}${AppStrings.resetPasswordEndpoint}",
+      body: data,
+      headers: {"content-type": "application/json"},
+    );
   }
 }
