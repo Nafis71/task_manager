@@ -107,4 +107,7 @@ class AppStrings {
   static const String descriptionTextFieldHint = "Description";
   static const String updateProfileScreenTitle = "Update Profile";
   static const String photoPickerText = "Photos";
+  static const String updateUserProfileSuccessTitle = "Success!";
+  static const String updateUserProfileFailureTitle = "Failed!";
+  static const String updateUserProfileSuccessMessage = "Your profile information has been updated.";
 }

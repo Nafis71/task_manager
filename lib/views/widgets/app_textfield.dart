@@ -19,6 +19,7 @@ class AppTextField extends StatelessWidget {
   final OutlineInputBorder? outlineInputBorder;
   final bool expands;
   final int? maxLines,minLines;
+  final String? labelText;
 
   const AppTextField({
     super.key,
@@ -33,6 +34,7 @@ class AppTextField extends StatelessWidget {
     this.regEx = "",
     this.maxLength,
     this.onChanged,
+    this.labelText,
     this.setCustomValidation = false,
     this.customValidation,
     this.disableValidation = false,
@@ -62,6 +64,7 @@ class AppTextField extends StatelessWidget {
       cursorColor: AppColor.appPrimaryColor,
       decoration: InputDecoration(
           hintText: hintText,
+          labelText: labelText,
           suffixIcon: suffixIcon,
           counterText: "",
           focusedBorder: outlineInputBorder),

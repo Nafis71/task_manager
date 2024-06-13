@@ -11,14 +11,14 @@ import 'package:task_manager/utils/app_strings.dart';
 import '../models/responseModel/response_code.dart';
 
 class UserInfoService {
-  late Object finalResponse;
+  static late Object finalResponse;
 
-  Future<Object> updateUserProfile(String token, UserData userData) async {
+  static Future<Object> updateUserProfile(String token, UserData userData) async {
     try {
       Response response = await http.post(
         Uri.parse("${AppStrings.baseUrl}${AppStrings.profileUpdateEndpoint}"),
         headers: {"content-type": "application/json", "token": token},
-        body: jsonEncode(userData),
+        body: jsonEncode(userData.toJson()),
       );
       if(response.statusCode == 200){
         finalResponse = Success();

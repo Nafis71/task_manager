@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen> {
       lastName: preferences.getString("lastName"),
       mobile: preferences.getString("mobile"),
       photo: preferences.getString("photo"),
-      password: "",
+      password: preferences.getString("password"),
     );
   }
 

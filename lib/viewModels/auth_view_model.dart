@@ -58,7 +58,7 @@ class AuthViewModel extends ChangeNotifier {
       LoginModel loginModel = (response as Success).response as LoginModel;
       finalStatus = true;
       preferences = await SharedPreferences.getInstance();
-      saveUserData(loginModel,userViewModel);
+      saveUserData(loginModel,userViewModel,password);
     } else {
       finalStatus = false;
     }
@@ -117,13 +117,14 @@ class AuthViewModel extends ChangeNotifier {
     return finalStatus;
   }
 
-  void saveUserData(LoginModel loginModel,UserViewModel userViewModel) {
+  void saveUserData(LoginModel loginModel,UserViewModel userViewModel,String password) {
     preferences.setString("token", loginModel.token.toString());
     preferences.setString("email", loginModel.data!.email.toString());
     preferences.setString("firstName", loginModel.data!.firstName.toString());
     preferences.setString("lastName", loginModel.data!.lastName.toString());
     preferences.setString("mobile", loginModel.data!.mobile.toString());
     preferences.setString("photo", loginModel.data!.photo.toString());
+    preferences.setString("password", password);
     userViewModel.setToken = loginModel.token.toString();
     userViewModel.setUserData = UserData(
       email: loginModel.data!.email.toString(),
@@ -131,7 +132,7 @@ class AuthViewModel extends ChangeNotifier {
       lastName: loginModel.data!.lastName.toString(),
       mobile: loginModel.data!.mobile.toString(),
       photo: loginModel.data!.photo.toString(),
-      password: "",
+      password: password,
     );
   }
 
