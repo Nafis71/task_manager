@@ -66,27 +66,15 @@ class AuthService {
   }
 
   Future<Object> requestOTP(String email) async {
-    try {
-      finalResponse = NetworkRequest.getRequest(
-        uri: "${AppStrings.baseUrl}${AppStrings.recoverEmailEndpoint}/$email",
-      );
-    } catch (exception) {
-      if (kDebugMode) {
-        debugPrint(exception.toString());
-      }
-    }
-    return finalResponse;
+    return finalResponse = await NetworkRequest.getRequest(
+      uri: "${AppStrings.baseUrl}${AppStrings.recoverEmailEndpoint}/$email",
+    );
   }
 
   Future<Object> verifyOTP(String otp, String email) async {
-    try {
-      finalResponse = NetworkRequest.getRequest(uri: "${AppStrings.baseUrl}${AppStrings.verifyOTPEndpoint}/$email/$otp");
-    } catch (exception) {
-      if (kDebugMode) {
-        debugPrint(exception.toString());
-      }
-    }
-    return finalResponse;
+    return finalResponse = await NetworkRequest.getRequest(
+      uri: "${AppStrings.baseUrl}${AppStrings.verifyOTPEndpoint}/$email/$otp",
+    );
   }
 
   Future<Object> resetPassword(Map<String, String> data) async {
