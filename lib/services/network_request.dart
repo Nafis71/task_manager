@@ -9,7 +9,7 @@ import '../models/responseModel/response_code.dart';
 import '../utils/app_strings.dart';
 
 class NetworkRequest {
-  static late Object finalResponse;
+  static Object? finalResponse;
 
   static Future<Object> getRequest(
       {required String uri, Map<String, String>? headers}) async {
@@ -22,7 +22,7 @@ class NetworkRequest {
       }
       finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
-    return finalResponse;
+    return finalResponse!;
   }
   static Future<Object> postRequest(
       {required String uri, Map<String, String>? headers,required Map<String,dynamic> body}) async {
@@ -35,7 +35,7 @@ class NetworkRequest {
       }
       finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
-    return finalResponse;
+    return finalResponse!;
   }
   static Object getResponse(Response response){
     if(response.statusCode == 200){
