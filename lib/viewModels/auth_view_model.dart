@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/loginModels/login_model.dart';
 import 'package:task_manager/models/responseModel/success.dart';
@@ -71,8 +70,8 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(true);
     response = await authService.requestOTP(email);
     if (response is Success) {
-      String status = (response as Success).response as String;
-      if (status == "success") {
+      Map<String,dynamic> status = (response as Success).response as Map<String,dynamic>;
+      if (status['status'] == "success") {
         _recoveryEmail = email;
         setLoading(false);
         return true;
@@ -87,8 +86,8 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(true);
     response = await authService.verifyOTP(otp, _recoveryEmail);
     if (response is Success) {
-      String status = (response as Success).response as String;
-      if (status == "success") {
+      Map<String,dynamic> status = (response as Success).response as Map<String,dynamic>;
+      if (status['status'] == "success") {
         setLoading(false);
         _OTP = otp;
         finalStatus = true;

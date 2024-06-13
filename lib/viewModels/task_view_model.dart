@@ -33,8 +33,8 @@ class TaskViewModel extends ChangeNotifier {
   Future<void> fetchTaskStatusData(String token) async {
     response = await taskService.fetchTaskStatusCount(token);
     if (response is Success) {
-      TaskStatusCountModel taskStatusCountModel =
-          (response as Success).response as TaskStatusCountModel;
+      TaskStatusCountModel taskStatusCountModel = TaskStatusCountModel.fromJson(
+          (response as Success).response as Map<String, dynamic>);
       if (taskStatusCountModel.statusData != null &&
           taskStatusCountModel.statusData!.isNotEmpty) {
         _taskStatusData =
@@ -52,8 +52,8 @@ class TaskViewModel extends ChangeNotifier {
   Future<void> fetchTaskList(String token, String taskStatus) async {
     response = await taskService.fetchTaskList(taskStatus, token);
     if (response is Success) {
-      TaskListModel taskListModel =
-          (response as Success).response as TaskListModel;
+      TaskListModel taskListModel = TaskListModel.fromJson(
+          (response as Success).response as Map<String, dynamic>);
       if (taskListModel.taskData != null) {
         List<TaskData> taskData = List.from(taskListModel.taskData as Iterable);
         _taskDataByStatus[taskStatus] = taskData.reversed.toList();
@@ -89,15 +89,22 @@ class TaskViewModel extends ChangeNotifier {
     selectedIndex[currentScreenStatus] = index;
     response = await taskService.updateTask(token, taskId, taskStatus);
     if (response is Success) {
-      List<TaskData>? tempData = _taskDataByStatus[currentScreenStatus]?.where((taskData) => taskData.sId == taskId).toList();
-      if(tempData != null){
+      List<TaskData>? tempData = _taskDataByStatus[currentScreenStatus]
+          ?.where((taskData) => taskData.sId == taskId)
+          .toList();
+      if (tempData != null) {
         tempData[0].status = taskStatus;
-        _taskDataByStatus[currentScreenStatus]!.removeWhere((taskData)=> taskData.sId == taskId);
+        _taskDataByStatus[currentScreenStatus]!
+            .removeWhere((taskData) => taskData.sId == taskId);
         _taskDataByStatus[taskStatus]?.add(tempData[0]);
         _taskDataByStatus[taskStatus]!.reversed.toList();
         selectedIndex[currentScreenStatus] = -1;
-        taskStatusCount[currentScreenStatus] = (int.parse(taskStatusCount[currentScreenStatus].toString()) - 1).toString();
-        taskStatusCount[taskStatus] = (int.tryParse(taskStatusCount[taskStatus].toString())?? 0 + 1).toString();
+        taskStatusCount[currentScreenStatus] =
+            (int.parse(taskStatusCount[currentScreenStatus].toString()) - 1)
+                .toString();
+        taskStatusCount[taskStatus] =
+            (int.tryParse(taskStatusCount[taskStatus].toString()) ?? 0 + 1)
+                .toString();
       }
       setShouldRefresh(false);
       return true;
@@ -116,7 +123,8 @@ class TaskViewModel extends ChangeNotifier {
       _taskDataByStatus[taskStatus]
           ?.removeWhere((taskData) => taskData.sId == taskId);
       selectedIndex[taskStatus] = -1;
-      taskStatusCount[taskStatus] = (int.parse(taskStatusCount[taskStatus].toString()) - 1).toString();
+      taskStatusCount[taskStatus] =
+          (int.parse(taskStatusCount[taskStatus].toString()) - 1).toString();
       notifyListeners();
       return true;
     } else {

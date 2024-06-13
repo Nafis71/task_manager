@@ -8,6 +8,7 @@ import 'package:task_manager/models/loginModels/user_data.dart';
 import 'package:task_manager/models/responseModel/failure.dart';
 import 'package:task_manager/models/responseModel/response_code.dart';
 import 'package:task_manager/models/responseModel/success.dart';
+import 'package:task_manager/services/network_request.dart';
 import 'package:task_manager/utils/app_strings.dart';
 
 class AuthService {
@@ -66,44 +67,24 @@ class AuthService {
 
   Future<Object> requestOTP(String email) async {
     try {
-      Response response = await http.get(Uri.parse(
-          "${AppStrings.baseUrl}${AppStrings.recoverEmailEndpoint}/$email"));
-      if (response.statusCode == 200) {
-        Map<String, dynamic> jsonData = jsonDecode(response.body);
-        finalResponse = Success(response: jsonData["status"]);
-      } else {
-        finalResponse = Failure(
-            response.statusCode,
-            ResponseCode.httpStatusMessages[response.statusCode] ??
-                AppStrings.unknownResponseText);
-      }
+      finalResponse = NetworkRequest.getRequest(
+        uri: "${AppStrings.baseUrl}${AppStrings.recoverEmailEndpoint}/$email",
+      );
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
       }
-      finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
     return finalResponse;
   }
 
   Future<Object> verifyOTP(String otp, String email) async {
     try {
-      Response response = await http.get(Uri.parse(
-          "${AppStrings.baseUrl}${AppStrings.verifyOTPEndpoint}/$email/$otp"));
-      if (response.statusCode == 200) {
-        Map<String, dynamic> jsonData = jsonDecode(response.body);
-        finalResponse = Success(response: jsonData["status"]);
-      } else {
-        finalResponse = Failure(
-            response.statusCode,
-            ResponseCode.httpStatusMessages[response.statusCode] ??
-                AppStrings.unknownResponseText);
-      }
+      finalResponse = NetworkRequest.getRequest(uri: "${AppStrings.baseUrl}${AppStrings.verifyOTPEndpoint}/$email/$otp");
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
       }
-      finalResponse = Failure(600, AppStrings.unknownResponseText);
     }
     return finalResponse;
   }
