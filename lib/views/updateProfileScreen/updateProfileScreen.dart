@@ -80,7 +80,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         .size
         .width;
     return Scaffold(
-      appBar: getApplicationAppBar(context),
+      appBar: getApplicationAppBar(context: context,disableNavigation: true),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return BackgroundWidget(

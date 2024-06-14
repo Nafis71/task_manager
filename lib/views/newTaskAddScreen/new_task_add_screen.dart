@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:task_manager/utils/app_assets.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
@@ -9,7 +8,6 @@ import 'package:task_manager/views/widgets/loading_layout.dart';
 import 'package:task_manager/views/widgets/no_data_layout.dart';
 import 'package:task_manager/views/widgets/task_list_card.dart';
 import 'package:task_manager/views/widgets/task_status_card.dart';
-import 'package:task_manager/wrappers/svg_image_loader.dart';
 
 import '../../viewModels/task_view_model.dart';
 import '../../viewModels/user_view_model.dart';
@@ -56,27 +54,39 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
                       children: [
                         TaskStatusCard(
                             screenWidth: screenWidth,
-                            titleText: (viewModel.taskStatusCount["Canceled"] != "0") ? viewModel.taskStatusCount["Canceled"]
-                                    ?.padLeft(2, "0") ??
-                                "0": "0",
+                            titleText:
+                                (viewModel.taskStatusCount["Canceled"] != "0")
+                                    ? viewModel.taskStatusCount["Canceled"]
+                                            ?.padLeft(2, "0") ??
+                                        "0"
+                                    : "0",
                             subtitleText: "Canceled"),
                         TaskStatusCard(
                             screenWidth: screenWidth,
-                            titleText: viewModel.taskStatusCount["Completed"]
-                                    ?.padLeft(2, "0") ??
-                                "0",
+                            titleText:
+                            (viewModel.taskStatusCount["Completed"] != "0")
+                                ? viewModel.taskStatusCount["Completed"]
+                                ?.padLeft(2, "0") ??
+                                "0"
+                                : "0",
                             subtitleText: "Completed"),
                         TaskStatusCard(
                             screenWidth: screenWidth,
-                            titleText: viewModel.taskStatusCount["Progress"]
-                                    ?.padLeft(2, "0") ??
-                                "0",
+                            titleText:
+                            (viewModel.taskStatusCount["Progress"] != "0")
+                                ? viewModel.taskStatusCount["Progress"]
+                                ?.padLeft(2, "0") ??
+                                "0"
+                                : "0",
                             subtitleText: "Progress"),
                         TaskStatusCard(
                             screenWidth: screenWidth,
-                            titleText: viewModel.taskStatusCount["New"]
-                                    ?.padLeft(2, "0") ??
-                                "0",
+                            titleText:
+                            (viewModel.taskStatusCount["New"] != "0")
+                                ? viewModel.taskStatusCount["New"]
+                                ?.padLeft(2, "0") ??
+                                "0"
+                                : "0",
                             subtitleText: "New Task"),
                       ],
                     );
@@ -106,13 +116,15 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, AppRoutes.addTaskScreen).then((value) async{
-            if(value != null){
+          Navigator.pushNamed(context, AppRoutes.addTaskScreen)
+              .then((value) async {
+            if (value != null) {
               await fetchStatusData();
               await fetchListData();
             }
           });
-        }, backgroundColor: AppColor.appPrimaryColor,
+        },
+        backgroundColor: AppColor.appPrimaryColor,
         child: const Icon(Icons.add, size: 27),
         //params
       ),

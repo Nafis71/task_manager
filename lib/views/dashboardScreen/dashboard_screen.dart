@@ -1,13 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-import 'package:task_manager/utils/app_assets.dart';
 import 'package:task_manager/utils/app_color.dart';
-import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/dashboard_view_model.dart';
-import 'package:task_manager/viewModels/user_view_model.dart';
 import 'package:task_manager/views/taskCancelledScreen/task_cancelled_screen.dart';
 import 'package:task_manager/views/taskCompletedScreen/task_completed_screen.dart';
 import 'package:task_manager/views/taskProgressScreen/task_progress_screen.dart';
@@ -23,24 +18,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final List<Widget> bottomBarIcons = const [
-    // Icons.add,
-    // Icons.watch_later_outlined,
-    // Icons.done_all, Icons.cancel_outlined
-
-    Icon(Icons.add, size: 25),
-    Icon(Icons.watch_later_outlined, size: 25),
-    Icon(Icons.done_all, size: 25),
-    Icon(Icons.cancel_outlined, size: 25),
-  ];
-  List<String> bottomBarLabels = [
-    AppStrings.bottomBarAdd,
-    AppStrings.bottomBarProgress,
-    AppStrings.bottomBarCompleted,
-    AppStrings.bottomBarCanceled,
-  ];
-  late final List<BottomNavigationBarItem> bottomNavigationBarItem;
-
   @override
   void initState() {
     super.initState();
@@ -58,7 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: getApplicationAppBar(context),
+      appBar: getApplicationAppBar(context: context, disableNavigation: false),
       body: Consumer<DashboardViewModel>(
         builder: (context, viewModel, child) {
           return IndexedStack(
@@ -67,7 +44,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           );
         },
       ),
-
       bottomNavigationBar: Consumer<DashboardViewModel>(
         builder: (context, viewModel, child) {
           return SalomonBottomBar(
@@ -84,13 +60,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 title: const Text("Progress"),
                 selectedColor: AppColor.appPrimaryColor,
               ),
-
               SalomonBottomBarItem(
                 icon: const Icon(Icons.done_outline_rounded),
                 title: const Text("Completed"),
                 selectedColor: AppColor.appPrimaryColor,
               ),
-
               SalomonBottomBarItem(
                 icon: const Icon(Icons.cancel_outlined),
                 title: const Text("Canceled"),

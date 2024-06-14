@@ -8,7 +8,7 @@ import 'package:task_manager/utils/app_routes.dart';
 import '../../utils/app_assets.dart';
 import '../../viewModels/user_view_model.dart';
 
-AppBar getApplicationAppBar(BuildContext context){
+AppBar getApplicationAppBar({required BuildContext context, required bool disableNavigation}) {
   return AppBar(
     automaticallyImplyLeading: false,
     title: Consumer<UserViewModel>(
@@ -16,8 +16,10 @@ AppBar getApplicationAppBar(BuildContext context){
         return Row(
           children: [
             InkWell(
-              onTap: (){
-                Navigator.pushNamed(context, AppRoutes.updateProfileScreen);
+              onTap: () {
+                if (!disableNavigation) {
+                  Navigator.pushNamed(context, AppRoutes.updateProfileScreen);
+                }
               },
               child: CircleAvatar(
                 radius: 20,
@@ -25,10 +27,10 @@ AppBar getApplicationAppBar(BuildContext context){
                 backgroundImage: (viewModel.userData.photo!.isEmpty)
                     ? const AssetImage(AppAssets.userDefaultImage)
                     : MemoryImage(
-                  base64Decode(
-                    viewModel.userData.photo.toString(),
-                  ),
-                ),
+                        base64Decode(
+                          viewModel.userData.photo.toString(),
+                        ),
+                      ),
               ),
             ),
             const Gap(10),

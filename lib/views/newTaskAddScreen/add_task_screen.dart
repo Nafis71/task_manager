@@ -41,7 +41,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: getApplicationAppBar(context),
+      appBar: getApplicationAppBar(context: context,disableNavigation: false),
       body: OrientationBuilder(builder: (context, orientation) {
         return BackgroundWidget(
           childWidget: SingleChildScrollView(

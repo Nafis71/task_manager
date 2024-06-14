@@ -99,11 +99,15 @@ class TaskViewModel extends ChangeNotifier {
         _taskDataByStatus[taskStatus]?.add(tempData[0]);
         _taskDataByStatus[taskStatus]!.reversed.toList();
         selectedIndex[currentScreenStatus] = -1;
-        taskStatusCount[currentScreenStatus] =
-            (int.parse(taskStatusCount[currentScreenStatus].toString()) - 1)
-                .toString();
+        int currentStatusCount = int.tryParse(taskStatusCount[currentScreenStatus]!) ?? 0;
+        int targetStatusCount = int.tryParse(taskStatusCount[taskStatus].toString()) ?? 0;
+        if(currentStatusCount != 0){
+          taskStatusCount[currentScreenStatus] =
+              (currentStatusCount - 1)
+                  .toString();
+        }
         taskStatusCount[taskStatus] =
-            (int.tryParse(taskStatusCount[taskStatus].toString()) ?? 0 + 1)
+            (targetStatusCount + 1)
                 .toString();
       }
       setShouldRefresh(false);
