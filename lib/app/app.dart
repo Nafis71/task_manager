@@ -1,7 +1,6 @@
-import 'package:device_preview_minus/device_preview_minus.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/themes/app_elevated_button_style.dart';
 import 'package:task_manager/themes/app_text_style.dart';
 import 'package:task_manager/themes/app_textfield_style.dart';
@@ -20,27 +19,27 @@ class TaskManager extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=> AuthViewModel()),
-        ChangeNotifierProvider(create: (_)=> UserViewModel()),
-        ChangeNotifierProvider(create: (_)=> DashboardViewModel()),
-        ChangeNotifierProvider(create: (_)=> TaskViewModel()),
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => UserViewModel()),
+        ChangeNotifierProvider(create: (_) => DashboardViewModel()),
+        ChangeNotifierProvider(create: (_) => TaskViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
         initialRoute: AppRoutes.splashScreen,
-        onGenerateRoute: (routeSettings){
+        onGenerateRoute: (routeSettings) {
           return AppRoutes.generateRoute(routeSettings);
         },
         theme: ThemeData(
-          useMaterial3: false,
-          scaffoldBackgroundColor: AppColor.scaffoldBackgroundColor,
-          textTheme: AppTextStyle.getTextStyle(),
-          inputDecorationTheme: AppTextFieldStyle.getTextFieldTheme(),
-          elevatedButtonTheme: AppElevatedButtonStyle.getElevatedButtonStyle(),
-          appBarTheme: AppbarStyle.getAppbarStyle()
-        ),
+            useMaterial3: false,
+            scaffoldBackgroundColor: AppColor.scaffoldBackgroundColor,
+            textTheme: AppTextStyle.getTextStyle(),
+            inputDecorationTheme: AppTextFieldStyle.getTextFieldTheme(),
+            elevatedButtonTheme:
+                AppElevatedButtonStyle.getElevatedButtonStyle(),
+            appBarTheme: AppbarStyle.getAppbarStyle()),
       ),
     );
   }
