@@ -12,7 +12,8 @@ class UserViewModel extends ChangeNotifier {
   String _token = "";
   bool _isLoading = false;
   final ImagePicker _pickedImage = ImagePicker();
-  String imageName ="";
+  String imageName = "";
+  String base64Image = "";
   late Object response;
   UserData _userData = UserData(
     email: "",
@@ -23,12 +24,14 @@ class UserViewModel extends ChangeNotifier {
   );
 
   bool get isLoading => _isLoading;
+
   UserData get userData => _userData;
+
   String get token => _token;
-  String base64Image = "";
 
   set setToken(String token) => _token = token;
-  set setIsLoading(bool isLoading){
+
+  set setIsLoading(bool isLoading) {
     _isLoading = isLoading;
     notifyListeners();
   }
@@ -38,22 +41,30 @@ class UserViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getImageFromGallery() async{
-    XFile? pickedFile = await _pickedImage.pickImage(source: ImageSource.gallery,imageQuality: 80,);
-    if(pickedFile != null){
+  Future<void> getImageFromGallery() async {
+    XFile? pickedFile = await _pickedImage.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+    if (pickedFile != null) {
       imageName = pickedFile.name;
       convertImage(pickedFile);
       notifyListeners();
     }
   }
-  Future<bool> updateUserData(
-      {required String email,
-      required String firstName,
-      required String lastName,
-      required String mobile,
-      required String password,
-      }) async{
+
+  Future<bool> updateUserData({
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String mobile,
+    required String password,
+  }) async {
     setIsLoading = true;
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    if (preferences.getString("photo")!.isNotEmpty && base64Image.isEmpty) {
+      base64Image = preferences.getString("photo").toString();
+    }
     UserData userData = UserData(
       email: email,
       firstName: firstName,
@@ -63,22 +74,26 @@ class UserViewModel extends ChangeNotifier {
       photo: base64Image,
     );
     response = await UserInfoService.updateUserProfile(token, userData);
-    if(response is Success){
+    if (response is Success) {
       _userData = userData;
-      SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.setString("email", email);
       preferences.setString("firstName", firstName);
       preferences.setString("lastName", lastName);
       preferences.setString("mobile", mobile);
       preferences.setString("photo", base64Image);
       preferences.setString("password", password);
+      base64Image = "";
+      imageName = "";
       setIsLoading = false;
       return true;
     }
+    base64Image = "";
+    imageName = "";
     setIsLoading = false;
     return false;
   }
-  void convertImage(XFile pickedFile){
+
+  void convertImage(XFile pickedFile) {
     List<int> imageBytes = File(pickedFile.path).readAsBytesSync();
     base64Image = base64Encode(imageBytes);
   }
