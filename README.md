@@ -2,7 +2,7 @@
 <p align="justify">This Flutter application is a comprehensive task manager designed to empower users to stay organized and achieve their goals effectively. It offers a suite of features that cater to various task management needs, built with a focus on security and user experience.</p>
 
 ## Project APK Link
-`Download link-` https://shorturl.at/vBD1E
+`Download link-` https://shorturl.at/YFye7
 <br />
 ## Screenshots
 `1. Splash Screen and Authentication` <br />
@@ -43,9 +43,13 @@ Maintain an organized task list for optimal productivity.
 <br />
 
 `3. Profile Update and New Task Addition` <br />
-> Users are able to edit their profile information.
+> Users are able to edit their profile information and add new task.
 <br />
 <img align="center" alt ="homePage" width ="250" src="https://github.com/Nafis71/task_manager/assets/57575805/b7b93142-3586-4270-af45-e74b9950e30e"></img>
 <img align="center" alt ="homePage" width ="250" src="https://github.com/Nafis71/task_manager/assets/57575805/8913d40e-4439-4e64-8c16-b6349996abdd"></img>
 
+<br />
+<br />
+
+<p align="justify">This task manager app is ideal for individuals seeking a convenient and secure solution to manage their to-dos, from students juggling busy schedules to professionals prioritizing projects.</p>
 <br />
