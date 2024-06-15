@@ -6,6 +6,7 @@ class AppbarStyle{
     backgroundColor: AppColor.appBarBackgroundColor,
     foregroundColor: AppColor.appBarForegroundColor,
     surfaceTintColor: AppColor.appBarBackgroundColor,
-    elevation: 0
+    elevation: 0,
+    actionsIconTheme: IconThemeData(size: 27)
   );
 }

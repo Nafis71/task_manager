@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/utils/app_routes.dart';
 
 import '../../utils/app_assets.dart';
@@ -51,5 +52,10 @@ AppBar getApplicationAppBar({required BuildContext context, required bool disabl
         );
       },
     ),
+    actions: [
+      IconButton(onPressed: () async{
+        await context.read<UserViewModel>().signOut(context);
+      }, icon: const Icon(Icons.logout))
+    ],
   );
 }
