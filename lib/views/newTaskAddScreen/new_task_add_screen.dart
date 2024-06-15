@@ -34,6 +34,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
+        height: screenHeight,
         margin: const EdgeInsets.all(8.0),
         child: RefreshIndicator(
           color: AppColor.appPrimaryColor,

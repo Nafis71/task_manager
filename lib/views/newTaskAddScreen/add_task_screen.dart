@@ -84,7 +84,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         const Gap(25),
                         SizedBox(
                           width: screenWidth * 0.9,
-                          height: 45,
                           child: Consumer<TaskViewModel>(
                             builder: (_, viewModel, __) {
                               return ElevatedButton(

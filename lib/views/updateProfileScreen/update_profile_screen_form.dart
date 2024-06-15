@@ -104,7 +104,6 @@ class UpdateProfileScreenForm extends StatelessWidget {
           const Gap(20),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: 45,
             child: Consumer<UserViewModel>(
               builder: (_, viewModel, __) {
                 return ElevatedButton(

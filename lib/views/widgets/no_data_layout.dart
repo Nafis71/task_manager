@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../utils/app_assets.dart';
+import '../../utils/app_color.dart';
 import '../../wrappers/svg_image_loader.dart';
 
 class NoDataLayout extends StatelessWidget {

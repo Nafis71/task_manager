@@ -7,8 +7,7 @@ class AppTextStyle {
       headlineLarge: TextStyle(
           fontSize: 28,
           color: AppColor.headLineTextLargeColor,
-          fontWeight: FontWeight.bold,
-          fontFamily: "Poppins",
+          fontFamily: "Poppins Bold",
           letterSpacing: 0.5),
       titleLarge: TextStyle(
           fontSize: 20,
