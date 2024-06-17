@@ -42,7 +42,7 @@ Maintain an organized task list for optimal productivity.
 
 <br />
 
-`3. Profile Update and New Task Addition` <br />
+`4. Profile Update and New Task Addition` <br />
 > Users are able to edit their profile information and add new task.
 <br />
 <img align="center" alt ="homePage" width ="250" src="https://github.com/Nafis71/task_manager/assets/57575805/b7b93142-3586-4270-af45-e74b9950e30e"></img>
