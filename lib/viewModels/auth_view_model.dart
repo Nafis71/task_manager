@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/loginModels/login_model.dart';
+import 'package:task_manager/models/responseModel/failure.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/auth_service.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
@@ -106,7 +107,7 @@ class AuthViewModel extends ChangeNotifier {
     response = await authService.resetPassword(resetPasswordInformation);
     if (response is Success) {
       Map<String,dynamic> status = (response as Success).response as Map<String,dynamic>;
-      if (status["success"] == "success") {
+      if (status["status"] == "success") {
         resetPasswordInformation = {};
         setLoading(false);
         finalStatus = true;

@@ -73,7 +73,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         AppTextField(
                           focusNode: descriptionFocusNode,
                           controller: descriptionTEController,
-                          inputType: TextInputType.text,
+                          inputType: TextInputType.multiline,
                           hintText: AppStrings.descriptionTextFieldHint,
                           maxLines: 16,
                           minLines: 10,
