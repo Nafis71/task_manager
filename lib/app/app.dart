@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/themes/app_elevated_button_style.dart';
@@ -25,6 +26,8 @@ class TaskManager extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         initialRoute: AppRoutes.splashScreen,
         onGenerateRoute: (routeSettings) {
           return AppRoutes.generateRoute(routeSettings);
