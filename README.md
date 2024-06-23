@@ -4,6 +4,14 @@
 ## Project APK Link
 `Download link-` https://shorturl.at/0NKrZ
 <br />
+
+## Tech Stack
+- Flutter
+- Dart
+- Rest API
+- Provider (State Management)
+<br />
+
 ## Screenshots
 `1. Splash Screen and Authentication` <br />
 > Streamlined signup and login process.
