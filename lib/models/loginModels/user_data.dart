@@ -16,6 +16,7 @@ class UserData {
     lastName = json['lastName'];
     mobile = json['mobile'];
     photo = json['photo'];
+    password = json['password'];
   }
 
   Map<String, dynamic> toJson() {

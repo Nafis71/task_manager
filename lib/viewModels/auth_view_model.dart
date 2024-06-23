@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -118,22 +121,11 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   void saveUserData(LoginModel loginModel,UserViewModel userViewModel,String password) {
+    loginModel.data!.password = password;
     preferences.setString("token", loginModel.token.toString());
-    preferences.setString("email", loginModel.data!.email.toString());
-    preferences.setString("firstName", loginModel.data!.firstName.toString());
-    preferences.setString("lastName", loginModel.data!.lastName.toString());
-    preferences.setString("mobile", loginModel.data!.mobile.toString());
-    preferences.setString("photo", loginModel.data!.photo.toString());
-    preferences.setString("password", password);
+    preferences.setString("userData", jsonEncode(loginModel.data!.toJson()));
     userViewModel.setToken = loginModel.token.toString();
-    userViewModel.setUserData = UserData(
-      email: loginModel.data!.email.toString(),
-      firstName: loginModel.data!.firstName.toString(),
-      lastName: loginModel.data!.lastName.toString(),
-      mobile: loginModel.data!.mobile.toString(),
-      photo: loginModel.data!.photo.toString(),
-      password: password,
-    );
+    userViewModel.setUserData = loginModel.data!;
   }
 
   set setPasswordObscure(bool value) {

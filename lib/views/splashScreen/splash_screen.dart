@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -54,14 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> loadUserData(SharedPreferences preferences) async {
     UserViewModel viewModel = Provider.of<UserViewModel>(context,listen: false);
     viewModel.setToken = preferences.getString("token")!;
-    viewModel.setUserData = UserData(
-      email: preferences.getString("email"),
-      firstName: preferences.getString("firstName"),
-      lastName: preferences.getString("lastName"),
-      mobile: preferences.getString("mobile"),
-      photo: preferences.getString("photo"),
-      password: preferences.getString("password"),
-    );
+    viewModel.setUserData = UserData.fromJson(jsonDecode(preferences.getString("userData")!));
   }
 
   @override
