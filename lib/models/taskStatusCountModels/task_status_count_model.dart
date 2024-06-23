@@ -19,8 +19,8 @@ class TaskStatusCountModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    if (this.statusData != null) {
-      data['data'] = this.statusData!.map((v) => v.toJson()).toList();
+    if (statusData != null) {
+      data['data'] = statusData!.map((v) => v.toJson()).toList();
     }
     return data;
   }
