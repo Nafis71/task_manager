@@ -1,4 +1,4 @@
-class Failure{
+class Failure {
   int statusCode;
   String message;
 

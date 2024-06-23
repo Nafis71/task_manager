@@ -23,6 +23,7 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
     super.initState();
     fetchListData();
   }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -60,6 +61,7 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
       ),
     );
   }
+
   Future<void> fetchListData() async {
     await context
         .read<TaskViewModel>()

@@ -2,7 +2,6 @@ import 'package:task_manager/services/network_request.dart';
 import 'package:task_manager/utils/app_strings.dart';
 
 class TaskService {
-
   Future<Object> fetchTaskStatusCount(String token) async {
     return await NetworkRequest.getRequest(
       uri: "${AppStrings.baseUrl}${AppStrings.taskStatusCountEndpoint}",

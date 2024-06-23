@@ -14,7 +14,6 @@ class AppStrings {
   static const String profileUpdateEndpoint = "profileUpdate";
   static const String unknownResponseText = "Unknown Error";
 
-
   //regularExpression
   static const String nameRegEX = r'^[a-z A-Z]+$';
   static const String digitsRegEx = r'^[0-9]+$';
@@ -90,17 +89,22 @@ class AppStrings {
       "Item failed to delete, try again";
   static const String newTaskAddSuccessTitle = "Success!";
   static const String newTaskAddFailureTitle = "Failed!";
-  static const String newTaskAddSuccessMessage = "New Task has been added successfully";
-  static const String newTaskAddFailureMessage = "Failed to add new task, something went wrong!";
+  static const String newTaskAddSuccessMessage =
+      "New Task has been added successfully";
+  static const String newTaskAddFailureMessage =
+      "Failed to add new task, something went wrong!";
 
   //noData
   static const String noNewTaskData = "Your new task list is currently empty";
-  static const String noCompletedTaskData = "You haven't completed any task yet";
-  static const String noProgressTaskData = "There is no on going task for you now";
+  static const String noCompletedTaskData =
+      "You haven't completed any task yet";
+  static const String noProgressTaskData =
+      "There is no on going task for you now";
   static const String noNewCanceledData =
       "Your canceled task list is currently empty";
   static const String taskStatusUpdateSuccessTitle = "Success!";
-  static const String taskStatusUpdateSuccessMessage = "Your task status has been updated successfully";
+  static const String taskStatusUpdateSuccessMessage =
+      "Your task status has been updated successfully";
 
   static const String addTaskScreenTitle = "Add New Task";
   static const String subjectTextFieldHint = "Subject";
@@ -109,5 +113,6 @@ class AppStrings {
   static const String photoPickerText = "Photos";
   static const String updateUserProfileSuccessTitle = "Success!";
   static const String updateUserProfileFailureTitle = "Failed!";
-  static const String updateUserProfileSuccessMessage = "Your profile information has been updated.";
+  static const String updateUserProfileSuccessMessage =
+      "Your profile information has been updated.";
 }

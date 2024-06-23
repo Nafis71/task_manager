@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
 import 'package:task_manager/views/widgets/sign_in_bottom_text.dart';
+
 import '../../utils/app_color.dart';
 import '../../viewModels/auth_view_model.dart';
 import 'circular_progressbar.dart';

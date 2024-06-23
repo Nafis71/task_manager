@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-class AppColor{
+
+class AppColor {
   static const Color appPrimaryColor = Color(0xFF21BF73);
   static const Color scaffoldBackgroundColor = Color(0xFFFAF8F6);
   static const Color headLineTextLargeColor = Colors.black;
@@ -10,8 +11,8 @@ class AppColor{
   static const Color elevatedButtonForegroundColor = Colors.white;
   static const Color circularProgressbarColor = Colors.white;
   static const Color snackBarSuccessColor = appPrimaryColor;
-  static  Color snackBarFailureColor = Colors.red.shade300;
-  static  Color snackBarWarningColor = const Color(0xFFFFCC00);
+  static Color snackBarFailureColor = Colors.red.shade300;
+  static Color snackBarWarningColor = const Color(0xFFFFCC00);
   static const Color appBarForegroundColor = Colors.white;
   static const Color appBarBackgroundColor = appPrimaryColor;
   static const Color bottomBarUnselectedColor = Colors.black;

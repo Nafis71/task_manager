@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../utils/app_assets.dart';
 import '../../wrappers/svg_image_loader.dart';
 
@@ -26,5 +27,3 @@ class BackgroundWidget extends StatelessWidget {
     );
   }
 }
-
-

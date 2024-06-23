@@ -18,7 +18,7 @@ class AppTextField extends StatelessWidget {
   final Function(String value)? onChanged, customValidation;
   final OutlineInputBorder? outlineInputBorder;
   final bool expands;
-  final int? maxLines,minLines;
+  final int? maxLines, minLines;
   final String? labelText;
 
   const AppTextField({

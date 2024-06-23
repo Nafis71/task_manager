@@ -95,9 +95,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             TextSpan(
                               text: AppStrings.signInBottomTextTwo,
                               recognizer: TapGestureRecognizer()
-                                ..onTap = ()=> AppNavigation.gotoSignUp(
-                                  context,_emailFocusNode,_passwordFocusNode
-                                ),
+                                ..onTap = () => AppNavigation.gotoSignUp(
+                                    context,
+                                    _emailFocusNode,
+                                    _passwordFocusNode),
                               style: const TextStyle(
                                 color: AppColor.appPrimaryColor,
                               ),
@@ -118,10 +119,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Future<void> initiateSignIn() async {
     bool status = await context.read<AuthViewModel>().signInUser(
-      email: _emailTEController.text.trim(),
-      password: _passwordTEController.text.trim(),
-      userViewModel: context.read<UserViewModel>()
-    );
+        email: _emailTEController.text.trim(),
+        password: _passwordTEController.text.trim(),
+        userViewModel: context.read<UserViewModel>());
     if (mounted && status) {
       Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
       return;

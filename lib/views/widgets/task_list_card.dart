@@ -1,5 +1,4 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
@@ -22,7 +21,8 @@ class TaskListCard extends StatelessWidget {
       {super.key,
       required this.screenWidth,
       required this.taskData,
-      required this.chipColor, required this.currentScreen});
+      required this.chipColor,
+      required this.currentScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +196,7 @@ class TaskListCard extends StatelessWidget {
   }
 
   Future<void> updateItem(BuildContext context, int index, String value) async {
-    if(value != currentScreen){
+    if (value != currentScreen) {
       bool status = await context.read<TaskViewModel>().updateTask(
           token: context.read<UserViewModel>().token,
           taskId: taskData[index].sId.toString(),

@@ -4,6 +4,7 @@ import 'package:task_manager/models/taskListModel/task_data.dart';
 import 'package:task_manager/models/taskListModel/task_list_model.dart';
 import 'package:task_manager/models/taskStatusCountModels/task_status_count_model.dart';
 import 'package:task_manager/services/task_service.dart';
+
 import '../models/taskStatusCountModels/status_data.dart';
 
 class TaskViewModel extends ChangeNotifier {
@@ -99,16 +100,15 @@ class TaskViewModel extends ChangeNotifier {
         _taskDataByStatus[taskStatus]?.add(tempData[0]);
         _taskDataByStatus[taskStatus]!.reversed.toList();
         selectedIndex[currentScreenStatus] = -1;
-        int currentStatusCount = int.tryParse(taskStatusCount[currentScreenStatus]!) ?? 0;
-        int targetStatusCount = int.tryParse(taskStatusCount[taskStatus].toString()) ?? 0;
-        if(currentStatusCount != 0){
+        int currentStatusCount =
+            int.tryParse(taskStatusCount[currentScreenStatus]!) ?? 0;
+        int targetStatusCount =
+            int.tryParse(taskStatusCount[taskStatus].toString()) ?? 0;
+        if (currentStatusCount != 0) {
           taskStatusCount[currentScreenStatus] =
-              (currentStatusCount - 1)
-                  .toString();
+              (currentStatusCount - 1).toString();
         }
-        taskStatusCount[taskStatus] =
-            (targetStatusCount + 1)
-                .toString();
+        taskStatusCount[taskStatus] = (targetStatusCount + 1).toString();
       }
       setShouldRefresh(false);
       return true;

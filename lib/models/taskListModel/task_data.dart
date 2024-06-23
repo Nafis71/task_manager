@@ -5,7 +5,8 @@ class TaskData {
   String? status;
   String? createdDate;
 
-  TaskData({this.sId, this.title, this.description, this.status, this.createdDate});
+  TaskData(
+      {this.sId, this.title, this.description, this.status, this.createdDate});
 
   TaskData.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];

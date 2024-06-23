@@ -1,12 +1,6 @@
-import 'dart:io';
-import 'dart:math';
-import 'dart:ui';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/models/loginModels/user_data.dart';
 import 'package:task_manager/models/responseModel/failure.dart';
@@ -16,10 +10,7 @@ import 'package:task_manager/viewModels/user_view_model.dart';
 import 'package:task_manager/views/updateProfileScreen/update_profile_screen_form.dart';
 import 'package:task_manager/views/widgets/app_bar.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
-import 'package:task_manager/views/widgets/app_textfield.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
-
-import '../widgets/circular_progressbar.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   const UpdateProfileScreen({super.key});
@@ -63,9 +54,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   void getUserData() {
-    UserData userData = context
-        .read<UserViewModel>()
-        .userData;
+    UserData userData = context.read<UserViewModel>().userData;
     _emailTEController.text = userData.email.toString();
     _firstNameTEController.text = userData.firstName.toString();
     _lastNameTEController.text = userData.lastName.toString();
@@ -75,28 +64,22 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: getApplicationAppBar(context: context,disableNavigation: true),
+      appBar: getApplicationAppBar(context: context, disableNavigation: true),
       body: OrientationBuilder(
         builder: (context, orientation) {
           return BackgroundWidget(
             childWidget: SingleChildScrollView(
               child: Container(
                 margin:
-                const EdgeInsets.symmetric(horizontal: 25, vertical: 60),
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 60),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       AppStrings.updateProfileScreenTitle,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headlineLarge,
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     const Gap(15),
                     Container(
@@ -126,10 +109,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               alignment: Alignment.center,
                               child: Text(
                                 AppStrings.photoPickerText,
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .labelMedium,
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ),
                           ),
@@ -187,18 +167,20 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     if (status && mounted) {
       ScaffoldMessenger.of(context)
         ..clearSnackBars()
-        ..showSnackBar(getSnackBar(title: AppStrings.updateProfileScreenTitle,
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.updateProfileScreenTitle,
             content: AppStrings.updateUserProfileSuccessMessage,
             contentType: ContentType.success,
             color: AppColor.snackBarSuccessColor));
       Navigator.pop(context);
       return;
     }
-    if(mounted){
+    if (mounted) {
       Failure failure = viewModel.response as Failure;
       ScaffoldMessenger.of(context)
         ..clearSnackBars()
-        ..showSnackBar(getSnackBar(title: AppStrings.updateUserProfileFailureTitle,
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.updateUserProfileFailureTitle,
             content: failure.message,
             contentType: ContentType.failure,
             color: AppColor.snackBarFailureColor));

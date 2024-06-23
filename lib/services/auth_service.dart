@@ -3,7 +3,6 @@ import 'package:task_manager/services/network_request.dart';
 import 'package:task_manager/utils/app_strings.dart';
 
 class AuthService {
-
   Future<Object> registration(UserData userData) async {
     return await NetworkRequest.postRequest(
       uri: "${AppStrings.baseUrl}${AppStrings.registrationEndpoint}",

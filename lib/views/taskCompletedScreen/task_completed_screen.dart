@@ -9,7 +9,6 @@ import '../../viewModels/user_view_model.dart';
 import '../widgets/loading_layout.dart';
 import '../widgets/no_data_layout.dart';
 import '../widgets/task_list_card.dart';
-import '../widgets/task_status_card.dart';
 
 class TaskCompletedScreen extends StatefulWidget {
   const TaskCompletedScreen({super.key});

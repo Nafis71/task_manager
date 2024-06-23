@@ -10,7 +10,6 @@ import 'package:task_manager/views/widgets/forget_password_layout.dart';
 
 import '../../../../utils/app_routes.dart';
 
-
 class PinVerificationScreen extends StatefulWidget {
   const PinVerificationScreen({super.key});
 
@@ -36,14 +35,8 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -99,7 +92,8 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
     if (mounted) {
       ScaffoldMessenger.of(context)
         ..clearSnackBars()
-        ..showSnackBar(getSnackBar(title: AppStrings.wrongPinVerificationFieldTitle,
+        ..showSnackBar(getSnackBar(
+            title: AppStrings.wrongPinVerificationFieldTitle,
             content: AppStrings.wrongPinVerificationFieldMessage,
             contentType: ContentType.failure,
             color: AppColor.snackBarFailureColor));

@@ -7,13 +7,13 @@ class WidgetCustomAnimator extends StatelessWidget {
   final WidgetTransitionEffects? outGoingEffect;
   final WidgetRestingEffects? atRestEffect;
 
-  const WidgetCustomAnimator(
-      {super.key,
-      required this.childWidget,
-      this.incomingEffect,
-      this.outGoingEffect,
-      this.atRestEffect,
-      });
+  const WidgetCustomAnimator({
+    super.key,
+    required this.childWidget,
+    this.incomingEffect,
+    this.outGoingEffect,
+    this.atRestEffect,
+  });
 
   @override
   Widget build(BuildContext context) {

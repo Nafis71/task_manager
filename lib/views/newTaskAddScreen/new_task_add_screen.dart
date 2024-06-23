@@ -65,28 +65,27 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
                         TaskStatusCard(
                             screenWidth: screenWidth,
                             titleText:
-                            (viewModel.taskStatusCount["Completed"] != "0")
-                                ? viewModel.taskStatusCount["Completed"]
-                                ?.padLeft(2, "0") ??
-                                "0"
-                                : "0",
+                                (viewModel.taskStatusCount["Completed"] != "0")
+                                    ? viewModel.taskStatusCount["Completed"]
+                                            ?.padLeft(2, "0") ??
+                                        "0"
+                                    : "0",
                             subtitleText: "Completed"),
                         TaskStatusCard(
                             screenWidth: screenWidth,
                             titleText:
-                            (viewModel.taskStatusCount["Progress"] != "0")
-                                ? viewModel.taskStatusCount["Progress"]
-                                ?.padLeft(2, "0") ??
-                                "0"
-                                : "0",
+                                (viewModel.taskStatusCount["Progress"] != "0")
+                                    ? viewModel.taskStatusCount["Progress"]
+                                            ?.padLeft(2, "0") ??
+                                        "0"
+                                    : "0",
                             subtitleText: "Progress"),
                         TaskStatusCard(
                             screenWidth: screenWidth,
-                            titleText:
-                            (viewModel.taskStatusCount["New"] != "0")
+                            titleText: (viewModel.taskStatusCount["New"] != "0")
                                 ? viewModel.taskStatusCount["New"]
-                                ?.padLeft(2, "0") ??
-                                "0"
+                                        ?.padLeft(2, "0") ??
+                                    "0"
                                 : "0",
                             subtitleText: "New Task"),
                       ],

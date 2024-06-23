@@ -34,7 +34,8 @@ class UpdateProfileScreenForm extends StatelessWidget {
       required this.passwordFocusNode,
       required this.firstNameFocusNode,
       required this.lastNameFocusNode,
-      required this.mobileNumberFocusNode, required this.onPressed});
+      required this.mobileNumberFocusNode,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

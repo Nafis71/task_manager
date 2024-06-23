@@ -24,10 +24,14 @@ class NetworkRequest {
     }
     return finalResponse!;
   }
+
   static Future<Object> postRequest(
-      {required String uri, Map<String, String>? headers,required Map<String,dynamic> body}) async {
+      {required String uri,
+      Map<String, String>? headers,
+      required Map<String, dynamic> body}) async {
     try {
-      Response response = await post(Uri.parse(uri), headers: headers,body: jsonEncode(body));
+      Response response =
+          await post(Uri.parse(uri), headers: headers, body: jsonEncode(body));
       finalResponse = getResponse(response);
     } catch (exception) {
       if (kDebugMode) {
@@ -37,11 +41,12 @@ class NetworkRequest {
     }
     return finalResponse!;
   }
-  static Object getResponse(Response response){
-    if(response.statusCode == 200){
+
+  static Object getResponse(Response response) {
+    if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       return Success(response: jsonData);
-    } else{
+    } else {
       return Failure(
           response.statusCode,
           ResponseCode.httpStatusMessages[response.statusCode] ??

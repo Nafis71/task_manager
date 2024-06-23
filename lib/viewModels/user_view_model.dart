@@ -94,11 +94,12 @@ class UserViewModel extends ChangeNotifier {
     return false;
   }
 
-  Future<void> signOut(BuildContext context) async{
+  Future<void> signOut(BuildContext context) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.remove("token");
-    if(context.mounted){
-      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.signInScreen, (value) => false);
+    if (context.mounted) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, AppRoutes.signInScreen, (value) => false);
     }
   }
 

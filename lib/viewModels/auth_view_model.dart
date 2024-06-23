@@ -1,14 +1,13 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/loginModels/login_model.dart';
-import 'package:task_manager/models/responseModel/failure.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/auth_service.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
+
 import '../models/loginModels/user_data.dart';
 
 class AuthViewModel extends ChangeNotifier {
@@ -16,7 +15,7 @@ class AuthViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool finalStatus = false;
   String _recoveryEmail = "";
-  String _OTP = "";
+  String _otp = "";
   late Object response;
   AuthService authService = AuthService();
   late SharedPreferences preferences;
@@ -53,15 +52,18 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   Future<bool> signInUser(
-      {required String email, required String password, required UserViewModel userViewModel}) async {
+      {required String email,
+      required String password,
+      required UserViewModel userViewModel}) async {
     finalStatus = false;
     setLoading(true);
     response = await authService.signIn(email, password);
     if (response is Success) {
-      LoginModel loginModel = LoginModel.fromJson((response as Success).response as Map<String,dynamic>);
+      LoginModel loginModel = LoginModel.fromJson(
+          (response as Success).response as Map<String, dynamic>);
       finalStatus = true;
       preferences = await SharedPreferences.getInstance();
-      saveUserData(loginModel,userViewModel,password);
+      saveUserData(loginModel, userViewModel, password);
     } else {
       finalStatus = false;
     }
@@ -74,7 +76,8 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(true);
     response = await authService.requestOTP(email);
     if (response is Success) {
-      Map<String,dynamic> status = (response as Success).response as Map<String,dynamic>;
+      Map<String, dynamic> status =
+          (response as Success).response as Map<String, dynamic>;
       if (status['status'] == "success") {
         _recoveryEmail = email;
         setLoading(false);
@@ -90,10 +93,11 @@ class AuthViewModel extends ChangeNotifier {
     setLoading(true);
     response = await authService.verifyOTP(otp, _recoveryEmail);
     if (response is Success) {
-      Map<String,dynamic> status = (response as Success).response as Map<String,dynamic>;
+      Map<String, dynamic> status =
+          (response as Success).response as Map<String, dynamic>;
       if (status['status'] == "success") {
         setLoading(false);
-        _OTP = otp;
+        _otp = otp;
         finalStatus = true;
       }
     }
@@ -105,11 +109,12 @@ class AuthViewModel extends ChangeNotifier {
     finalStatus = false;
     setLoading(true);
     resetPasswordInformation.putIfAbsent("email", () => _recoveryEmail);
-    resetPasswordInformation.putIfAbsent("OTP", () => _OTP);
+    resetPasswordInformation.putIfAbsent("OTP", () => _otp);
     resetPasswordInformation.putIfAbsent("password", () => newPassword);
     response = await authService.resetPassword(resetPasswordInformation);
     if (response is Success) {
-      Map<String,dynamic> status = (response as Success).response as Map<String,dynamic>;
+      Map<String, dynamic> status =
+          (response as Success).response as Map<String, dynamic>;
       if (status["status"] == "success") {
         resetPasswordInformation = {};
         setLoading(false);
@@ -120,7 +125,8 @@ class AuthViewModel extends ChangeNotifier {
     return finalStatus;
   }
 
-  void saveUserData(LoginModel loginModel,UserViewModel userViewModel,String password) {
+  void saveUserData(
+      LoginModel loginModel, UserViewModel userViewModel, String password) {
     loginModel.data!.password = password;
     preferences.setString("token", loginModel.token.toString());
     preferences.setString("userData", jsonEncode(loginModel.data!.toJson()));

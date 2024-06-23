@@ -6,6 +6,7 @@ import '../../utils/app_strings.dart';
 
 class SignInBottomText extends StatelessWidget {
   final Function route;
+
   const SignInBottomText({super.key, required this.route});
 
   @override
@@ -18,8 +19,7 @@ class SignInBottomText extends StatelessWidget {
           children: [
             TextSpan(
               text: AppStrings.signUpBottomTextTwo,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => route(),
+              recognizer: TapGestureRecognizer()..onTap = () => route(),
               style: const TextStyle(
                 color: AppColor.appPrimaryColor,
               ),

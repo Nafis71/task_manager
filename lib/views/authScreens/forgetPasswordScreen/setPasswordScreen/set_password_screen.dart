@@ -36,14 +36,8 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -124,7 +118,8 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
         .read<AuthViewModel>()
         .resetPassword(_passwordTEController.text.trim());
     if (status && mounted) {
-      callSnackBar(title: AppStrings.resetPasswordSuccessTitle,
+      callSnackBar(
+          title: AppStrings.resetPasswordSuccessTitle,
           content: AppStrings.resetPasswordSuccessMessage,
           contentType: ContentType.success,
           color: AppColor.snackBarSuccessColor);
@@ -132,20 +127,20 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
       return;
     }
     if (mounted) {
-      Failure failure = context
-          .read<AuthViewModel>()
-          .response as Failure;
-      callSnackBar(title: AppStrings.resetPasswordFailureTitle,
+      Failure failure = context.read<AuthViewModel>().response as Failure;
+      callSnackBar(
+          title: AppStrings.resetPasswordFailureTitle,
           content: failure.message,
           contentType: ContentType.failure,
           color: AppColor.snackBarFailureColor);
     }
   }
 
-  void callSnackBar({required String title,
-    required String content,
-    required ContentType contentType,
-    required Color color}) {
+  void callSnackBar(
+      {required String title,
+      required String content,
+      required ContentType contentType,
+      required Color color}) {
     ScaffoldMessenger.of(context)
       ..clearSnackBars()
       ..showSnackBar(getSnackBar(

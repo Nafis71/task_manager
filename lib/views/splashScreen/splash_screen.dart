@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> checkToken() async {
-    try{
+    try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? token = preferences.getString("token");
       if (token != null && !JwtDecoder.isExpired(token) && mounted) {
@@ -40,23 +40,24 @@ class _SplashScreenState extends State<SplashScreen> {
         });
       } else {
         Future.delayed(const Duration(seconds: 3), () {
-          if(mounted){
+          if (mounted) {
             Navigator.pushReplacementNamed(context, AppRoutes.signInScreen);
           }
         });
       }
-    }catch(exception){
-      if(kDebugMode){
+    } catch (exception) {
+      if (kDebugMode) {
         debugPrint(exception.toString());
       }
     }
-
   }
 
   Future<void> loadUserData(SharedPreferences preferences) async {
-    UserViewModel viewModel = Provider.of<UserViewModel>(context,listen: false);
+    UserViewModel viewModel =
+        Provider.of<UserViewModel>(context, listen: false);
     viewModel.setToken = preferences.getString("token")!;
-    viewModel.setUserData = UserData.fromJson(jsonDecode(preferences.getString("userData")!));
+    viewModel.setUserData =
+        UserData.fromJson(jsonDecode(preferences.getString("userData")!));
   }
 
   @override
