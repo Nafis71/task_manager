@@ -1,8 +1,9 @@
 import 'package:task_manager/models/loginModels/user_data.dart';
 import 'package:task_manager/services/network_request.dart';
 import 'package:task_manager/utils/app_strings.dart';
+import 'package:task_manager/viewModels/user_view_model.dart';
 
-class AuthService {
+class AuthService extends UserViewModel{
   Future<Object> registration(UserData userData) async {
     return await NetworkRequest.postRequest(
       uri: "${AppStrings.baseUrl}${AppStrings.registrationEndpoint}",

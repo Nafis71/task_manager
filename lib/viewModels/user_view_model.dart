@@ -42,6 +42,12 @@ class UserViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> loadUserData(SharedPreferences preferences) async {
+    setToken = preferences.getString("token")!;
+    setUserData =
+        UserData.fromJson(jsonDecode(preferences.getString("userData")!));
+  }
+
   Future<void> getImageFromGallery() async {
     XFile? pickedFile = await _pickedImage.pickImage(
       source: ImageSource.gallery,

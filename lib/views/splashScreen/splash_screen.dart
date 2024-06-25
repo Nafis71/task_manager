@@ -1,13 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task_manager/models/loginModels/user_data.dart';
 import 'package:task_manager/utils/app_assets.dart';
 import 'package:task_manager/utils/app_routes.dart';
+import 'package:task_manager/viewModels/auth_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
 import 'package:task_manager/wrappers/svg_image_loader.dart';
 import 'package:task_manager/wrappers/widget_custom_animator.dart';
@@ -33,31 +30,25 @@ class _SplashScreenState extends State<SplashScreen> {
     try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? token = preferences.getString("token");
-      if (token != null && !JwtDecoder.isExpired(token) && mounted) {
-        await loadUserData(preferences);
-        Future.delayed(const Duration(seconds: 3), () {
-          Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
-        });
-      } else {
-        Future.delayed(const Duration(seconds: 3), () {
-          if (mounted) {
+      if (mounted) {
+        bool status =
+            await context.read<AuthViewModel>().authenticateToken(token);
+        if (status && mounted) {
+          await context.read<UserViewModel>().loadUserData(preferences);
+          Future.delayed(const Duration(seconds: 2), () {
+            Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+          });
+        } else {
+          Future.delayed(const Duration(seconds: 3), () {
             Navigator.pushReplacementNamed(context, AppRoutes.signInScreen);
-          }
-        });
+          });
+        }
       }
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
       }
     }
-  }
-
-  Future<void> loadUserData(SharedPreferences preferences) async {
-    UserViewModel viewModel =
-        Provider.of<UserViewModel>(context, listen: false);
-    viewModel.setToken = preferences.getString("token")!;
-    viewModel.setUserData =
-        UserData.fromJson(jsonDecode(preferences.getString("userData")!));
   }
 
   @override
