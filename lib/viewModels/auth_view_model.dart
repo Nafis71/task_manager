@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -11,7 +9,7 @@ import 'package:task_manager/viewModels/user_view_model.dart';
 
 import '../models/loginModels/user_data.dart';
 
-class AuthViewModel extends ChangeNotifier{
+class AuthViewModel extends ChangeNotifier {
   bool _isPasswordObscured = true;
   bool _isLoading = false;
   bool finalStatus = false;
@@ -64,7 +62,7 @@ class AuthViewModel extends ChangeNotifier{
           (response as Success).response as Map<String, dynamic>);
       finalStatus = true;
       preferences = await SharedPreferences.getInstance();
-      saveUserData(loginModel, userViewModel, password);
+      userViewModel.saveUserData(loginModel, preferences, password);
     } else {
       finalStatus = false;
     }
@@ -126,20 +124,11 @@ class AuthViewModel extends ChangeNotifier{
     return finalStatus;
   }
 
-  Future<bool> authenticateToken(String? token) async{
+  Future<bool> authenticateToken(String? token) async {
     if (token != null && !JwtDecoder.isExpired(token)) {
       return true;
     }
     return false;
-  }
-
-  void saveUserData(
-      LoginModel loginModel, UserViewModel userViewModel, String password) {
-    loginModel.data!.password = password;
-    preferences.setString("token", loginModel.token.toString());
-    preferences.setString("userData", jsonEncode(loginModel.data!.toJson()));
-    userViewModel.setToken = loginModel.token.toString();
-    userViewModel.setUserData = loginModel.data!;
   }
 
   set setPasswordObscure(bool value) {

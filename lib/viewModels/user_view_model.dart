@@ -9,6 +9,8 @@ import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/user_info_service.dart';
 import 'package:task_manager/utils/app_routes.dart';
 
+import '../models/loginModels/login_model.dart';
+
 class UserViewModel extends ChangeNotifier {
   String _token = "";
   bool _isLoading = false;
@@ -46,6 +48,15 @@ class UserViewModel extends ChangeNotifier {
     setToken = preferences.getString("token")!;
     setUserData =
         UserData.fromJson(jsonDecode(preferences.getString("userData")!));
+  }
+
+  void saveUserData(
+      LoginModel loginModel, SharedPreferences preferences, String password) {
+    loginModel.data!.password = password;
+    preferences.setString("token", loginModel.token.toString());
+    preferences.setString("userData", jsonEncode(loginModel.data!.toJson()));
+    setToken = loginModel.token.toString();
+    setUserData = loginModel.data!;
   }
 
   Future<void> getImageFromGallery() async {
