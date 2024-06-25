@@ -9,8 +9,7 @@
 - Flutter
 - Dart
 - Rest API
-- Provider (State Management)
-<br />
+- Provider (State Management) <br />
 
 ## Screenshots
 `1. Splash Screen and Authentication` <br />
