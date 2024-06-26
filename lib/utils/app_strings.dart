@@ -115,4 +115,5 @@ class AppStrings {
   static const String updateUserProfileFailureTitle = "Failed!";
   static const String updateUserProfileSuccessMessage =
       "Your profile information has been updated.";
+  static const String sessionExpiredText = "Session expired please login again.";
 }

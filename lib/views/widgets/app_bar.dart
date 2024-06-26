@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_routes.dart';
+import 'package:task_manager/viewModels/auth_view_model.dart';
 
 import '../../utils/app_assets.dart';
 import '../../viewModels/user_view_model.dart';
@@ -55,7 +56,7 @@ AppBar getApplicationAppBar(
     actions: [
       IconButton(
           onPressed: () async {
-            await context.read<UserViewModel>().signOut(context);
+            await context.read<AuthViewModel>().signOut();
           },
           icon: const Icon(Icons.logout))
     ],

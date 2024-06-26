@@ -13,6 +13,7 @@ import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
 
 class TaskManager extends StatelessWidget {
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   const TaskManager({super.key});
 
   @override
@@ -25,10 +26,11 @@ class TaskManager extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TaskViewModel()),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.splashScreen,
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
-        initialRoute: AppRoutes.splashScreen,
         onGenerateRoute: (routeSettings) {
           return AppRoutes.generateRoute(routeSettings);
         },

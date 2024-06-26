@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/loginModels/login_model.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/auth_service.dart';
+import 'package:task_manager/utils/app_navigation.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
 
 import '../models/loginModels/user_data.dart';
@@ -129,6 +130,10 @@ class AuthViewModel extends ChangeNotifier {
       return true;
     }
     return false;
+  }
+
+  Future<void> signOut() async {
+    await AppNavigation().signOutUser();
   }
 
   set setPasswordObscure(bool value) {

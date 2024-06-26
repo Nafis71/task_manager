@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/loginModels/user_data.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/services/user_info_service.dart';
-import 'package:task_manager/utils/app_routes.dart';
 
 import '../models/loginModels/login_model.dart';
 
@@ -109,15 +108,6 @@ class UserViewModel extends ChangeNotifier {
     imageName = "";
     setIsLoading = false;
     return false;
-  }
-
-  Future<void> signOut(BuildContext context) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.remove("token");
-    if (context.mounted) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, AppRoutes.signInScreen, (value) => false);
-    }
   }
 
   void convertImage(XFile pickedFile) {

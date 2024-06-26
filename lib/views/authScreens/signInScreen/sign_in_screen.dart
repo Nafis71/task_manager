@@ -95,8 +95,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             TextSpan(
                               text: AppStrings.signInBottomTextTwo,
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => AppNavigation.gotoSignUp(
-                                    context,
+                                ..onTap = () => AppNavigation().gotoSignUp(
                                     _emailFocusNode,
                                     _passwordFocusNode),
                               style: const TextStyle(

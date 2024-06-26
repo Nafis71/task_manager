@@ -1,25 +1,39 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../app/app.dart';
 import '../viewModels/auth_view_model.dart';
 import 'app_routes.dart';
 
-class AppNavigation {
-  static void gotoSignIn(BuildContext context) {
-    AuthViewModel authViewModel =
-        Provider.of<AuthViewModel>(context, listen: false);
-    authViewModel.setPasswordObscure = true;
-    Navigator.pop(context);
+class AppNavigation extends AuthViewModel {
+  static AppNavigation? _instance;
+
+  AppNavigation._();
+
+  factory AppNavigation() { //singleton pattern
+    _instance ??= AppNavigation._();
+    return _instance!;
   }
 
-  static void gotoSignUp(BuildContext context, FocusNode emailFocusNode,
-      FocusNode passwordFocusNode) {
-    AuthViewModel authViewModel =
-        Provider.of<AuthViewModel>(context, listen: false);
-    authViewModel.setPasswordObscure = true;
-    Navigator.pushNamed(context, AppRoutes.signUpScreen).then((value) {
+  void gotoSignIn() {
+    setPasswordObscure = true;
+    Navigator.pop(TaskManager.navigatorKey.currentContext!);
+  }
+
+  void gotoSignUp(FocusNode emailFocusNode, FocusNode passwordFocusNode) {
+    setPasswordObscure = true;
+    Navigator.pushNamed(
+            TaskManager.navigatorKey.currentContext!, AppRoutes.signUpScreen)
+        .then((value) {
       emailFocusNode.unfocus();
       passwordFocusNode.unfocus();
     });
+  }
+
+  Future<void> signOutUser() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.remove("token");
+    Navigator.pushNamedAndRemoveUntil(TaskManager.navigatorKey.currentContext!,
+        AppRoutes.signInScreen, (route) => false);
   }
 }
