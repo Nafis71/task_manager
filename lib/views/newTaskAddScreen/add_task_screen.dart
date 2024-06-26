@@ -88,7 +88,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             builder: (_, viewModel, __) {
                               return ElevatedButton(
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
+                                  if (_formKey.currentState!.validate() && !context.read<TaskViewModel>().isLoading) {
                                     addTask();
                                   }
                                 },

@@ -25,7 +25,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
   @override
   void initState() {
     super.initState();
-    fetchStatusData();
+    fetchTasksData();
   }
 
   @override
@@ -39,7 +39,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
         child: RefreshIndicator(
           color: AppColor.appPrimaryColor,
           onRefresh: () async {
-            await fetchStatusData();
+            await fetchTasksData();
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,8 +119,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
           Navigator.pushNamed(context, AppRoutes.addTaskScreen)
               .then((value) async {
             if (value != null) {
-              await fetchStatusData();
-              await fetchListData();
+              await fetchTasksData();
             }
           });
         },
@@ -131,16 +130,17 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
     );
   }
 
-  Future<void> fetchStatusData() async {
-    await context
-        .read<TaskViewModel>()
-        .fetchTaskStatusData(context.read<UserViewModel>().token);
-    await fetchListData();
-  }
+  Future<void> fetchTasksData() async {
+    if(mounted){
+      await context
+          .read<TaskViewModel>()
+          .fetchTaskStatusData(context.read<UserViewModel>().token);
+    }
+    if(mounted){
+      await context
+          .read<TaskViewModel>()
+          .fetchTaskList(context.read<UserViewModel>().token, "New");
+    }
 
-  Future<void> fetchListData() async {
-    await context
-        .read<TaskViewModel>()
-        .fetchTaskList(context.read<UserViewModel>().token, "New");
   }
 }
