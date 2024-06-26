@@ -20,6 +20,7 @@ class AuthService{
       uri: "${AppStrings.baseUrl}${AppStrings.signInEndpoint}",
       body: signInCredentials,
       headers: {"content-type": "application/json"},
+      shouldAuthenticateToken: false
     );
   }
 

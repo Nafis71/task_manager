@@ -12,10 +12,10 @@ class NetworkRequest {
   static Object? finalResponse;
 
   static Future<Object> getRequest(
-      {required String uri, Map<String, String>? headers, bool shouldAuthenticate = true}) async {
+      {required String uri, Map<String, String>? headers, bool shouldAuthenticateToken = true}) async {
     try {
       Response response = await get(Uri.parse(uri), headers: headers);
-      finalResponse = getResponse(response,shouldAuthenticate: shouldAuthenticate);
+      finalResponse = getResponse(response,shouldAuthenticateToken: shouldAuthenticateToken);
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
@@ -28,11 +28,11 @@ class NetworkRequest {
   static Future<Object> postRequest(
       {required String uri,
       Map<String, String>? headers,
-      required Map<String, dynamic> body}) async {
+      required Map<String, dynamic> body,bool shouldAuthenticateToken = true}) async {
     try {
       Response response =
           await post(Uri.parse(uri), headers: headers, body: jsonEncode(body));
-      finalResponse = getResponse(response);
+      finalResponse = getResponse(response,shouldAuthenticateToken: shouldAuthenticateToken);
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
@@ -42,11 +42,11 @@ class NetworkRequest {
     return finalResponse!;
   }
 
-  static Object getResponse(Response response, {bool shouldAuthenticate = true}) {
+  static Object getResponse(Response response, {bool shouldAuthenticateToken = true}) {
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       return Success(response: jsonData);
-    } else if(shouldAuthenticate && response.statusCode == 401){
+    } else if(shouldAuthenticateToken && response.statusCode == 401){
       AppNavigation().signOutUser();
       return Failure(401, AppStrings.sessionExpiredText);
     } else {
