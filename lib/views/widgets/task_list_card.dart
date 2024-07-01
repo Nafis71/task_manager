@@ -46,6 +46,10 @@ class TaskListCard extends StatelessWidget {
                         tilePadding: const EdgeInsets.symmetric(horizontal: 0),
                         dense: false,
                         iconColor: chipColor,
+                        expansionAnimationStyle: AnimationStyle(
+                          curve: Curves.linearToEaseOut,
+                          duration: const Duration(milliseconds: 700),
+                        ),
                         leading: CircleAvatar(
                           radius: 15,
                           backgroundColor: chipColor,
@@ -61,7 +65,7 @@ class TaskListCard extends StatelessWidget {
                         },
                         subtitle: !context.read<TaskViewModel>().isTileExpanded
                             ? Text(
-                                textAlign: TextAlign.justify,
+                                textAlign: TextAlign.start,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 taskData[index].description.toString(),
