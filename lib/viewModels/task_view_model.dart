@@ -9,21 +9,26 @@ import '../models/taskStatusCountModels/status_data.dart';
 
 class TaskViewModel extends ChangeNotifier {
   List<StatusData> _taskStatusData = [];
-  Map<String, List<TaskData>> _taskDataByStatus = {};
+  final Map<String, List<TaskData>> _taskDataByStatus = {};
   Map<String, String> taskStatusCount = {};
   Map<String, int> selectedIndex = {};
   bool _isLoading = false;
   bool _shouldRefresh = false;
+  bool _isTileExpanded = false;
   late Object response;
   TaskService taskService = TaskService();
 
   bool get isLoading => _isLoading;
-
+  bool get isTileExpanded => _isTileExpanded;
   bool get shouldRefresh => _shouldRefresh;
 
   void setShouldRefresh(bool value) {
     _isLoading = value;
     _shouldRefresh = value;
+    notifyListeners();
+  }
+  set setIsTileExpanded(bool value){
+    _isTileExpanded = value;
     notifyListeners();
   }
 

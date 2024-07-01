@@ -42,19 +42,52 @@ class TaskListCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        taskData[index].title.toString(),
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      SizedBox(
-                        width: screenWidth * 0.8,
-                        child: Text(
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.justify,
-                          taskData[index].description.toString(),
-                          style: Theme.of(context).textTheme.bodySmall,
+                      ExpansionTile(
+                        tilePadding: const EdgeInsets.symmetric(horizontal: 0),
+                        dense: false,
+                        iconColor: chipColor,
+                        leading: CircleAvatar(
+                          radius: 15,
+                          backgroundColor: chipColor,
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            "${index + 1}",
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
                         ),
+                        onExpansionChanged: (value) {
+                          context.read<TaskViewModel>().setIsTileExpanded =
+                              value;
+                        },
+                        subtitle: !context.read<TaskViewModel>().isTileExpanded
+                            ? Text(
+                                textAlign: TextAlign.justify,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                taskData[index].description.toString(),
+                                style: Theme.of(context).textTheme.bodySmall,
+                              )
+                            : null,
+                        childrenPadding: const EdgeInsets.only(bottom: 10),
+                        title: Text(
+                          taskData[index].title.toString(),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        shape: const Border(),
+                        children: [
+                          Wrap(
+                            children: [
+                              SizedBox(
+                                width: screenWidth * 0.8,
+                                child: Text(
+                                  textAlign: TextAlign.justify,
+                                  taskData[index].description.toString(),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                       const Gap(10),
                       Text(
