@@ -4,6 +4,7 @@ class TaskData {
   String? description;
   String? status;
   String? createdDate;
+  bool isTileExpanded = false;
 
   TaskData(
       {this.sId, this.title, this.description, this.status, this.createdDate});

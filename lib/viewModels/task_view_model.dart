@@ -27,8 +27,8 @@ class TaskViewModel extends ChangeNotifier {
     _shouldRefresh = value;
     notifyListeners();
   }
-  set setIsTileExpanded(bool value){
-    _isTileExpanded = value;
+  void setIsTileExpanded(String taskStatus, int index, bool value){
+    _taskDataByStatus[taskStatus]![index].isTileExpanded = value;
     notifyListeners();
   }
 

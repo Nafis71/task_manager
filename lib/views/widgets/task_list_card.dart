@@ -60,10 +60,10 @@ class TaskListCard extends StatelessWidget {
                           ),
                         ),
                         onExpansionChanged: (value) {
-                          context.read<TaskViewModel>().setIsTileExpanded =
-                              value;
+                          context.read<TaskViewModel>().setIsTileExpanded(
+                              taskData[index].status.toString(), index, value);
                         },
-                        subtitle: !context.read<TaskViewModel>().isTileExpanded
+                        subtitle: !taskData[index].isTileExpanded
                             ? Text(
                                 textAlign: TextAlign.start,
                                 maxLines: 2,
@@ -72,7 +72,7 @@ class TaskListCard extends StatelessWidget {
                                 style: Theme.of(context).textTheme.bodySmall,
                               )
                             : null,
-                        childrenPadding: const EdgeInsets.only(bottom: 10),
+                        childrenPadding: const EdgeInsets.only(bottom: 5),
                         title: Text(
                           taskData[index].title.toString(),
                           style: Theme.of(context).textTheme.titleMedium,
