@@ -21,7 +21,9 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
   @override
   void initState() {
     super.initState();
-    fetchListData();
+    if(context.read<TaskViewModel>().taskDataByStatus["Canceled"] == null){
+      fetchListData();
+    }
   }
 
   @override

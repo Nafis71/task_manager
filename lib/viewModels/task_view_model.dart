@@ -14,13 +14,13 @@ class TaskViewModel extends ChangeNotifier {
   Map<String, int> selectedIndex = {};
   bool _isLoading = false;
   bool _shouldRefresh = false;
-  bool _isTileExpanded = false;
   late Object response;
   TaskService taskService = TaskService();
 
   bool get isLoading => _isLoading;
-  bool get isTileExpanded => _isTileExpanded;
   bool get shouldRefresh => _shouldRefresh;
+  List<StatusData> get taskStatusData => _taskStatusData;
+  Map<String, List<TaskData>> get taskDataByStatus => _taskDataByStatus;
 
   void setShouldRefresh(bool value) {
     _isLoading = value;
@@ -31,10 +31,6 @@ class TaskViewModel extends ChangeNotifier {
     _taskDataByStatus[taskStatus]![index].isTileExpanded = value;
     notifyListeners();
   }
-
-  List<StatusData> get taskStatusData => _taskStatusData;
-
-  Map<String, List<TaskData>> get taskDataByStatus => _taskDataByStatus;
 
   Future<void> fetchTaskStatusData(String token) async {
     response = await taskService.fetchTaskStatusCount(token);

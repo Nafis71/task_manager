@@ -43,6 +43,7 @@ class TaskListCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ExpansionTile(
+                        initiallyExpanded: taskData[index].isTileExpanded,
                         tilePadding: const EdgeInsets.symmetric(horizontal: 0),
                         dense: false,
                         iconColor: chipColor,
@@ -211,10 +212,11 @@ class TaskListCard extends StatelessWidget {
                                 .containsKey(taskData[index].status)) {
                           if (viewModel.selectedIndex.containsValue(index)) {
                             return const SizedBox(
-                                height: 1,
-                                child: LinearProgressIndicator(
-                                  color: AppColor.appPrimaryColor,
-                                ));
+                              height: 1,
+                              child: LinearProgressIndicator(
+                                color: AppColor.appPrimaryColor,
+                              ),
+                            );
                           }
                         }
                         return const SizedBox.shrink();

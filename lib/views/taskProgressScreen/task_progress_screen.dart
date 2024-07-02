@@ -20,9 +20,10 @@ class TaskProgressScreen extends StatefulWidget {
 class _TaskProgressScreenState extends State<TaskProgressScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    fetchListData();
+    if(context.read<TaskViewModel>().taskDataByStatus["Progress"] == null){
+      fetchListData();
+    }
   }
 
   @override

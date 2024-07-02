@@ -25,7 +25,9 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
   @override
   void initState() {
     super.initState();
-    fetchTasksData();
+    if(context.read<TaskViewModel>().taskDataByStatus["New"] == null){
+      fetchTasksData();
+    }
   }
 
   @override

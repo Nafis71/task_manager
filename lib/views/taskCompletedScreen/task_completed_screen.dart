@@ -21,7 +21,9 @@ class _TaskCompletedScreenState extends State<TaskCompletedScreen> {
   @override
   void initState() {
     super.initState();
-    fetchListData();
+    if(context.read<TaskViewModel>().taskDataByStatus["Completed"] == null){
+      fetchListData();
+    }
   }
 
   @override

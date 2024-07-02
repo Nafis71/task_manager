@@ -18,9 +18,12 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  late PageController pageController;
+
   @override
   void initState() {
     super.initState();
+    pageController = PageController();
   }
 
   List<Widget> screens = const [
@@ -36,19 +39,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getApplicationAppBar(context: context, disableNavigation: false),
-      body: Consumer<DashboardViewModel>(
-        builder: (context, viewModel, child) {
-          return IndexedStack(
-            index: viewModel.index,
-            children: screens,
-          );
-        },
-      ),
+      body: PageView.builder(
+          onPageChanged: (value) {
+            context.read<DashboardViewModel>().setIndex = value;
+          },
+          controller: pageController,
+          itemCount: screens.length,
+          itemBuilder: (context, index) {
+            return screens[index];
+          }),
       bottomNavigationBar: Consumer<DashboardViewModel>(
         builder: (context, viewModel, child) {
           return SalomonBottomBar(
             currentIndex: viewModel.index,
-            onTap: (index) => viewModel.setIndex = index,
+            onTap: (index) {
+              viewModel.setIndex = index;
+              pageController.animateToPage(index,
+                  curve: Curves.ease,
+                  duration: const Duration(milliseconds: 400));
+            },
             items: [
               SalomonBottomBarItem(
                 icon: const Icon(Icons.add),
