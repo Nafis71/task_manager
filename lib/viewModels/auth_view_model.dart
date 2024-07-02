@@ -80,12 +80,11 @@ class AuthViewModel extends ChangeNotifier {
           (response as Success).response as Map<String, dynamic>;
       if (status['status'] == "success") {
         _recoveryEmail = email;
-        setLoading(false);
-        return true;
+        finalStatus = true;
       }
     }
     setLoading(false);
-    return false;
+    return finalStatus;
   }
 
   Future<bool> verifyOTP(String otp) async {
@@ -96,7 +95,6 @@ class AuthViewModel extends ChangeNotifier {
       Map<String, dynamic> status =
           (response as Success).response as Map<String, dynamic>;
       if (status['status'] == "success") {
-        setLoading(false);
         _otp = otp;
         finalStatus = true;
       }
@@ -117,7 +115,6 @@ class AuthViewModel extends ChangeNotifier {
           (response as Success).response as Map<String, dynamic>;
       if (status["status"] == "success") {
         resetPasswordInformation = {};
-        setLoading(false);
         finalStatus = true;
       }
     }
