@@ -122,24 +122,20 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         subjectTEController.text,
         descriptionTEController.text);
     if (status && mounted) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.newTaskAddSuccessTitle,
-            content: AppStrings.newTaskAddSuccessMessage,
-            contentType: ContentType.success,
-            color: AppColor.snackBarSuccessColor));
+      AppSnackBar().showSnackBar(title: AppStrings.newTaskAddSuccessTitle,
+          content: AppStrings.newTaskAddSuccessMessage,
+          contentType: ContentType.success,
+          color: AppColor.snackBarSuccessColor,
+          context: context);
       Navigator.pop(context, true);
       return;
     }
     if (mounted) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.newTaskAddFailureTitle,
-            content: AppStrings.newTaskAddFailureMessage,
-            contentType: ContentType.failure,
-            color: AppColor.snackBarFailureColor));
+      AppSnackBar().showSnackBar(title: AppStrings.newTaskAddFailureTitle,
+          content: AppStrings.newTaskAddFailureMessage,
+          contentType: ContentType.failure,
+          color: AppColor.snackBarFailureColor,
+          context: context);
     }
   }
 

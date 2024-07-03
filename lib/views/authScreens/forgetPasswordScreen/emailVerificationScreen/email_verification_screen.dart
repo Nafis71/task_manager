@@ -87,13 +87,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       return;
     }
     if (mounted) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.sendOTPFailureTitle,
-            content: AppStrings.sendOTPFailureMessage,
-            contentType: ContentType.failure,
-            color: AppColor.snackBarFailureColor));
+      AppSnackBar().showSnackBar(title: AppStrings.sendOTPFailureTitle,
+          content: AppStrings.sendOTPFailureMessage,
+          contentType: ContentType.failure,
+          color: AppColor.snackBarFailureColor,
+          context: context);
     }
   }
 

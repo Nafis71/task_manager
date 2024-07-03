@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:task_manager/utils/app_color.dart';
+import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/dashboard_view_model.dart';
 import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/views/taskCancelledScreen/task_cancelled_screen.dart';
@@ -43,6 +44,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: PageView.builder(
           onPageChanged: (int value) {
             context.read<DashboardViewModel>().setIndex = value;
+            context.read<TaskViewModel>().removeBadgeCount(value, context.read<DashboardViewModel>());
           },
           controller: pageController,
           itemCount: screens.length,
@@ -54,14 +56,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           return SalomonBottomBar(
             currentIndex: viewModel.index,
             onTap: (index) {
-              if ((index - viewModel.index) > 1 ||
-                  (index - viewModel.index) < -1) {
-                pageController.jumpToPage(index);
-              } else {
-                pageController.animateToPage(index,
-                    curve: Curves.easeIn,
-                    duration: const Duration(milliseconds: 400));
-              }
+              pageController.jumpToPage(index);
               viewModel.setIndex = index;
               context.read<TaskViewModel>().removeBadgeCount(index, viewModel);
             },
@@ -70,56 +65,68 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 icon: Badge(
                   backgroundColor: AppColor.appPrimaryColor,
                   textColor: Colors.white,
-                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount("New")! > 0),
-                  label: Text(context
-                      .read<TaskViewModel>()
-                      .getBadgeCount("New")
-                      .toString()),
+                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount(AppStrings.taskStatusNew)! > 0),
+                  label: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text(context
+                        .read<TaskViewModel>()
+                        .getBadgeCount(AppStrings.taskStatusNew)
+                        .toString()),
+                  ),
                   child: const Icon(Icons.add),
                 ),
-                title: const Text("New Task"),
+                title: const Text(AppStrings.taskStatusNew),
                 selectedColor: AppColor.appPrimaryColor,
               ),
               SalomonBottomBarItem(
                 icon: Badge(
                   backgroundColor: AppColor.appPrimaryColor,
                   textColor: Colors.white,
-                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount("Progress")! > 0),
-                  label: Text(context
-                      .read<TaskViewModel>()
-                      .getBadgeCount("Progress")
-                      .toString()),
+                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount(AppStrings.taskStatusProgress)! > 0),
+                  label: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text(context
+                        .read<TaskViewModel>()
+                        .getBadgeCount(AppStrings.taskStatusProgress)
+                        .toString()),
+                  ),
                   child: const Icon(Icons.watch_later_outlined),
                 ),
-                title: const Text("Progress"),
+                title: const Text(AppStrings.taskStatusProgress),
                 selectedColor: AppColor.appPrimaryColor,
               ),
               SalomonBottomBarItem(
                 icon: Badge(
                   backgroundColor: AppColor.appPrimaryColor,
                   textColor: Colors.white,
-                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount("Completed")! > 0),
-                  label: Text(context
-                      .read<TaskViewModel>()
-                      .getBadgeCount("Completed")
-                      .toString()),
+                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount(AppStrings.taskStatusCompleted)! > 0),
+                  label: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text(context
+                        .read<TaskViewModel>()
+                        .getBadgeCount(AppStrings.taskStatusCompleted)
+                        .toString()),
+                  ),
                   child: const Icon(Icons.done_outline_rounded),
                 ),
-                title: const Text("Completed"),
+                title: const Text(AppStrings.taskStatusCompleted),
                 selectedColor: AppColor.appPrimaryColor,
               ),
               SalomonBottomBarItem(
                 icon: Badge(
                   backgroundColor: AppColor.appPrimaryColor,
                   textColor: Colors.white,
-                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount("Canceled")! > 0),
-                  label: Text(context
-                      .read<TaskViewModel>()
-                      .getBadgeCount("Canceled")
-                      .toString()),
+                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount(AppStrings.taskStatusCanceled)! > 0),
+                  label: Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Text(context
+                        .read<TaskViewModel>()
+                        .getBadgeCount(AppStrings.taskStatusCanceled)
+                        .toString()),
+                  ),
                   child: const Icon(Icons.cancel_outlined),
                 ),
-                title: const Text("Canceled"),
+                title: const Text(AppStrings.taskStatusCanceled),
                 selectedColor: AppColor.appPrimaryColor,
               ),
             ],

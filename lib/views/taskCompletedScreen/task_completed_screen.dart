@@ -35,19 +35,19 @@ class _TaskCompletedScreenState extends State<TaskCompletedScreen> {
             children: [
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
-                if (viewModel.taskDataByStatus["Completed"] == null) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusCompleted] == null) {
                   return const LoadingLayout();
                 }
-                if (viewModel.taskDataByStatus["Completed"]!.isEmpty) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusCompleted]!.isEmpty) {
                   return const NoDataLayout(
                     noDataMessage: AppStrings.noCompletedTaskData,
                   );
                 }
                 return TaskListCard(
                   screenWidth: screenWidth,
-                  taskData: viewModel.taskDataByStatus["Completed"]!,
+                  taskData: viewModel.taskDataByStatus[AppStrings.taskStatusCompleted]!,
                   chipColor: AppColor.completedChipColor,
-                  currentScreen: "Completed",
+                  currentScreen: AppStrings.taskStatusCompleted,
                 );
               })
             ],

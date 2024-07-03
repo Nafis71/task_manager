@@ -106,30 +106,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mobileNumber: _mobileNumberTEController.text.trim(),
         password: _passwordTEController.text.trim());
     if (mounted && status) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.registrationSuccessTitle,
-            content: AppStrings.registrationSuccessMessage,
-            contentType: ContentType.success,
-            color: AppColor.snackBarSuccessColor));
+      AppSnackBar().showSnackBar(title: AppStrings.registrationSuccessTitle,
+          content: AppStrings.registrationSuccessMessage,
+          contentType: ContentType.success,
+          color: AppColor.snackBarSuccessColor,
+          context: context);
       gotoSignIn();
     }
     if (mounted && !status) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.registrationFailureTitle,
-            content: AppStrings.registrationFailureMessage,
-            contentType: ContentType.failure,
-            color: AppColor.snackBarFailureColor));
+      AppSnackBar().showSnackBar(title: AppStrings.registrationFailureTitle,
+          content: AppStrings.registrationFailureMessage,
+          contentType: ContentType.failure,
+          color: AppColor.snackBarFailureColor,
+          context: context);
     }
   }
 
   void gotoSignIn() {
-    AuthViewModel authViewModel =
-        Provider.of<AuthViewModel>(context, listen: false);
-    authViewModel.setPasswordObscure = true;
+    context.read<AuthViewModel>().setPasswordObscure = true;
     Navigator.pop(context);
   }
 

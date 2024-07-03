@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-
 import '../../utils/app_color.dart';
 import '../../utils/app_strings.dart';
 import '../../viewModels/task_view_model.dart';
@@ -35,19 +34,19 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
             children: [
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
-                if (viewModel.taskDataByStatus["Canceled"] == null) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusCanceled] == null) {
                   return const LoadingLayout();
                 }
-                if (viewModel.taskDataByStatus["Canceled"]!.isEmpty) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusCanceled]!.isEmpty) {
                   return const NoDataLayout(
                     noDataMessage: AppStrings.noNewCanceledData,
                   );
                 }
                 return TaskListCard(
                   screenWidth: screenWidth,
-                  taskData: viewModel.taskDataByStatus["Canceled"]!,
+                  taskData: viewModel.taskDataByStatus[AppStrings.taskStatusCanceled]!,
                   chipColor: AppColor.canceledChipColor,
-                  currentScreen: "Canceled",
+                  currentScreen: AppStrings.taskStatusCanceled,
                 );
               })
             ],

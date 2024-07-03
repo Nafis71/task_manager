@@ -103,8 +103,11 @@ class AppStrings {
   static const String noNewCanceledData =
       "Your canceled task list is currently empty";
   static const String taskStatusUpdateSuccessTitle = "Success!";
+  static const String taskStatusUpdateFailureTitle = "Failed!";
   static const String taskStatusUpdateSuccessMessage =
       "Your task status has been updated successfully";
+  static const String taskStatusUpdateFailureMessage =
+      "Something went wrong please try again later";
 
   static const String addTaskScreenTitle = "Add New Task";
   static const String subjectTextFieldHint = "Subject";
@@ -116,4 +119,8 @@ class AppStrings {
   static const String updateUserProfileSuccessMessage =
       "Your profile information has been updated.";
   static const String sessionExpiredText = "Session expired please login again.";
+  static const String taskStatusNew = "New";
+  static const String taskStatusProgress = "Progress";
+  static const String taskStatusCompleted = "Completed";
+  static const String taskStatusCanceled = "Canceled";
 }

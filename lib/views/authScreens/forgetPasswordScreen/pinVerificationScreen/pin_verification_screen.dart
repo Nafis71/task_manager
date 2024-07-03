@@ -90,13 +90,11 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
       return;
     }
     if (mounted) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.wrongPinVerificationFieldTitle,
-            content: AppStrings.wrongPinVerificationFieldMessage,
-            contentType: ContentType.failure,
-            color: AppColor.snackBarFailureColor));
+      AppSnackBar().showSnackBar(title: AppStrings.wrongPinVerificationFieldTitle,
+          content: AppStrings.wrongPinVerificationFieldMessage,
+          contentType: ContentType.failure,
+          color: AppColor.snackBarFailureColor,
+          context: context);
     }
   }
 

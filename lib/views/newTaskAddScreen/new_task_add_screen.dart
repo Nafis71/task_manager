@@ -58,8 +58,8 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
                         TaskStatusCard(
                             screenWidth: screenWidth,
                             titleText:
-                                (viewModel.taskStatusCount["Canceled"] != "0")
-                                    ? viewModel.taskStatusCount["Canceled"]
+                                (viewModel.taskStatusCount[AppStrings.taskStatusCanceled] != "0")
+                                    ? viewModel.taskStatusCount[AppStrings.taskStatusCanceled]
                                             ?.padLeft(2, "0") ??
                                         "0"
                                     : "0",
@@ -67,29 +67,29 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
                         TaskStatusCard(
                             screenWidth: screenWidth,
                             titleText:
-                                (viewModel.taskStatusCount["Completed"] != "0")
-                                    ? viewModel.taskStatusCount["Completed"]
+                                (viewModel.taskStatusCount[AppStrings.taskStatusCompleted] != "0")
+                                    ? viewModel.taskStatusCount[AppStrings.taskStatusCompleted]
                                             ?.padLeft(2, "0") ??
                                         "0"
                                     : "0",
-                            subtitleText: "Completed"),
+                            subtitleText: AppStrings.taskStatusCompleted),
                         TaskStatusCard(
                             screenWidth: screenWidth,
                             titleText:
-                                (viewModel.taskStatusCount["Progress"] != "0")
-                                    ? viewModel.taskStatusCount["Progress"]
+                                (viewModel.taskStatusCount[AppStrings.taskStatusProgress] != "0")
+                                    ? viewModel.taskStatusCount[AppStrings.taskStatusProgress]
                                             ?.padLeft(2, "0") ??
                                         "0"
                                     : "0",
-                            subtitleText: "Progress"),
+                            subtitleText: AppStrings.taskStatusProgress),
                         TaskStatusCard(
                             screenWidth: screenWidth,
-                            titleText: (viewModel.taskStatusCount["New"] != "0")
-                                ? viewModel.taskStatusCount["New"]
+                            titleText: (viewModel.taskStatusCount[AppStrings.taskStatusNew] != "0")
+                                ? viewModel.taskStatusCount[AppStrings.taskStatusNew]
                                         ?.padLeft(2, "0") ??
                                     "0"
                                 : "0",
-                            subtitleText: "New Task"),
+                            subtitleText: AppStrings.taskStatusNew),
                       ],
                     );
                   },
@@ -97,19 +97,19 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
               ),
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
-                if (viewModel.taskDataByStatus["New"] == null) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusNew] == null) {
                   return const LoadingLayout();
                 }
-                if (viewModel.taskDataByStatus["New"]!.isEmpty) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusNew]!.isEmpty) {
                   return const NoDataLayout(
                     noDataMessage: AppStrings.noNewTaskData,
                   );
                 }
                 return TaskListCard(
                   screenWidth: screenWidth,
-                  taskData: viewModel.taskDataByStatus["New"]!,
+                  taskData: viewModel.taskDataByStatus[AppStrings.taskStatusNew]!,
                   chipColor: AppColor.newTaskChipColor,
-                  currentScreen: "New",
+                  currentScreen: AppStrings.taskStatusNew,
                 );
               })
             ],

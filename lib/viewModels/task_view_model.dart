@@ -4,19 +4,24 @@ import 'package:task_manager/models/taskListModel/task_data.dart';
 import 'package:task_manager/models/taskListModel/task_list_model.dart';
 import 'package:task_manager/models/taskStatusCountModels/task_status_count_model.dart';
 import 'package:task_manager/services/task_service.dart';
+import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/dashboard_view_model.dart';
-
 import '../models/taskStatusCountModels/status_data.dart';
 
 class TaskViewModel extends ChangeNotifier {
   List<StatusData> _taskStatusData = [];
-  List<String> taskList = ["New","Completed","Progress","Canceled"];
-  Map<String, List<TaskData>> _taskDataByStatus = {};
-  Map<String, int> _badgeCount ={
-    "New" : 0,
-    "Progress":0,
-    "Completed":0,
-    "Canceled": 0
+  List<String> taskList = [
+    AppStrings.taskStatusNew,
+    AppStrings.taskStatusCompleted,
+    AppStrings.taskStatusProgress,
+    AppStrings.taskStatusCanceled
+  ];
+  final Map<String, List<TaskData>> _taskDataByStatus = {};
+  final Map<String, int> _badgeCount = {
+    AppStrings.taskStatusNew: 0,
+    AppStrings.taskStatusProgress: 0,
+    AppStrings.taskStatusCompleted: 0,
+    AppStrings.taskStatusCanceled: 0
   };
   Map<String, String> taskStatusCount = {};
   Map<String, int> selectedIndex = {};
@@ -26,9 +31,13 @@ class TaskViewModel extends ChangeNotifier {
   TaskService taskService = TaskService();
 
   bool get isLoading => _isLoading;
+
   bool get shouldRefresh => _shouldRefresh;
+
   List<StatusData> get taskStatusData => _taskStatusData;
+
   Map<String, List<TaskData>> get taskDataByStatus => _taskDataByStatus;
+
   int? getBadgeCount(String taskStatus) => _badgeCount[taskStatus];
 
   void setShouldRefresh(bool value) {
@@ -36,7 +45,8 @@ class TaskViewModel extends ChangeNotifier {
     _shouldRefresh = value;
     notifyListeners();
   }
-  void setIsTileExpanded(String taskStatus, int index, bool value){
+
+  void setIsTileExpanded(String taskStatus, int index, bool value) {
     _taskDataByStatus[taskStatus]![index].isTileExpanded = value;
     notifyListeners();
   }
@@ -61,15 +71,15 @@ class TaskViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchTaskList(String token) async {
-    for(String taskStatus in taskList){
+    for (String taskStatus in taskList) {
       response = await taskService.fetchTaskList(taskStatus, token);
       if (response is Success) {
         TaskListModel taskListModel = TaskListModel.fromJson(
             (response as Success).response as Map<String, dynamic>);
         if (taskListModel.taskData != null) {
-          List<TaskData> taskData = List.from(taskListModel.taskData as Iterable);
+          List<TaskData> taskData =
+              List.from(taskListModel.taskData as Iterable);
           _taskDataByStatus[taskStatus] = taskData.reversed.toList();
-
         }
       }
     }
@@ -82,7 +92,7 @@ class TaskViewModel extends ChangeNotifier {
     Map<String, String> taskData = {
       "title": taskSubject,
       "description": taskDescription,
-      "status": "New"
+      "status": AppStrings.taskStatusNew
     };
     response = await taskService.createTask(token, taskData);
     if (response is Success) {
@@ -93,14 +103,14 @@ class TaskViewModel extends ChangeNotifier {
     return false;
   }
 
-  Future<bool> updateTask(
-      {required String token,
-      required String taskId,
-      required String taskStatus,
-      required String currentScreenStatus,
-      required int index,
-      required DashboardViewModel dashboardViewModel,
-      }) async {
+  Future<bool> updateTask({
+    required String token,
+    required String taskId,
+    required String taskStatus,
+    required String currentScreenStatus,
+    required int index,
+    required DashboardViewModel dashboardViewModel,
+  }) async {
     setShouldRefresh(true);
     selectedIndex[currentScreenStatus] = index;
     response = await taskService.updateTask(token, taskId, taskStatus);
@@ -135,13 +145,13 @@ class TaskViewModel extends ChangeNotifier {
     return false;
   }
 
-  void removeBadgeCount(int index, DashboardViewModel dashboardViewModel){
-    Map<int,String> taskIndex = {
-      0: "New",
-      1: "Progress",
-      2: "Completed",
-      3: "Canceled"
-    };
+  void removeBadgeCount(int index, DashboardViewModel dashboardViewModel) {
+    Map<int, String> taskIndex = {
+      0: AppStrings.taskStatusNew,
+      1: AppStrings.taskStatusProgress,
+      2: AppStrings.taskStatusCompleted,
+      3: AppStrings.taskStatusCanceled
+    }; //it's placement is sync with index value of bottomNavBar
     _badgeCount[taskIndex[index]!] = 0;
     dashboardViewModel.refreshViewModel();
   }

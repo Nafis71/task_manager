@@ -35,19 +35,19 @@ class _TaskProgressScreenState extends State<TaskProgressScreen> {
             children: [
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
-                if (viewModel.taskDataByStatus["Progress"] == null) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusProgress] == null) {
                   return const LoadingLayout();
                 }
-                if (viewModel.taskDataByStatus["Progress"]!.isEmpty) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusProgress]!.isEmpty) {
                   return const NoDataLayout(
                     noDataMessage: AppStrings.noProgressTaskData,
                   );
                 }
                 return TaskListCard(
                   screenWidth: screenWidth,
-                  taskData: viewModel.taskDataByStatus["Progress"]!,
+                  taskData: viewModel.taskDataByStatus[AppStrings.taskStatusProgress]!,
                   chipColor: AppColor.progressChipColor,
-                  currentScreen: "Progress",
+                  currentScreen: AppStrings.taskStatusProgress,
                 );
               })
             ],

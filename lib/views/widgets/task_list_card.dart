@@ -245,14 +245,19 @@ class TaskListCard extends StatelessWidget {
           index: index,
           dashboardViewModel: context.read<DashboardViewModel>());
       if (status && context.mounted) {
-        ScaffoldMessenger.of(context)
-          ..clearSnackBars()
-          ..showSnackBar(getSnackBar(
-              title: AppStrings.taskStatusUpdateSuccessTitle,
-              content: AppStrings.taskStatusUpdateSuccessMessage,
-              contentType: ContentType.success,
-              color: AppColor.snackBarSuccessColor));
+        AppSnackBar().showSnackBar(title: AppStrings.taskStatusUpdateSuccessTitle,
+            content: AppStrings.taskStatusUpdateSuccessMessage,
+            contentType: ContentType.success,
+            color: AppColor.snackBarSuccessColor,
+            context: context);
         return;
+      }
+      if(context.mounted){
+        AppSnackBar().showSnackBar(title: AppStrings.taskStatusUpdateFailureTitle,
+            content: AppStrings.taskStatusUpdateFailureMessage,
+            contentType: ContentType.failure,
+            color: AppColor.snackBarFailureColor,
+            context: context);
       }
     }
   }

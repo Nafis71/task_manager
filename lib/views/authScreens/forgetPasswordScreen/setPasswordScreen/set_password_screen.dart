@@ -118,36 +118,22 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
         .read<AuthViewModel>()
         .resetPassword(_passwordTEController.text.trim());
     if (status && mounted) {
-      callSnackBar(
-          title: AppStrings.resetPasswordSuccessTitle,
+      AppSnackBar().showSnackBar(title: AppStrings.resetPasswordSuccessTitle,
           content: AppStrings.resetPasswordSuccessMessage,
           contentType: ContentType.success,
-          color: AppColor.snackBarSuccessColor);
+          color: AppColor.snackBarSuccessColor,
+          context: context);
       Navigator.pop(context);
       return;
     }
     if (mounted) {
       Failure failure = context.read<AuthViewModel>().response as Failure;
-      callSnackBar(
-          title: AppStrings.resetPasswordFailureTitle,
+      AppSnackBar().showSnackBar(title: AppStrings.resetPasswordFailureTitle,
           content: failure.message,
           contentType: ContentType.failure,
-          color: AppColor.snackBarFailureColor);
+          color: AppColor.snackBarFailureColor,
+          context: context);
     }
-  }
-
-  void callSnackBar(
-      {required String title,
-      required String content,
-      required ContentType contentType,
-      required Color color}) {
-    ScaffoldMessenger.of(context)
-      ..clearSnackBars()
-      ..showSnackBar(getSnackBar(
-          title: title,
-          content: content,
-          contentType: contentType,
-          color: color));
   }
 
   @override
