@@ -9,6 +9,7 @@ import 'package:task_manager/utils/app_navigation.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
+import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
 import 'package:task_manager/views/authScreens/signInScreen/sign_in_screen_form.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
@@ -138,9 +139,10 @@ class _SignInScreenState extends State<SignInScreen> {
         email: _emailTEController.text.trim(),
         password: _passwordTEController.text,
         userViewModel: context.read<UserViewModel>());
-    print(status);
     if (mounted && status) {
+      context.read<TaskViewModel>().resetTaskData();
       Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+      context.read<AuthViewModel>().setPasswordObscure = true;
       return;
     }
     if (mounted) {

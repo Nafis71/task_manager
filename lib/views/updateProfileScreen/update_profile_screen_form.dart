@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-
 import '../../utils/app_color.dart';
 import '../../utils/app_strings.dart';
 import '../../viewModels/user_view_model.dart';
@@ -91,16 +90,31 @@ class UpdateProfileScreenForm extends StatelessWidget {
             labelText: AppStrings.mobileNumberTextFieldHint,
           ),
           const Gap(20),
-          AppTextField(
-            focusNode: passwordFocusNode,
-            controller: passwordTEController,
-            inputType: TextInputType.text,
-            hintText: AppStrings.passwordTextFieldHint,
-            errorText: AppStrings.passwordErrorText,
-            onFieldSubmitted: (value) {
-              FocusScope.of(context).unfocus();
-            },
-            labelText: AppStrings.passwordTextFieldHint,
+          Consumer<UserViewModel>(
+            builder: (_, viewModel, __) => AppTextField(
+              focusNode: passwordFocusNode,
+              controller: passwordTEController,
+              isObscureText: viewModel.isPasswordObscured,
+              suffixIcon: InkWell(
+                splashColor: Colors.transparent,
+                onTap: () {
+                  viewModel.setIsPasswordObscured =
+                      !viewModel.isPasswordObscured;
+                },
+                child: (viewModel.isPasswordObscured)
+                    ? const Icon(Icons.visibility,
+                        color: AppColor.appPrimaryColor)
+                    : const Icon(Icons.visibility_off,
+                        color: AppColor.appPrimaryColor),
+              ),
+              inputType: TextInputType.text,
+              hintText: AppStrings.passwordTextFieldHint,
+              errorText: AppStrings.passwordErrorText,
+              onFieldSubmitted: (value) {
+                FocusScope.of(context).unfocus();
+              },
+              labelText: AppStrings.passwordTextFieldHint,
+            ),
           ),
           const Gap(20),
           SizedBox(
@@ -112,10 +126,7 @@ class UpdateProfileScreenForm extends StatelessWidget {
                   child: viewModel.isLoading
                       ? const CircularProgressbar(
                           color: AppColor.circularProgressbarColor)
-                      : const Icon(
-                          Icons.arrow_circle_right_outlined,
-                          size: 30,
-                        ),
+                      : const Icon(Icons.arrow_circle_right_outlined, size: 30),
                 );
               },
             ),

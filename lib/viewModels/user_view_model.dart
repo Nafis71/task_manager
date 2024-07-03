@@ -13,6 +13,7 @@ import '../models/loginModels/login_model.dart';
 class UserViewModel extends ChangeNotifier {
   String _token = "";
   bool _isLoading = false;
+  bool _isPasswordObscured = true;
   final ImagePicker _pickedImage = ImagePicker();
   String imageName = "";
   String base64Image = "";
@@ -25,11 +26,18 @@ class UserViewModel extends ChangeNotifier {
     password: "",
   );
 
+  bool get isPasswordObscured => _isPasswordObscured;
+
   bool get isLoading => _isLoading;
 
   UserData get userData => _userData;
 
   String get token => _token;
+
+  set setIsPasswordObscured(bool value){
+    _isPasswordObscured = value;
+    notifyListeners();
+  }
 
   set setToken(String token) => _token = token;
 

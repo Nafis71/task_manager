@@ -50,7 +50,18 @@ class SignInScreenForm extends StatelessWidget {
               focusNode: passwordFocusNode,
               controller: passwordTEController,
               hintText: AppStrings.passwordTextFieldHint,
-              suffixIcon: getPasswordFieldIcon(viewModel),
+              suffixIcon:InkWell(
+              splashColor: Colors.transparent,
+              onTap: () {
+                viewModel.setPasswordObscure =
+                !viewModel.isPasswordObscure;
+              },
+              child: (viewModel.isPasswordObscure)
+                  ? const Icon(Icons.visibility,
+                  color: AppColor.appPrimaryColor)
+                  : const Icon(Icons.visibility_off,
+                  color: AppColor.appPrimaryColor),
+            ),
               isObscureText: viewModel.isPasswordObscure,
               errorText: AppStrings.passwordErrorText,
             ),
@@ -81,22 +92,6 @@ class SignInScreenForm extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  IconButton getPasswordFieldIcon(AuthViewModel viewModel) {
-    IconData icon;
-    (viewModel.isPasswordObscure)
-        ? icon = Icons.visibility
-        : icon = Icons.visibility_off;
-    return IconButton(
-      splashColor: Colors.transparent,
-      onPressed: () {
-        (viewModel.isPasswordObscure)
-            ? viewModel.setPasswordObscure = false
-            : viewModel.setPasswordObscure = true;
-      },
-      icon: Icon(icon, color: AppColor.appPrimaryColor),
     );
   }
 }

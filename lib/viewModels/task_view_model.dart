@@ -1,6 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart';
-import 'package:intl/intl.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/models/taskListModel/task_data.dart';
 import 'package:task_manager/models/taskListModel/task_list_model.dart';
@@ -18,7 +16,7 @@ class TaskViewModel extends ChangeNotifier {
     AppStrings.taskStatusProgress,
     AppStrings.taskStatusCanceled
   ];
-  final Map<String, List<TaskData>> _taskDataByStatus = {};
+  Map<String, List<TaskData>> _taskDataByStatus = {};
   final Map<String, int> _badgeCount = {
     AppStrings.taskStatusNew: 0,
     AppStrings.taskStatusProgress: 0,
@@ -43,6 +41,11 @@ class TaskViewModel extends ChangeNotifier {
   void setIsLoading(bool value) {
     _isLoading = value;
     notifyListeners();
+  }
+
+  void resetTaskData() {
+    _taskDataByStatus = {};
+    taskStatusCount = {};
   }
 
   void setIsTileExpanded(String taskStatus, int index, bool value) {
@@ -95,9 +98,11 @@ class TaskViewModel extends ChangeNotifier {
     };
     response = await taskService.createTask(token, taskData);
     if (response is Success) {
-      Map<String,dynamic> jsonData = (response as Success).response as Map<String,dynamic>;
+      Map<String, dynamic> jsonData =
+          (response as Success).response as Map<String, dynamic>;
       TaskData taskData = TaskData.fromJson(jsonData["data"]);
-      taskData.createdDate = taskData.createdDate?.replaceRange(9, taskData.createdDate?.length, "");
+      taskData.createdDate = taskData.createdDate
+          ?.replaceRange(9, taskData.createdDate?.length, "");
       _taskDataByStatus[AppStrings.taskStatusNew]?.insert(0, taskData);
       setIsLoading(false);
       return true;
