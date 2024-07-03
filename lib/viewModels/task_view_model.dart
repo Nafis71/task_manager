@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/models/taskListModel/task_data.dart';
 import 'package:task_manager/models/taskListModel/task_list_model.dart';
@@ -26,13 +28,11 @@ class TaskViewModel extends ChangeNotifier {
   Map<String, String> taskStatusCount = {};
   Map<String, int> selectedIndex = {};
   bool _isLoading = false;
-  bool _shouldRefresh = false;
+
   late Object response;
   TaskService taskService = TaskService();
 
   bool get isLoading => _isLoading;
-
-  bool get shouldRefresh => _shouldRefresh;
 
   List<StatusData> get taskStatusData => _taskStatusData;
 
@@ -40,9 +40,8 @@ class TaskViewModel extends ChangeNotifier {
 
   int? getBadgeCount(String taskStatus) => _badgeCount[taskStatus];
 
-  void setShouldRefresh(bool value) {
+  void setIsLoading(bool value) {
     _isLoading = value;
-    _shouldRefresh = value;
     notifyListeners();
   }
 
@@ -88,7 +87,7 @@ class TaskViewModel extends ChangeNotifier {
 
   Future<bool> createTask(
       String token, String taskSubject, String taskDescription) async {
-    setShouldRefresh(true);
+    setIsLoading(true);
     Map<String, String> taskData = {
       "title": taskSubject,
       "description": taskDescription,
@@ -96,10 +95,14 @@ class TaskViewModel extends ChangeNotifier {
     };
     response = await taskService.createTask(token, taskData);
     if (response is Success) {
-      setShouldRefresh(false);
+      Map<String,dynamic> jsonData = (response as Success).response as Map<String,dynamic>;
+      TaskData taskData = TaskData.fromJson(jsonData["data"]);
+      taskData.createdDate = taskData.createdDate?.replaceRange(9, taskData.createdDate?.length, "");
+      _taskDataByStatus[AppStrings.taskStatusNew]?.insert(0, taskData);
+      setIsLoading(false);
       return true;
     }
-    setShouldRefresh(false);
+    setIsLoading(false);
     return false;
   }
 
@@ -111,7 +114,7 @@ class TaskViewModel extends ChangeNotifier {
     required int index,
     required DashboardViewModel dashboardViewModel,
   }) async {
-    setShouldRefresh(true);
+    setIsLoading(true);
     selectedIndex[currentScreenStatus] = index;
     response = await taskService.updateTask(token, taskId, taskStatus);
     if (response is Success) {
@@ -137,11 +140,11 @@ class TaskViewModel extends ChangeNotifier {
       }
       _badgeCount[taskStatus] = (_badgeCount[taskStatus]! + 1);
       dashboardViewModel.refreshViewModel();
-      setShouldRefresh(false);
+      setIsLoading(false);
       return true;
     }
     selectedIndex[currentScreenStatus] = -1;
-    setShouldRefresh(false);
+    setIsLoading(false);
     return false;
   }
 
