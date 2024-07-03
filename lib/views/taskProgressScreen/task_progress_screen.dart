@@ -18,13 +18,6 @@ class TaskProgressScreen extends StatefulWidget {
 }
 
 class _TaskProgressScreenState extends State<TaskProgressScreen> {
-  @override
-  void initState() {
-    super.initState();
-    if(context.read<TaskViewModel>().taskDataByStatus["Progress"] == null){
-      fetchListData();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +60,6 @@ class _TaskProgressScreenState extends State<TaskProgressScreen> {
   Future<void> fetchListData() async {
     await context
         .read<TaskViewModel>()
-        .fetchTaskList(context.read<UserViewModel>().token, "Progress");
+        .fetchTaskList(context.read<UserViewModel>().token);
   }
 }

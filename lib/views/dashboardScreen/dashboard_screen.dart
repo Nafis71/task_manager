@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/viewModels/dashboard_view_model.dart';
+import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/views/taskCancelledScreen/task_cancelled_screen.dart';
 import 'package:task_manager/views/taskCompletedScreen/task_completed_screen.dart';
 import 'package:task_manager/views/taskProgressScreen/task_progress_screen.dart';
@@ -53,33 +54,71 @@ class _DashboardScreenState extends State<DashboardScreen> {
           return SalomonBottomBar(
             currentIndex: viewModel.index,
             onTap: (index) {
-              if((index - viewModel.index) > 1 || (index - viewModel.index) < -1){
+              if ((index - viewModel.index) > 1 ||
+                  (index - viewModel.index) < -1) {
                 pageController.jumpToPage(index);
-              } else{
+              } else {
                 pageController.animateToPage(index,
                     curve: Curves.easeIn,
                     duration: const Duration(milliseconds: 400));
               }
               viewModel.setIndex = index;
+              context.read<TaskViewModel>().removeBadgeCount(index, viewModel);
             },
             items: [
               SalomonBottomBarItem(
-                icon: const Icon(Icons.add),
+                icon: Badge(
+                  backgroundColor: AppColor.appPrimaryColor,
+                  textColor: Colors.white,
+                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount("New")! > 0),
+                  label: Text(context
+                      .read<TaskViewModel>()
+                      .getBadgeCount("New")
+                      .toString()),
+                  child: const Icon(Icons.add),
+                ),
                 title: const Text("New Task"),
                 selectedColor: AppColor.appPrimaryColor,
               ),
               SalomonBottomBarItem(
-                icon: const Icon(Icons.watch_later_outlined),
+                icon: Badge(
+                  backgroundColor: AppColor.appPrimaryColor,
+                  textColor: Colors.white,
+                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount("Progress")! > 0),
+                  label: Text(context
+                      .read<TaskViewModel>()
+                      .getBadgeCount("Progress")
+                      .toString()),
+                  child: const Icon(Icons.watch_later_outlined),
+                ),
                 title: const Text("Progress"),
                 selectedColor: AppColor.appPrimaryColor,
               ),
               SalomonBottomBarItem(
-                icon: const Icon(Icons.done_outline_rounded),
+                icon: Badge(
+                  backgroundColor: AppColor.appPrimaryColor,
+                  textColor: Colors.white,
+                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount("Completed")! > 0),
+                  label: Text(context
+                      .read<TaskViewModel>()
+                      .getBadgeCount("Completed")
+                      .toString()),
+                  child: const Icon(Icons.done_outline_rounded),
+                ),
                 title: const Text("Completed"),
                 selectedColor: AppColor.appPrimaryColor,
               ),
               SalomonBottomBarItem(
-                icon: const Icon(Icons.cancel_outlined),
+                icon: Badge(
+                  backgroundColor: AppColor.appPrimaryColor,
+                  textColor: Colors.white,
+                  isLabelVisible: (context.read<TaskViewModel>().getBadgeCount("Canceled")! > 0),
+                  label: Text(context
+                      .read<TaskViewModel>()
+                      .getBadgeCount("Canceled")
+                      .toString()),
+                  child: const Icon(Icons.cancel_outlined),
+                ),
                 title: const Text("Canceled"),
                 selectedColor: AppColor.appPrimaryColor,
               ),

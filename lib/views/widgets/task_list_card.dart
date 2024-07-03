@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:task_manager/utils/app_strings.dart';
+import 'package:task_manager/viewModels/dashboard_view_model.dart';
 import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
@@ -241,7 +242,8 @@ class TaskListCard extends StatelessWidget {
           taskId: taskData[index].sId.toString(),
           taskStatus: value,
           currentScreenStatus: currentScreen,
-          index: index);
+          index: index,
+          dashboardViewModel: context.read<DashboardViewModel>());
       if (status && context.mounted) {
         ScaffoldMessenger.of(context)
           ..clearSnackBars()

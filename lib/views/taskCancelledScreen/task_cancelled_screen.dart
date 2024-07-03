@@ -18,13 +18,6 @@ class TaskCancelledScreen extends StatefulWidget {
 }
 
 class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
-  @override
-  void initState() {
-    super.initState();
-    if(context.read<TaskViewModel>().taskDataByStatus["Canceled"] == null){
-      fetchListData();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +60,6 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
   Future<void> fetchListData() async {
     await context
         .read<TaskViewModel>()
-        .fetchTaskList(context.read<UserViewModel>().token, "Canceled");
+        .fetchTaskList(context.read<UserViewModel>().token);
   }
 }

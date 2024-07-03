@@ -18,13 +18,6 @@ class TaskCompletedScreen extends StatefulWidget {
 }
 
 class _TaskCompletedScreenState extends State<TaskCompletedScreen> {
-  @override
-  void initState() {
-    super.initState();
-    if(context.read<TaskViewModel>().taskDataByStatus["Completed"] == null){
-      fetchListData();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +60,6 @@ class _TaskCompletedScreenState extends State<TaskCompletedScreen> {
   Future<void> fetchListData() async {
     await context
         .read<TaskViewModel>()
-        .fetchTaskList(context.read<UserViewModel>().token, "Completed");
+        .fetchTaskList(context.read<UserViewModel>().token);
   }
 }

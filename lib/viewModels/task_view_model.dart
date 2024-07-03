@@ -4,12 +4,20 @@ import 'package:task_manager/models/taskListModel/task_data.dart';
 import 'package:task_manager/models/taskListModel/task_list_model.dart';
 import 'package:task_manager/models/taskStatusCountModels/task_status_count_model.dart';
 import 'package:task_manager/services/task_service.dart';
+import 'package:task_manager/viewModels/dashboard_view_model.dart';
 
 import '../models/taskStatusCountModels/status_data.dart';
 
 class TaskViewModel extends ChangeNotifier {
   List<StatusData> _taskStatusData = [];
-  final Map<String, List<TaskData>> _taskDataByStatus = {};
+  List<String> taskList = ["New","Completed","Progress","Canceled"];
+  Map<String, List<TaskData>> _taskDataByStatus = {};
+  Map<String, int> _badgeCount ={
+    "New" : 0,
+    "Progress":0,
+    "Completed":0,
+    "Canceled": 0
+  };
   Map<String, String> taskStatusCount = {};
   Map<String, int> selectedIndex = {};
   bool _isLoading = false;
@@ -21,6 +29,7 @@ class TaskViewModel extends ChangeNotifier {
   bool get shouldRefresh => _shouldRefresh;
   List<StatusData> get taskStatusData => _taskStatusData;
   Map<String, List<TaskData>> get taskDataByStatus => _taskDataByStatus;
+  int? getBadgeCount(String taskStatus) => _badgeCount[taskStatus];
 
   void setShouldRefresh(bool value) {
     _isLoading = value;
@@ -51,17 +60,20 @@ class TaskViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchTaskList(String token, String taskStatus) async {
-    response = await taskService.fetchTaskList(taskStatus, token);
-    if (response is Success) {
-      TaskListModel taskListModel = TaskListModel.fromJson(
-          (response as Success).response as Map<String, dynamic>);
-      if (taskListModel.taskData != null) {
-        List<TaskData> taskData = List.from(taskListModel.taskData as Iterable);
-        _taskDataByStatus[taskStatus] = taskData.reversed.toList();
-        notifyListeners();
+  Future<void> fetchTaskList(String token) async {
+    for(String taskStatus in taskList){
+      response = await taskService.fetchTaskList(taskStatus, token);
+      if (response is Success) {
+        TaskListModel taskListModel = TaskListModel.fromJson(
+            (response as Success).response as Map<String, dynamic>);
+        if (taskListModel.taskData != null) {
+          List<TaskData> taskData = List.from(taskListModel.taskData as Iterable);
+          _taskDataByStatus[taskStatus] = taskData.reversed.toList();
+
+        }
       }
     }
+    notifyListeners();
   }
 
   Future<bool> createTask(
@@ -86,7 +98,9 @@ class TaskViewModel extends ChangeNotifier {
       required String taskId,
       required String taskStatus,
       required String currentScreenStatus,
-      required int index}) async {
+      required int index,
+      required DashboardViewModel dashboardViewModel,
+      }) async {
     setShouldRefresh(true);
     selectedIndex[currentScreenStatus] = index;
     response = await taskService.updateTask(token, taskId, taskStatus);
@@ -111,12 +125,25 @@ class TaskViewModel extends ChangeNotifier {
         }
         taskStatusCount[taskStatus] = (targetStatusCount + 1).toString();
       }
+      _badgeCount[taskStatus] = (_badgeCount[taskStatus]! + 1);
+      dashboardViewModel.refreshViewModel();
       setShouldRefresh(false);
       return true;
     }
     selectedIndex[currentScreenStatus] = -1;
     setShouldRefresh(false);
     return false;
+  }
+
+  void removeBadgeCount(int index, DashboardViewModel dashboardViewModel){
+    Map<int,String> taskIndex = {
+      0: "New",
+      1: "Progress",
+      2: "Completed",
+      3: "Canceled"
+    };
+    _badgeCount[taskIndex[index]!] = 0;
+    dashboardViewModel.refreshViewModel();
   }
 
   Future<bool> deleteTask(

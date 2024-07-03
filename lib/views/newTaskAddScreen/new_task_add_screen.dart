@@ -141,7 +141,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
     if(mounted){
       await context
           .read<TaskViewModel>()
-          .fetchTaskList(context.read<UserViewModel>().token, "New");
+          .fetchTaskList(context.read<UserViewModel>().token);
     }
 
   }
