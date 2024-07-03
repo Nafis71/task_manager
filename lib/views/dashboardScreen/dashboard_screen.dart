@@ -85,4 +85,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 }
