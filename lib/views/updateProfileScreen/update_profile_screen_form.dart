@@ -48,6 +48,7 @@ class UpdateProfileScreenForm extends StatelessWidget {
             inputType: TextInputType.emailAddress,
             hintText: AppStrings.emailTextFieldHint,
             errorText: AppStrings.emailErrorText,
+            regEx: AppStrings.emailRegEx,
             onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(firstNameFocusNode);
             },
@@ -84,6 +85,8 @@ class UpdateProfileScreenForm extends StatelessWidget {
             inputType: TextInputType.number,
             hintText: AppStrings.mobileNumberTextFieldHint,
             errorText: AppStrings.mobileNumberErrorText,
+            regEx: AppStrings.phoneNumberRegEx,
+            maxLength: 14,
             onFieldSubmitted: (value) {
               FocusScope.of(context).requestFocus(passwordFocusNode);
             },

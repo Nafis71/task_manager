@@ -32,7 +32,7 @@ class AppNavigation extends AuthViewModel {
 
   Future<void> signOutUser() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.remove("token");
+    preferences.clear();
     Navigator.pushNamedAndRemoveUntil(TaskManager.navigatorKey.currentContext!,
         AppRoutes.signInScreen, (route) => false);
   }

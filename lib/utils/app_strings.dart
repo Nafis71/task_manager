@@ -17,6 +17,7 @@ class AppStrings {
   //regularExpression
   static const String nameRegEX = r'^[a-z A-Z]+$';
   static const String digitsRegEx = r'^[0-9]+$';
+  static const String phoneNumberRegEx = r'^(?:\+?88|0088)?01[15-9]\d{8}$';
   static const String emailRegEx =
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
 
@@ -123,4 +124,5 @@ class AppStrings {
   static const String taskStatusProgress = "Progress";
   static const String taskStatusCompleted = "Completed";
   static const String taskStatusCanceled = "Canceled";
+  static const String chooseImageFileText = "Choose Image";
 }

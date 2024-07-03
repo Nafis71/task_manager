@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/views/dashboardScreen/dashboard_screen.dart';
 import 'package:task_manager/views/newTaskAddScreen/add_task_screen.dart';
 import 'package:task_manager/views/splashScreen/splash_screen.dart';
-import 'package:task_manager/views/updateProfileScreen/updateProfileScreen.dart';
+import 'package:task_manager/views/updateProfileScreen/update_profile_screen.dart';
 
 import '../views/authScreens/forgetPasswordScreen/emailVerificationScreen/email_verification_screen.dart';
 import '../views/authScreens/forgetPasswordScreen/pinVerificationScreen/pin_verification_screen.dart';

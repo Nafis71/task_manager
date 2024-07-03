@@ -20,7 +20,11 @@ AppBar getApplicationAppBar(
             InkWell(
               onTap: () {
                 if (!disableNavigation) {
-                  Navigator.pushNamed(context, AppRoutes.updateProfileScreen);
+                  Navigator.pushNamed(context, AppRoutes.updateProfileScreen)
+                      .then((value) {
+                    context.read<UserViewModel>().base64Image = "";
+                    context.read<UserViewModel>().imageName = "";
+                  });
                 }
               },
               child: CircleAvatar(

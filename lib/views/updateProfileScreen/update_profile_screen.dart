@@ -82,24 +82,22 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     const Gap(15),
-                    Container(
-                      height: 45,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            onTap: () {
-                              context
-                                  .read<UserViewModel>()
-                                  .getImageFromGallery();
-                            },
-                            child: Container(
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      onTap: () {
+                        context.read<UserViewModel>().getImageFromGallery();
+                      },
+                      child: Container(
+                        height: 45,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
                               width: screenWidth * 0.25,
                               decoration: const BoxDecoration(
                                   color: AppColor.photoPickerColor,
@@ -112,19 +110,24 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ),
-                          ),
-                          const Gap(20),
-                          SizedBox(
-                            width: screenWidth * 0.55,
-                            child: Consumer<UserViewModel>(
-                              builder: (_, viewModel, __) {
-                                return Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    viewModel.imageName);
-                              },
+                            const Gap(20),
+                            SizedBox(
+                              width: screenWidth * 0.55,
+                              child: Consumer<UserViewModel>(
+                                builder: (_, viewModel, __) {
+                                  if (viewModel.imageName.isEmpty) {
+                                    return const Text(
+                                        overflow: TextOverflow.ellipsis,
+                                        AppStrings.chooseImageFileText);
+                                  }
+                                  return Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      viewModel.imageName);
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     const Gap(20),

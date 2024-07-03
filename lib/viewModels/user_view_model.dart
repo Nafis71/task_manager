@@ -87,8 +87,8 @@ class UserViewModel extends ChangeNotifier {
   }) async {
     setIsLoading = true;
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    if (_userData.photo!.isNotEmpty && base64Image.isEmpty) {
-      base64Image = preferences.getString("photo").toString();
+    if (base64Image.isEmpty) {
+      base64Image = _userData.photo!;
     }
     UserData userData = UserData(
       email: email,
