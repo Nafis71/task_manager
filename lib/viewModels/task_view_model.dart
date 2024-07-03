@@ -104,6 +104,7 @@ class TaskViewModel extends ChangeNotifier {
       taskData.createdDate = taskData.createdDate
           ?.replaceRange(9, taskData.createdDate?.length, "");
       _taskDataByStatus[AppStrings.taskStatusNew]?.insert(0, taskData);
+      taskStatusCount[AppStrings.taskStatusNew] = ((int.parse(taskStatusCount[AppStrings.taskStatusNew] ?? "0")  + 1).toString());
       setIsLoading(false);
       return true;
     }

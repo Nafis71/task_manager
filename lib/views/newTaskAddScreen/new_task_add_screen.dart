@@ -8,7 +8,6 @@ import 'package:task_manager/views/widgets/loading_layout.dart';
 import 'package:task_manager/views/widgets/no_data_layout.dart';
 import 'package:task_manager/views/widgets/task_list_card.dart';
 import 'package:task_manager/views/widgets/task_status_card.dart';
-
 import '../../viewModels/task_view_model.dart';
 import '../../viewModels/user_view_model.dart';
 
@@ -25,7 +24,7 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
   @override
   void initState() {
     super.initState();
-    if(context.read<TaskViewModel>().taskDataByStatus["New"] == null){
+    if(context.read<TaskViewModel>().taskDataByStatus[AppStrings.taskStatusNew] == null){
       fetchTasksData();
     }
   }
