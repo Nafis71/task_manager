@@ -40,7 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: getApplicationAppBar(context: context, disableNavigation: false),
       body: PageView.builder(
-          onPageChanged: (value) {
+          onPageChanged: (int value) {
             context.read<DashboardViewModel>().setIndex = value;
           },
           controller: pageController,
@@ -53,10 +53,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
           return SalomonBottomBar(
             currentIndex: viewModel.index,
             onTap: (index) {
+              if((index - viewModel.index) > 1 || (index - viewModel.index) < -1){
+                pageController.jumpToPage(index);
+              } else{
+                pageController.animateToPage(index,
+                    curve: Curves.easeIn,
+                    duration: const Duration(milliseconds: 400));
+              }
               viewModel.setIndex = index;
-              pageController.animateToPage(index,
-                  curve: Curves.ease,
-                  duration: const Duration(milliseconds: 400));
             },
             items: [
               SalomonBottomBarItem(
@@ -85,6 +89,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+
   @override
   void dispose() {
     pageController.dispose();
