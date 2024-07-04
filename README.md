@@ -41,9 +41,9 @@ Modify existing tasks to reflect progress, mark them as completed, or cancel the
 Effortlessly delete tasks when they're no longer relevant.
 Maintain an organized task list for optimal productivity.
 <br />
-<img align="center" alt ="homePage" width ="200" src="https://github.com/Nafis71/task_manager/assets/57575805/177510e4-5d3d-4875-8350-62b74f313005"></img>
-<img align="center" alt ="homePage" width ="200" src="https://github.com/Nafis71/task_manager/assets/57575805/585b51be-2d05-4950-a35d-e16487602eb9"></img>
-<img align="center" alt ="homePage" width ="200" src="https://github.com/Nafis71/task_manager/assets/57575805/439ed780-4b70-46ba-baac-f13f881542f5"></img>
+<img align="center" alt ="homePage" width ="200" src="https://github.com/Nafis71/task_manager/assets/57575805/cedc5bd2-c7f3-4d2d-b3cb-d86b4e108c82"></img>
+<img align="center" alt ="homePage" width ="200" src="https://github.com/Nafis71/task_manager/assets/57575805/a65be5d2-977e-4c39-aa37-e59c27d1338f"></img>
+<img align="center" alt ="homePage" width ="200" src="https://github.com/Nafis71/task_manager/assets/57575805/c12a5f2e-7357-468d-8ec6-c2602d6ef8c4"></img>
 <img align="center" alt ="homePage" width ="200" src="https://github.com/Nafis71/task_manager/assets/57575805/cac27c32-8fe6-46f9-883c-7dca64035fbb"></img>
 <br />
 
