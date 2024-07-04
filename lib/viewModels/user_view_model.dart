@@ -101,12 +101,7 @@ class UserViewModel extends ChangeNotifier {
     response = await UserInfoService.updateUserProfile(token, userData);
     if (response is Success) {
       _userData = userData;
-      preferences.setString("email", email);
-      preferences.setString("firstName", firstName);
-      preferences.setString("lastName", lastName);
-      preferences.setString("mobile", mobile);
-      preferences.setString("photo", base64Image);
-      preferences.setString("password", password);
+      preferences.setString("userData", jsonEncode(userData.toJson()));
       base64Image = "";
       imageName = "";
       setIsLoading = false;
