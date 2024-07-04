@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../widgets/app_textfield.dart';
@@ -18,13 +19,14 @@ class PinVerificationForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.orientationOf(context);
     return Form(
       key: formKey,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: List.generate(focusNodes.length, (index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding: EdgeInsets.only(left: (orientation == Orientation.portrait) ? 8 :18),
             child: SizedBox(
               width: textFieldWidth,
               height: textFieldHeight,
