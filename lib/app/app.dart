@@ -8,12 +8,15 @@ import 'package:task_manager/themes/appbar_style.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/viewModels/auth_view_model.dart';
+import 'package:task_manager/viewModels/countdown_timer_view_model.dart';
 import 'package:task_manager/viewModels/dashboard_view_model.dart';
 import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
 
 class TaskManager extends StatelessWidget {
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
+
   const TaskManager({super.key});
 
   @override
@@ -24,6 +27,7 @@ class TaskManager extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserViewModel()),
         ChangeNotifierProvider(create: (_) => DashboardViewModel()),
         ChangeNotifierProvider(create: (_) => TaskViewModel()),
+        ChangeNotifierProvider(create: (_) => CountdownTimerViewModel()),
       ],
       child: MaterialApp(
         navigatorKey: navigatorKey,
