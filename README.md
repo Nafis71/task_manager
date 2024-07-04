@@ -29,7 +29,7 @@ User-friendly password reset functionality with forgotten password support.
 > With the use of OTP verification and forget password, users can reset their passwords
 <br />
 <img align="center" alt ="homePage" width ="250" src="https://github.com/Nafis71/task_manager/assets/57575805/744bec3e-dd9e-4c03-9602-06163ac02c87"></img>
-<img align="center" alt ="homePage" width ="250" src="https://github.com/Nafis71/task_manager/assets/57575805/a376e2d5-8199-44d4-b6f9-9631e1fa8801"></img>
+<img align="center" alt ="homePage" width ="250" src="https://github.com/Nafis71/task_manager/assets/57575805/2adc7c37-9d9e-42cc-9a0b-2614a2b1e33a"></img>
 <img align="center" alt ="homePage" width ="250" src="https://github.com/Nafis71/task_manager/assets/57575805/5e0cd239-1517-4a29-bada-3770695b615d"></img>
 <br />
 
