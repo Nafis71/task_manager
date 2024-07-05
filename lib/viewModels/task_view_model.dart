@@ -101,8 +101,12 @@ class TaskViewModel extends ChangeNotifier {
       Map<String, dynamic> jsonData =
           (response as Success).response as Map<String, dynamic>;
       TaskData taskData = TaskData.fromJson(jsonData["data"]);
-      taskData.createdDate = taskData.createdDate
-          ?.replaceRange(9, taskData.createdDate?.length, "");
+      String? generatedDate = taskData.createdDate
+          ?.substring(0,10);
+      List<String> date = generatedDate?.split("-")?? [];
+      date.insert(0, date.removeAt(2));
+      date.insert(1, date.removeAt(2));
+      taskData.createdDate = date.join("-");
       _taskDataByStatus[AppStrings.taskStatusNew]?.insert(0, taskData);
       taskStatusCount[AppStrings.taskStatusNew] = ((int.parse(taskStatusCount[AppStrings.taskStatusNew] ?? "0")  + 1).toString());
       setIsLoading(false);
