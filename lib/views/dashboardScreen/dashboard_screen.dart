@@ -69,7 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: Row(
                   children: [
                     FallbackWidget(
-                        noDataMessage: "Ooppss No Internet",
+                        noDataMessage: AppStrings.noInternetText,
                         asset: AppAssets.noInternet),
                   ],
                 ),

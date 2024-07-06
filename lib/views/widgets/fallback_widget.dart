@@ -23,9 +23,13 @@ class FallbackWidget extends StatelessWidget {
               child: SVGImageLoader(asset: asset, fit: BoxFit.contain),
             ),
             const Gap(20),
-            Text(
-              noDataMessage,
-              style: Theme.of(context).textTheme.titleMedium,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                textAlign: TextAlign.center,
+                noDataMessage,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             ),
           ],
         ),
