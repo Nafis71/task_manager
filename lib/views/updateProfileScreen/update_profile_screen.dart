@@ -120,7 +120,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                   if (viewModel.imageName.isEmpty) {
                                     return const Text(
                                         overflow: TextOverflow.ellipsis,
-                                        AppStrings.chooseImageFileText);
+                                        AppStrings.chooseImageFileText,style: TextStyle(color: Colors.black),);
                                   }
                                   return Text(
                                       overflow: TextOverflow.ellipsis,
