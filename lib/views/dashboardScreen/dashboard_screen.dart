@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task_manager/services/connectivity_checker.dart';
 import 'package:task_manager/themes/theme_changer.dart';
+import 'package:task_manager/utils/app_assets.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/dashboard_view_model.dart';
@@ -10,6 +12,7 @@ import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/views/taskCancelledScreen/task_cancelled_screen.dart';
 import 'package:task_manager/views/taskCompletedScreen/task_completed_screen.dart';
 import 'package:task_manager/views/taskProgressScreen/task_progress_screen.dart';
+import 'package:task_manager/views/widgets/fallback_widget.dart';
 
 import '../newTaskAddScreen/new_task_add_screen.dart';
 import '../widgets/app_bar.dart';
@@ -43,24 +46,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getApplicationAppBar(context: context, disableNavigation: false),
-      body: PageView.builder(
-          onPageChanged: (int value) {
-            context.read<DashboardViewModel>().setIndex = value;
-            context
-                .read<TaskViewModel>()
-                .removeBadgeCount(value, context.read<DashboardViewModel>());
-          },
-          controller: pageController,
-          itemCount: screens.length,
-          itemBuilder: (context, index) {
-            return screens[index];
-          }),
+      body: Consumer<ConnectivityChecker>(builder: (_,viewModel,__){
+        if(viewModel.isDeviceConnected){
+          return PageView.builder(
+              onPageChanged: (int value) {
+                context.read<DashboardViewModel>().setIndex = value;
+                context
+                    .read<TaskViewModel>()
+                    .removeBadgeCount(value, context.read<DashboardViewModel>());
+              },
+              controller: pageController,
+              itemCount: screens.length,
+              itemBuilder: (context, index) {
+                return screens[index];
+              },);
+        }
+        return const Column(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  FallbackWidget(noDataMessage: "Ooppss No Internet", asset: AppAssets.noInternet),
+                ],
+              ),
+            ),
+          ],
+        );
+      },),
       bottomNavigationBar: Consumer<DashboardViewModel>(
         builder: (context, viewModel, child) {
           return SalomonBottomBar(
             currentIndex: viewModel.index,
             onTap: (index) {
-              pageController.jumpToPage(index);
+              if(context.read<ConnectivityChecker>().isDeviceConnected){
+                pageController.jumpToPage(index);
+              }
               viewModel.setIndex = index;
               context.read<TaskViewModel>().removeBadgeCount(index, viewModel);
             },
@@ -171,6 +191,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void dispose() {
     pageController.dispose();
+    context.read<ConnectivityChecker>().disableInternetConnectionChecker();
     super.dispose();
   }
 }

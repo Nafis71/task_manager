@@ -38,10 +38,10 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
     startCountDownTimer();
   }
 
-  void startCountDownTimer(){
+  void startCountDownTimer() async {
     context.read<CountdownTimerViewModel>().resetCountDown();
-    timer = Timer.periodic(const Duration(seconds: 1), (countdown){
-      if(countdown.tick > 60){
+    timer = Timer.periodic(const Duration(seconds: 1), (countdown) {
+      if (countdown.tick > 60) {
         countdown.cancel();
         return;
       }
@@ -51,8 +51,14 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -73,13 +79,11 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                 initiatePinVerification();
                 return;
               }
-              ScaffoldMessenger.of(context)
-                ..clearSnackBars()
-                ..showSnackBar(getSnackBar(
-                    title: AppStrings.emptyPinVerificationFieldTitle,
-                    content: AppStrings.emptyPinVerificationFieldMessage,
-                    contentType: ContentType.warning,
-                    color: AppColor.snackBarWarningColor));
+              AppSnackBar().showSnackBar(title: AppStrings.emptyPinVerificationFieldTitle,
+                  content: AppStrings.emptyPinVerificationFieldMessage,
+                  contentType: ContentType.warning,
+                  color: AppColor.snackBarWarningColor,
+                  context: context);
             },
             child: Column(
               children: [
@@ -97,7 +101,9 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: ResendPinLayout(
                       resendTimeLeft: viewModel.resendTimeLeft,
-                      email: context.read<AuthViewModel>().recoveryEmail,
+                      email: context
+                          .read<AuthViewModel>()
+                          .recoveryEmail,
                       restartTimer: startCountDownTimer,
                     ),
                   );
@@ -117,6 +123,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
     }
     bool status = await context.read<AuthViewModel>().verifyOTP(otp);
     if (status && mounted) {
+      timer.cancel();
       Navigator.pushReplacementNamed(context, AppRoutes.setPasswordScreen);
       return;
     }
@@ -138,7 +145,6 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
     for (FocusNode focusNode in focusNodes) {
       focusNode.dispose();
     }
-    timer.cancel();
     super.dispose();
   }
 }

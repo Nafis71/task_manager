@@ -9,13 +9,25 @@ import '../models/responseModel/response_code.dart';
 import '../utils/app_strings.dart';
 
 class NetworkRequest {
-  static Object? finalResponse;
+  Object? finalResponse;
+  static NetworkRequest? instance;
 
-  static Future<Object> getRequest(
-      {required String uri, Map<String, String>? headers, bool shouldAuthenticateToken = true}) async {
+  NetworkRequest._();
+
+  factory NetworkRequest() {
+    return instance ??= NetworkRequest._();
+  }
+
+  Future<Object> getRequest(
+      {required String uri,
+      Map<String, String>? headers,
+      bool shouldAuthenticateToken = true}) async {
     try {
       Response response = await get(Uri.parse(uri), headers: headers);
-      finalResponse = getResponse(response,shouldAuthenticateToken: shouldAuthenticateToken);
+      finalResponse = getResponse(response,
+          shouldAuthenticateToken: shouldAuthenticateToken);
+    } on ClientException {
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
@@ -25,14 +37,18 @@ class NetworkRequest {
     return finalResponse!;
   }
 
-  static Future<Object> postRequest(
+  Future<Object> postRequest(
       {required String uri,
       Map<String, String>? headers,
-      required Map<String, dynamic> body,bool shouldAuthenticateToken = true}) async {
+      required Map<String, dynamic> body,
+      bool shouldAuthenticateToken = true}) async {
     try {
       Response response =
           await post(Uri.parse(uri), headers: headers, body: jsonEncode(body));
-      finalResponse = getResponse(response,shouldAuthenticateToken: shouldAuthenticateToken);
+      finalResponse = getResponse(response,
+          shouldAuthenticateToken: shouldAuthenticateToken);
+    } on ClientException {
+      finalResponse = Failure(600, AppStrings.unknownResponseText);
     } catch (exception) {
       if (kDebugMode) {
         debugPrint(exception.toString());
@@ -42,11 +58,11 @@ class NetworkRequest {
     return finalResponse!;
   }
 
-  static Object getResponse(Response response, {bool shouldAuthenticateToken = true}) {
+  Object getResponse(Response response, {bool shouldAuthenticateToken = true}) {
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       return Success(response: jsonData);
-    } else if(shouldAuthenticateToken && response.statusCode == 401){
+    } else if (shouldAuthenticateToken && response.statusCode == 401) {
       AppNavigation().signOutUser();
       return Failure(401, AppStrings.sessionExpiredText);
     } else {

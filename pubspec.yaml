@@ -26,6 +26,7 @@ dependencies:
   ionicons: ^0.2.2
   salomon_bottom_bar: ^3.3.2
   image_picker: ^1.1.2
+  internet_connection_checker: ^1.0.0+1
   device_preview: ^1.2.0
 
 dev_dependencies:

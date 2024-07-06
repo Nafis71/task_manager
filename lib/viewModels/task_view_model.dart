@@ -1,6 +1,7 @@
 import 'dart:isolate';
 
 import 'package:flutter/foundation.dart';
+import 'package:task_manager/models/responseModel/failure.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/models/taskListModel/task_data.dart';
 import 'package:task_manager/models/taskListModel/task_list_model.dart';

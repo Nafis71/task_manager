@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/app_assets.dart';
 import '../../utils/app_color.dart';
 import '../../utils/app_strings.dart';
 import '../../viewModels/task_view_model.dart';
 import '../../viewModels/user_view_model.dart';
 import '../widgets/loading_layout.dart';
-import '../widgets/no_data_layout.dart';
+import '../widgets/fallback_widget.dart';
 import '../widgets/task_list_card.dart';
 
 class TaskProgressScreen extends StatefulWidget {
@@ -39,8 +40,9 @@ class _TaskProgressScreenState extends State<TaskProgressScreen> {
                   return const LoadingLayout();
                 }
                 if (viewModel.taskDataByStatus[AppStrings.taskStatusProgress]!.isEmpty) {
-                  return const NoDataLayout(
+                  return const FallbackWidget(
                     noDataMessage: AppStrings.noProgressTaskData,
+                    asset: AppAssets.emptyList,
                   );
                 }
                 return TaskListCard(

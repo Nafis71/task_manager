@@ -13,6 +13,8 @@ class AppStrings {
   static const String updateTaskEndpoint = "updateTaskStatus";
   static const String profileUpdateEndpoint = "profileUpdate";
   static const String unknownResponseText = "Unknown Error";
+  static const String serverConnectionErrorText =
+      "Server Connection error";
 
   //regularExpression
   static const String nameRegEX = r'^[a-z A-Z]+$';
@@ -119,7 +121,8 @@ class AppStrings {
   static const String updateUserProfileFailureTitle = "Failed!";
   static const String updateUserProfileSuccessMessage =
       "Your profile information has been updated.";
-  static const String sessionExpiredText = "Session expired please login again.";
+  static const String sessionExpiredText =
+      "Session expired please login again.";
   static const String taskStatusNew = "New";
   static const String taskStatusProgress = "Progress";
   static const String taskStatusCompleted = "Completed";

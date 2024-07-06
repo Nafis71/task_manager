@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/services/connectivity_checker.dart';
 import 'package:task_manager/themes/app_theme.dart';
 import 'package:task_manager/themes/theme_changer.dart';
 import 'package:task_manager/utils/app_routes.dart';
@@ -29,6 +30,7 @@ class TaskManager extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TaskViewModel()),
         ChangeNotifierProvider(create: (_) => CountdownTimerViewModel()),
         ChangeNotifierProvider(create: (_) => ThemeChanger()),
+        ChangeNotifierProvider(create: (_) => ConnectivityChecker()),
       ],
       child: Builder(
         builder: (context) {
@@ -36,6 +38,7 @@ class TaskManager extends StatelessWidget {
             loadUserTheme(userTheme,context);
           }
           context.read<ThemeChanger>().setIsAppLaunched = true;
+          context.read<ConnectivityChecker>().initConnectivityChecker();
           return MaterialApp(
             navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,

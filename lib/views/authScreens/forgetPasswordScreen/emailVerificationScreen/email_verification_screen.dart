@@ -2,6 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/models/responseModel/failure.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
@@ -87,8 +88,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       return;
     }
     if (mounted) {
+      int statusCode = (context.read<AuthViewModel>().response as Failure).statusCode;
       AppSnackBar().showSnackBar(title: AppStrings.sendOTPFailureTitle,
-          content: AppStrings.sendOTPFailureMessage,
+          content: (statusCode == 600)? AppStrings.serverConnectionErrorText : AppStrings.sendOTPFailureMessage,
           contentType: ContentType.failure,
           color: AppColor.snackBarFailureColor,
           context: context);

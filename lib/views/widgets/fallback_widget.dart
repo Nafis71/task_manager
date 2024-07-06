@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import '../../utils/app_assets.dart';
 import '../../wrappers/svg_image_loader.dart';
 
-class NoDataLayout extends StatelessWidget {
+class FallbackWidget extends StatelessWidget {
   final String noDataMessage;
+  final String asset;
 
-  const NoDataLayout({super.key, required this.noDataMessage});
+  const FallbackWidget(
+      {super.key, required this.noDataMessage, required this.asset});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,13 @@ class NoDataLayout extends StatelessWidget {
             Gap(MediaQuery.of(context).size.height * 0.15),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.35,
-              child: const SVGImageLoader(
-                  asset: AppAssets.emptyList, fit: BoxFit.contain),
+              child: SVGImageLoader(asset: asset, fit: BoxFit.contain),
             ),
             const Gap(20),
-            Text(noDataMessage,style: Theme.of(context).textTheme.titleMedium,),
+            Text(
+              noDataMessage,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ],
         ),
       ),

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/services/connectivity_checker.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/views/widgets/loading_layout.dart';
-import 'package:task_manager/views/widgets/no_data_layout.dart';
+import 'package:task_manager/views/widgets/fallback_widget.dart';
 import 'package:task_manager/views/widgets/task_list_card.dart';
 import 'package:task_manager/views/widgets/task_status_card.dart';
+
+import '../../utils/app_assets.dart';
 import '../../viewModels/task_view_model.dart';
 import '../../viewModels/user_view_model.dart';
 
@@ -24,9 +27,6 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
   @override
   void initState() {
     super.initState();
-    if(context.read<TaskViewModel>().taskDataByStatus[AppStrings.taskStatusNew] == null){
-      fetchTasksData();
-    }
   }
 
   @override
@@ -47,70 +47,95 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
             children: [
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Consumer<TaskViewModel>(
-                  builder: (_, viewModel, __) {
-                    if (viewModel.taskStatusCount.isEmpty) {
-                      return const SizedBox.shrink();
+                child: Consumer<ConnectivityChecker>(
+                  builder: (_, connectivityViewModel, __) {
+                    if (connectivityViewModel.isDeviceConnected) {
+                      if (context
+                              .read<TaskViewModel>()
+                              .taskDataByStatus[AppStrings.taskStatusNew] ==
+                          null) {
+                        fetchTasksData();
+                      }
+                      return Consumer<TaskViewModel>(
+                        builder: (_, viewModel, __) {
+                          if (viewModel.taskStatusCount.isEmpty) {
+                            return const SizedBox.shrink();
+                          }
+                          return Row(
+                            children: [
+                              TaskStatusCard(
+                                  screenWidth: screenWidth,
+                                  titleText: (viewModel.taskStatusCount[
+                                              AppStrings.taskStatusCanceled] !=
+                                          "0")
+                                      ? viewModel.taskStatusCount[
+                                                  AppStrings.taskStatusCanceled]
+                                              ?.padLeft(2, "0") ??
+                                          "0"
+                                      : "0",
+                                  subtitleText: "Canceled"),
+                              TaskStatusCard(
+                                  screenWidth: screenWidth,
+                                  titleText: (viewModel.taskStatusCount[
+                                              AppStrings.taskStatusCompleted] !=
+                                          "0")
+                                      ? viewModel.taskStatusCount[AppStrings
+                                                  .taskStatusCompleted]
+                                              ?.padLeft(2, "0") ??
+                                          "0"
+                                      : "0",
+                                  subtitleText: AppStrings.taskStatusCompleted),
+                              TaskStatusCard(
+                                  screenWidth: screenWidth,
+                                  titleText: (viewModel.taskStatusCount[
+                                              AppStrings.taskStatusProgress] !=
+                                          "0")
+                                      ? viewModel.taskStatusCount[
+                                                  AppStrings.taskStatusProgress]
+                                              ?.padLeft(2, "0") ??
+                                          "0"
+                                      : "0",
+                                  subtitleText: AppStrings.taskStatusProgress),
+                              TaskStatusCard(
+                                  screenWidth: screenWidth,
+                                  titleText: (viewModel.taskStatusCount[
+                                              AppStrings.taskStatusNew] !=
+                                          "0")
+                                      ? viewModel.taskStatusCount[
+                                                  AppStrings.taskStatusNew]
+                                              ?.padLeft(2, "0") ??
+                                          "0"
+                                      : "0",
+                                  subtitleText: AppStrings.taskStatusNew),
+                            ],
+                          );
+                        },
+                      );
                     }
-                    return Row(
-                      children: [
-                        TaskStatusCard(
-                            screenWidth: screenWidth,
-                            titleText:
-                                (viewModel.taskStatusCount[AppStrings.taskStatusCanceled] != "0")
-                                    ? viewModel.taskStatusCount[AppStrings.taskStatusCanceled]
-                                            ?.padLeft(2, "0") ??
-                                        "0"
-                                    : "0",
-                            subtitleText: "Canceled"),
-                        TaskStatusCard(
-                            screenWidth: screenWidth,
-                            titleText:
-                                (viewModel.taskStatusCount[AppStrings.taskStatusCompleted] != "0")
-                                    ? viewModel.taskStatusCount[AppStrings.taskStatusCompleted]
-                                            ?.padLeft(2, "0") ??
-                                        "0"
-                                    : "0",
-                            subtitleText: AppStrings.taskStatusCompleted),
-                        TaskStatusCard(
-                            screenWidth: screenWidth,
-                            titleText:
-                                (viewModel.taskStatusCount[AppStrings.taskStatusProgress] != "0")
-                                    ? viewModel.taskStatusCount[AppStrings.taskStatusProgress]
-                                            ?.padLeft(2, "0") ??
-                                        "0"
-                                    : "0",
-                            subtitleText: AppStrings.taskStatusProgress),
-                        TaskStatusCard(
-                            screenWidth: screenWidth,
-                            titleText: (viewModel.taskStatusCount[AppStrings.taskStatusNew] != "0")
-                                ? viewModel.taskStatusCount[AppStrings.taskStatusNew]
-                                        ?.padLeft(2, "0") ??
-                                    "0"
-                                : "0",
-                            subtitleText: AppStrings.taskStatusNew),
-                      ],
-                    );
+                    return const SizedBox.shrink();
                   },
                 ),
               ),
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
-                if (viewModel.taskDataByStatus[AppStrings.taskStatusNew] == null) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusNew] ==
+                    null) {
                   return const LoadingLayout();
                 }
-                if (viewModel.taskDataByStatus[AppStrings.taskStatusNew]!.isEmpty) {
-                  return const NoDataLayout(
-                    noDataMessage: AppStrings.noNewTaskData,
-                  );
+                if (viewModel
+                    .taskDataByStatus[AppStrings.taskStatusNew]!.isEmpty) {
+                  return const FallbackWidget(
+                      noDataMessage: AppStrings.noNewTaskData,
+                      asset: AppAssets.emptyList);
                 }
                 return TaskListCard(
                   screenWidth: screenWidth,
-                  taskData: viewModel.taskDataByStatus[AppStrings.taskStatusNew]!,
+                  taskData:
+                      viewModel.taskDataByStatus[AppStrings.taskStatusNew]!,
                   chipColor: AppColor.newTaskChipColor,
                   currentScreen: AppStrings.taskStatusNew,
                 );
-              })
+              }),
             ],
           ),
         ),
@@ -127,12 +152,12 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
   }
 
   Future<void> fetchTasksData() async {
-    if(mounted){
+    if (mounted) {
       await context
           .read<TaskViewModel>()
           .fetchTaskStatusData(context.read<UserViewModel>().token);
     }
-    if(mounted){
+    if (mounted) {
       await context
           .read<TaskViewModel>()
           .fetchTaskList(context.read<UserViewModel>().token);
