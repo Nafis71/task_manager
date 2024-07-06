@@ -1,5 +1,5 @@
 # Task Manager
-<img align="right" alt ="coding" width ="300" src="https://cdn.dribbble.com/users/2287419/screenshots/14001049/media/ec89ceb3182ee26d3160f24c2d109d04.gif"></img><br />
+<img align="right" alt ="coding" width ="300" src="https://user-images.githubusercontent.com/69011963/137184767-79a13ec7-1bb3-4341-a6da-3a149c9c159a.gif"></img><br />
 &nbsp;<p align="justify">This Flutter application is a comprehensive task manager designed to empower users to stay organized and achieve their goals effectively. It offers a suite of features that cater to various task management needs, built with a focus on security and user experience.</p>
 
 <br />
