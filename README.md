@@ -5,6 +5,28 @@
 `Download link-` https://shorturl.at/563SN
 <br />
 
+## Installation
+### Git Clone
+``` 
+git clone https://github.com/Nafis71/task_manager.git
+```
+### Flutter Version Management
+``` 
+fvm use
+```
+### Pub Get
+``` 
+fvm flutter pub get
+```
+*or*
+``` 
+flutter pub get
+```
+### Build Apk
+``` 
+fvm flutter build apk --release
+```
+
 ## Tech Stack
 
 <img align="right" alt ="coding" width ="500" src="https://miro.medium.com/v2/resize:fit:707/1*OwVqttusoA4WNezfsBV4sA.png"></img>
