@@ -3,55 +3,64 @@ import 'package:flutter/material.dart';
 import '../utils/app_color.dart';
 
 class AppTextStyle {
-  static TextTheme getTextStyle() => const TextTheme(
-        headlineLarge: TextStyle(
+  static TextTheme getTextStyleLight() => TextTheme(
+        headlineLarge: getDefaultTextStyle().copyWith(
             fontSize: 28,
-            color: AppColor.headLineTextLargeColor,
-            fontFamily: "Poppins Bold",
-            letterSpacing: 0.5),
-        titleLarge: TextStyle(
-            fontSize: 20,
-            color: AppColor.headLineTextLargeColor,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Poppins",
-            letterSpacing: 0.5),
-        titleMedium: TextStyle(
-            fontSize: 15,
-            color: AppColor.headLineTextLargeColor,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Poppins",
-            letterSpacing: 0.5),
-        titleSmall: TextStyle(
-            fontSize: 10,
-            color: AppColor.headLineTextLargeColor,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Poppins",
-            letterSpacing: 0.5),
-        bodySmall: TextStyle(
-            fontSize: 11,
-            color: AppColor.bodySmallTextColor,
-            fontFamily: "Poppins",
-            letterSpacing: 0.5,
-            fontWeight: FontWeight.bold),
-        bodyMedium: TextStyle(
-            fontSize: 13,
-            color: AppColor.bodyMediumTextColor,
-            fontFamily: "Poppins",
-            fontWeight: FontWeight.bold,
-            letterSpacing: 0.5),
-        labelMedium: TextStyle(
+            color: AppColor.headLineTextLargeColorLight,
+            fontFamily: "Poppins Bold"),
+        titleLarge: getDefaultTextStyle().copyWith(
+          fontSize: 20,
+          color: AppColor.headLineTextLargeColorLight,
+        ),
+        titleMedium: getDefaultTextStyle().copyWith(
+          fontSize: 15,
+          color: AppColor.headLineTextLargeColorLight,
+        ),
+        titleSmall: getDefaultTextStyle().copyWith(
+          fontSize: 10,
+          color: AppColor.headLineTextLargeColorLight,
+        ),
+        bodySmall: getDefaultTextStyle().copyWith(
+          fontSize: 11,
+          color: AppColor.bodySmallTextColor,
+        ),
+        bodyMedium: getDefaultTextStyle(),
+        labelMedium: getDefaultTextStyle().copyWith(
           fontSize: 14.5,
           color: AppColor.labelSmallTextColor,
-          fontFamily: "Poppins",
-          fontWeight: FontWeight.bold,
-          letterSpacing: 0.5,
         ),
-        labelSmall: TextStyle(
+        labelSmall: getDefaultTextStyle().copyWith(
           fontSize: 9,
           color: AppColor.labelSmallTextColor,
-          fontFamily: "Poppins",
-          fontWeight: FontWeight.bold,
-          letterSpacing: 0.5,
         ),
       );
+
+  static TextTheme getTextStyleDark() => getTextStyleLight().copyWith(
+        titleMedium: getDefaultTextStyle().copyWith(
+          fontSize: 15,
+          color: AppColor.headLineTextLargeColorDark,
+        ),
+        titleLarge: getDefaultTextStyle().copyWith(
+          fontSize: 20,
+          color: AppColor.headLineTextLargeColorDark,
+        ),
+        titleSmall: getDefaultTextStyle().copyWith(
+          fontSize: 10,
+          color: AppColor.headLineTextLargeColorDark,
+        ),
+        headlineLarge: getDefaultTextStyle().copyWith(
+            fontSize: 28,
+            color: AppColor.headLineTextLargeColorDark,
+            fontFamily: "Poppins Bold"),
+    bodyMedium: getDefaultTextStyle().copyWith(
+      color: AppColor.bodyMediumTextColorDark
+    )
+      );
+
+  static TextStyle getDefaultTextStyle() => const TextStyle(
+      fontSize: 13,
+      color: AppColor.bodyMediumTextColorLight,
+      fontFamily: "Poppins",
+      fontWeight: FontWeight.bold,
+      letterSpacing: 0.5);
 }

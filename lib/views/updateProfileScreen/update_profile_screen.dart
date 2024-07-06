@@ -2,6 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/models/loginModels/user_data.dart';
 import 'package:task_manager/models/responseModel/failure.dart';
 import 'package:task_manager/utils/app_color.dart';
@@ -13,7 +14,8 @@ import 'package:task_manager/views/widgets/app_snackbar.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  const UpdateProfileScreen({super.key});
+  final SharedPreferences? preferences;
+  const UpdateProfileScreen({super.key, this.preferences});
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();

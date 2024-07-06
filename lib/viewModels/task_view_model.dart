@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:flutter/foundation.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/models/taskListModel/task_data.dart';
@@ -80,7 +82,7 @@ class TaskViewModel extends ChangeNotifier {
             (response as Success).response as Map<String, dynamic>);
         if (taskListModel.taskData != null) {
           List<TaskData> taskData =
-              List.from(taskListModel.taskData as Iterable);
+          List.from(taskListModel.taskData as Iterable);
           _taskDataByStatus[taskStatus] = taskData.reversed.toList();
         }
       }
@@ -187,5 +189,9 @@ class TaskViewModel extends ChangeNotifier {
       notifyListeners();
       return false;
     }
+  }
+
+  void refreshViewModel(){
+    notifyListeners();
   }
 }

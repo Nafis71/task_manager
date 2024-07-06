@@ -16,8 +16,6 @@ class TaskStatusCard extends StatelessWidget {
     return SizedBox(
       width: screenWidth * 0.31,
       child: Card(
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(

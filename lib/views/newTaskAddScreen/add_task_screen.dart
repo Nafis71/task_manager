@@ -2,6 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+import 'package:task_manager/themes/theme_changer.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';
@@ -88,7 +89,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             builder: (_, viewModel, __) {
                               return ElevatedButton(
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate() && !context.read<TaskViewModel>().isLoading) {
+                                  if (_formKey.currentState!.validate() &&
+                                      !context
+                                          .read<TaskViewModel>()
+                                          .isLoading) {
                                     addTask();
                                   }
                                 },
@@ -122,7 +126,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         subjectTEController.text,
         descriptionTEController.text);
     if (status && mounted) {
-      AppSnackBar().showSnackBar(title: AppStrings.newTaskAddSuccessTitle,
+      AppSnackBar().showSnackBar(
+          title: AppStrings.newTaskAddSuccessTitle,
           content: AppStrings.newTaskAddSuccessMessage,
           contentType: ContentType.success,
           color: AppColor.snackBarSuccessColor,
@@ -131,7 +136,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       return;
     }
     if (mounted) {
-      AppSnackBar().showSnackBar(title: AppStrings.newTaskAddFailureTitle,
+      AppSnackBar().showSnackBar(
+          title: AppStrings.newTaskAddFailureTitle,
           content: AppStrings.newTaskAddFailureMessage,
           contentType: ContentType.failure,
           color: AppColor.snackBarFailureColor,

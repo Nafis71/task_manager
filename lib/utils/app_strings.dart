@@ -125,4 +125,7 @@ class AppStrings {
   static const String taskStatusCompleted = "Completed";
   static const String taskStatusCanceled = "Canceled";
   static const String chooseImageFileText = "Choose Image";
+  static const String lightMode = "light";
+  static const String darkMode = "dark";
+  static const String systemMode = "system";
 }

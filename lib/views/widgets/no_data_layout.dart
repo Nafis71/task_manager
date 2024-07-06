@@ -23,7 +23,7 @@ class NoDataLayout extends StatelessWidget {
                   asset: AppAssets.emptyList, fit: BoxFit.contain),
             ),
             const Gap(20),
-            Text(noDataMessage),
+            Text(noDataMessage,style: Theme.of(context).textTheme.titleMedium,),
           ],
         ),
       ),

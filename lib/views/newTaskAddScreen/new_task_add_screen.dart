@@ -137,6 +137,5 @@ class _NewTaskAddScreenState extends State<NewTaskAddScreen> {
           .read<TaskViewModel>()
           .fetchTaskList(context.read<UserViewModel>().token);
     }
-
   }
 }

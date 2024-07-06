@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/utils/app_color.dart';
 
 class AppTextFieldStyle {
-  static InputDecorationTheme getTextFieldTheme() => InputDecorationTheme(
+  static InputDecorationTheme getTextFieldThemeLight() => InputDecorationTheme(
         fillColor: Colors.white,
         filled: true,
         focusColor: AppColor.appPrimaryColor,
@@ -14,7 +14,7 @@ class AppTextFieldStyle {
             fontSize: 13,
             fontWeight: FontWeight.normal,
             fontFamily: "Poppins"),
-        border: OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(5)),
         focusedBorder: const OutlineInputBorder(
@@ -27,4 +27,11 @@ class AppTextFieldStyle {
           borderSide: BorderSide(color: Colors.red, width: 2),
         ),
       );
+
+  static InputDecorationTheme getTextFieldThemeDark() => getTextFieldThemeLight().copyWith(
+    fillColor: AppColor.textFieldColorDark,
+    enabledBorder: const OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey,width: 1)
+    )
+  );
 }
