@@ -8,8 +8,11 @@ main() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   String? theme = preferences.getString("themeMode");
   theme ??= "system";
-  runApp(DevicePreview(
+  runApp(
+    DevicePreview(
       builder: (_) => TaskManager(
-            userTheme: theme!,
-          )));
+        userTheme: theme!,
+      ),
+    ),
+  );
 }

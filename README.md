@@ -2,7 +2,7 @@
 <p align="justify">This Flutter application is a comprehensive task manager designed to empower users to stay organized and achieve their goals effectively. It offers a suite of features that cater to various task management needs, built with a focus on security and user experience.</p>
 
 ## Project APK Link
-`Download link-` https://shorturl.at/ByvYt
+`Download link-` https://shorturl.at/563SN
 <br />
 
 ## Tech Stack
