@@ -6,10 +6,19 @@
 <br />
 
 ## Tech Stack
+
+<img align="right" alt ="coding" width ="500" src="https://miro.medium.com/v2/resize:fit:707/1*OwVqttusoA4WNezfsBV4sA.png"></img>
+<br />
+
 - Flutter
 - Dart
 - Rest API
 - Provider (State Management) <br />
+
+
+
+<br />
+<br />
 
 ## Screenshots
 `1. Splash Screen and Authentication` <br />
