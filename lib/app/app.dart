@@ -21,7 +21,6 @@ class TaskManager extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
@@ -32,33 +31,31 @@ class TaskManager extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeChanger()),
         ChangeNotifierProvider(create: (_) => ConnectivityChecker()),
       ],
-      child: Builder(
-        builder: (context) {
-          if(!context.read<ThemeChanger>().isAppLaunched){
-            loadUserTheme(userTheme,context);
-          }
-          context.read<ThemeChanger>().setIsAppLaunched = true;
-          context.read<ConnectivityChecker>().initConnectivityChecker();
-          return MaterialApp(
-            navigatorKey: navigatorKey,
-            debugShowCheckedModeBanner: false,
-            initialRoute: AppRoutes.splashScreen,
-            locale: DevicePreview.locale(context),
-            builder: DevicePreview.appBuilder,
-            onGenerateRoute: (routeSettings) {
-              return AppRoutes.generateRoute(routeSettings);
-            },
-            themeMode: context.watch<ThemeChanger>().themeMode,
-            theme: AppTheme.getLightTheme(),
-            darkTheme: AppTheme.getDarkTheme(),
-          );
+      child: Builder(builder: (context) {
+        if (!context.read<ThemeChanger>().isAppLaunched) {
+          loadUserTheme(userTheme, context);
         }
-      ),
+        context.read<ThemeChanger>().setIsAppLaunched = true;
+        context.read<ConnectivityChecker>().initConnectivityChecker();
+        return MaterialApp(
+          navigatorKey: navigatorKey,
+          debugShowCheckedModeBanner: false,
+          initialRoute: AppRoutes.splashScreen,
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
+          onGenerateRoute: (routeSettings) {
+            return AppRoutes.generateRoute(routeSettings);
+          },
+          themeMode: context.watch<ThemeChanger>().themeMode,
+          theme: AppTheme.getLightTheme(),
+          darkTheme: AppTheme.getDarkTheme(),
+        );
+      }),
     );
   }
 
-  void loadUserTheme(String theme,BuildContext context){
-    switch(theme){
+  void loadUserTheme(String theme, BuildContext context) {
+    switch (theme) {
       case AppStrings.darkMode:
         context.read<ThemeChanger>().setThemeModeSilent = ThemeMode.dark;
 

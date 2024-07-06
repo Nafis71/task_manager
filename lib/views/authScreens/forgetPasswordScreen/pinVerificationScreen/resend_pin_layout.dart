@@ -9,7 +9,10 @@ class ResendPinLayout extends StatelessWidget {
   final Function restartTimer;
 
   const ResendPinLayout(
-      {super.key, required this.resendTimeLeft, required this.email, required this.restartTimer});
+      {super.key,
+      required this.resendTimeLeft,
+      required this.email,
+      required this.restartTimer});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,9 @@ class ResendPinLayout extends StatelessWidget {
             if (resendTimeLeft != 0) {
               return;
             }
-            await context.read<AuthViewModel>().sendOTP(email,isResending: true);
+            await context
+                .read<AuthViewModel>()
+                .sendOTP(email, isResending: true);
             restartTimer();
           },
           child: Text(

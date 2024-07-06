@@ -118,7 +118,8 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
         .read<AuthViewModel>()
         .resetPassword(_passwordTEController.text.trim());
     if (status && mounted) {
-      AppSnackBar().showSnackBar(title: AppStrings.resetPasswordSuccessTitle,
+      AppSnackBar().showSnackBar(
+          title: AppStrings.resetPasswordSuccessTitle,
           content: AppStrings.resetPasswordSuccessMessage,
           contentType: ContentType.success,
           color: AppColor.snackBarSuccessColor,
@@ -128,7 +129,8 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
     }
     if (mounted) {
       Failure failure = context.read<AuthViewModel>().response as Failure;
-      AppSnackBar().showSnackBar(title: AppStrings.resetPasswordFailureTitle,
+      AppSnackBar().showSnackBar(
+          title: AppStrings.resetPasswordFailureTitle,
           content: failure.message,
           contentType: ContentType.failure,
           color: AppColor.snackBarFailureColor,

@@ -26,7 +26,8 @@ class PinVerificationForm extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: List.generate(focusNodes.length, (index) {
           return Padding(
-            padding: EdgeInsets.only(left: (orientation == Orientation.portrait) ? 8 :18),
+            padding: EdgeInsets.only(
+                left: (orientation == Orientation.portrait) ? 8 : 18),
             child: SizedBox(
               width: textFieldWidth,
               height: textFieldHeight,

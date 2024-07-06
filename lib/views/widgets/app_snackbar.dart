@@ -1,8 +1,4 @@
-import 'dart:io';
-import 'dart:ui';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/wrappers/widget_custom_animator.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
@@ -25,17 +21,19 @@ class AppSnackBar {
   }) {
     ScaffoldMessenger.of(context)
       ..clearSnackBars()
-      ..showSnackBar(getSnackBar(title: title,
+      ..showSnackBar(getSnackBar(
+          title: title,
           content: content,
           contentType: contentType,
           color: color));
   }
 }
 
-SnackBar getSnackBar({required String title,
-  required String content,
-  required ContentType contentType,
-  required Color color}) {
+SnackBar getSnackBar(
+    {required String title,
+    required String content,
+    required ContentType contentType,
+    required Color color}) {
   return SnackBar(
     elevation: 0,
     behavior: SnackBarBehavior.floating,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/themes/card_style.dart';
 import 'package:task_manager/themes/expansion_tile_style.dart';
-import 'package:task_manager/themes/navigation_bar_style.dart';
 import 'package:task_manager/themes/popup_menu_style.dart';
 
 import '../utils/app_color.dart';

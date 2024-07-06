@@ -34,7 +34,7 @@ class UserViewModel extends ChangeNotifier {
 
   String get token => _token;
 
-  set setIsPasswordObscured(bool value){
+  set setIsPasswordObscured(bool value) {
     _isPasswordObscured = value;
     notifyListeners();
   }

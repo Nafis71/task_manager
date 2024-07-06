@@ -2,7 +2,6 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
-import 'package:task_manager/themes/theme_changer.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/task_view_model.dart';
 import 'package:task_manager/viewModels/user_view_model.dart';

@@ -106,7 +106,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mobileNumber: _mobileNumberTEController.text.trim(),
         password: _passwordTEController.text.trim());
     if (mounted && status) {
-      AppSnackBar().showSnackBar(title: AppStrings.registrationSuccessTitle,
+      AppSnackBar().showSnackBar(
+          title: AppStrings.registrationSuccessTitle,
           content: AppStrings.registrationSuccessMessage,
           contentType: ContentType.success,
           color: AppColor.snackBarSuccessColor,
@@ -114,7 +115,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       gotoSignIn();
     }
     if (mounted && !status) {
-      AppSnackBar().showSnackBar(title: AppStrings.registrationFailureTitle,
+      AppSnackBar().showSnackBar(
+          title: AppStrings.registrationFailureTitle,
           content: AppStrings.registrationFailureMessage,
           contentType: ContentType.failure,
           color: AppColor.snackBarFailureColor,

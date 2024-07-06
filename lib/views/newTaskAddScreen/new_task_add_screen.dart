@@ -5,8 +5,8 @@ import 'package:task_manager/services/connectivity_checker.dart';
 import 'package:task_manager/utils/app_color.dart';
 import 'package:task_manager/utils/app_routes.dart';
 import 'package:task_manager/utils/app_strings.dart';
-import 'package:task_manager/views/widgets/loading_layout.dart';
 import 'package:task_manager/views/widgets/fallback_widget.dart';
+import 'package:task_manager/views/widgets/loading_layout.dart';
 import 'package:task_manager/views/widgets/task_list_card.dart';
 import 'package:task_manager/views/widgets/task_status_card.dart';
 

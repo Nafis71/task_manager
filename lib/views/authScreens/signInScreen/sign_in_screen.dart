@@ -40,14 +40,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -65,10 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   children: [
                     Text(
                       AppStrings.signInHeaderText,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headlineLarge,
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     const Gap(20),
                     SizedBox(
@@ -87,15 +78,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     Center(
                       child: InkWell(
                         splashColor: Colors.transparent,
-                        onTap: () =>
-                            Navigator.pushNamed(
-                                context, AppRoutes.emailVerificationScreen),
+                        onTap: () => Navigator.pushNamed(
+                            context, AppRoutes.emailVerificationScreen),
                         child: Text(
                           AppStrings.forgetPasswordText,
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodySmall,
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ),
                     ),
@@ -104,18 +91,13 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: RichText(
                         text: TextSpan(
                           text: AppStrings.signInBottomTextOne,
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyMedium,
+                          style: Theme.of(context).textTheme.bodyMedium,
                           children: [
                             TextSpan(
                               text: AppStrings.signInBottomTextTwo,
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () =>
-                                    AppNavigation().gotoSignUp(
-                                        _emailFocusNode,
-                                        _passwordFocusNode),
+                                ..onTap = () => AppNavigation().gotoSignUp(
+                                    _emailFocusNode, _passwordFocusNode),
                               style: const TextStyle(
                                 color: AppColor.appPrimaryColor,
                               ),
@@ -146,10 +128,9 @@ class _SignInScreenState extends State<SignInScreen> {
       return;
     }
     if (mounted) {
-      Failure failure = context
-          .read<AuthViewModel>()
-          .response as Failure;
-      AppSnackBar().showSnackBar(title: AppStrings.signInFailureTitle,
+      Failure failure = context.read<AuthViewModel>().response as Failure;
+      AppSnackBar().showSnackBar(
+          title: AppStrings.signInFailureTitle,
           content: failure.message,
           contentType: ContentType.failure,
           color: AppColor.snackBarFailureColor,

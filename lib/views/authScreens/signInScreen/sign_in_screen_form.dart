@@ -50,18 +50,17 @@ class SignInScreenForm extends StatelessWidget {
               focusNode: passwordFocusNode,
               controller: passwordTEController,
               hintText: AppStrings.passwordTextFieldHint,
-              suffixIcon:InkWell(
-              splashColor: Colors.transparent,
-              onTap: () {
-                viewModel.setPasswordObscure =
-                !viewModel.isPasswordObscure;
-              },
-              child: (viewModel.isPasswordObscure)
-                  ? const Icon(Icons.visibility,
-                  color: AppColor.appPrimaryColor)
-                  : const Icon(Icons.visibility_off,
-                  color: AppColor.appPrimaryColor),
-            ),
+              suffixIcon: InkWell(
+                splashColor: Colors.transparent,
+                onTap: () {
+                  viewModel.setPasswordObscure = !viewModel.isPasswordObscure;
+                },
+                child: (viewModel.isPasswordObscure)
+                    ? const Icon(Icons.visibility,
+                        color: AppColor.appPrimaryColor)
+                    : const Icon(Icons.visibility_off,
+                        color: AppColor.appPrimaryColor),
+              ),
               isObscureText: viewModel.isPasswordObscure,
               errorText: AppStrings.passwordErrorText,
             ),

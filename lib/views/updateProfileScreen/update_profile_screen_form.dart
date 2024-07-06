@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+
 import '../../utils/app_color.dart';
 import '../../utils/app_strings.dart';
 import '../../viewModels/user_view_model.dart';

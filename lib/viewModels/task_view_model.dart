@@ -1,7 +1,4 @@
-import 'dart:isolate';
-
 import 'package:flutter/foundation.dart';
-import 'package:task_manager/models/responseModel/failure.dart';
 import 'package:task_manager/models/responseModel/success.dart';
 import 'package:task_manager/models/taskListModel/task_data.dart';
 import 'package:task_manager/models/taskListModel/task_list_model.dart';
@@ -9,6 +6,7 @@ import 'package:task_manager/models/taskStatusCountModels/task_status_count_mode
 import 'package:task_manager/services/task_service.dart';
 import 'package:task_manager/utils/app_strings.dart';
 import 'package:task_manager/viewModels/dashboard_view_model.dart';
+
 import '../models/taskStatusCountModels/status_data.dart';
 
 class TaskViewModel extends ChangeNotifier {
@@ -83,7 +81,7 @@ class TaskViewModel extends ChangeNotifier {
             (response as Success).response as Map<String, dynamic>);
         if (taskListModel.taskData != null) {
           List<TaskData> taskData =
-          List.from(taskListModel.taskData as Iterable);
+              List.from(taskListModel.taskData as Iterable);
           _taskDataByStatus[taskStatus] = taskData.reversed.toList();
         }
       }
@@ -104,14 +102,15 @@ class TaskViewModel extends ChangeNotifier {
       Map<String, dynamic> jsonData =
           (response as Success).response as Map<String, dynamic>;
       TaskData taskData = TaskData.fromJson(jsonData["data"]);
-      String? generatedDate = taskData.createdDate
-          ?.substring(0,10);
-      List<String> date = generatedDate?.split("-")?? [];
+      String? generatedDate = taskData.createdDate?.substring(0, 10);
+      List<String> date = generatedDate?.split("-") ?? [];
       date.insert(0, date.removeAt(2));
       date.insert(1, date.removeAt(2));
       taskData.createdDate = date.join("-");
       _taskDataByStatus[AppStrings.taskStatusNew]?.insert(0, taskData);
-      taskStatusCount[AppStrings.taskStatusNew] = ((int.parse(taskStatusCount[AppStrings.taskStatusNew] ?? "0")  + 1).toString());
+      taskStatusCount[AppStrings.taskStatusNew] =
+          ((int.parse(taskStatusCount[AppStrings.taskStatusNew] ?? "0") + 1)
+              .toString());
       setIsLoading(false);
       return true;
     }
@@ -192,7 +191,7 @@ class TaskViewModel extends ChangeNotifier {
     }
   }
 
-  void refreshViewModel(){
+  void refreshViewModel() {
     notifyListeners();
   }
 }

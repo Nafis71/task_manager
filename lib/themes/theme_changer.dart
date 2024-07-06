@@ -10,7 +10,7 @@ class ThemeChanger extends ChangeNotifier {
 
   bool get isAppLaunched => _isAppLaunched;
 
-  set setIsAppLaunched(bool isAppLaunched){
+  set setIsAppLaunched(bool isAppLaunched) {
     _isAppLaunched = isAppLaunched;
   }
 
@@ -19,12 +19,12 @@ class ThemeChanger extends ChangeNotifier {
     notifyListeners();
   }
 
-  set setThemeModeSilent(ThemeMode mode){
+  set setThemeModeSilent(ThemeMode mode) {
     _themeMode = mode;
   }
 
   String getBackgroundImage(BuildContext context) {
-    if(getThemeMode(context) == ThemeMode.dark){
+    if (getThemeMode(context) == ThemeMode.dark) {
       return AppAssets.backgroundImageDark;
     }
     return AppAssets.backgroundImageLight;
@@ -35,7 +35,7 @@ class ThemeChanger extends ChangeNotifier {
         MediaQuery.of(context).platformBrightness == Brightness.dark) {
       return ThemeMode.dark;
     }
-    if(_themeMode == ThemeMode.dark){
+    if (_themeMode == ThemeMode.dark) {
       return ThemeMode.dark;
     }
     return ThemeMode.light;

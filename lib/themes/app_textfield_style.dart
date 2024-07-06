@@ -28,10 +28,9 @@ class AppTextFieldStyle {
         ),
       );
 
-  static InputDecorationTheme getTextFieldThemeDark() => getTextFieldThemeLight().copyWith(
-    fillColor: AppColor.textFieldColorDark,
-    enabledBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey,width: 1)
-    )
-  );
+  static InputDecorationTheme getTextFieldThemeDark() =>
+      getTextFieldThemeLight().copyWith(
+          fillColor: AppColor.textFieldColorDark,
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey, width: 1)));
 }

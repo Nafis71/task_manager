@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager/views/dashboardScreen/dashboard_screen.dart';
 import 'package:task_manager/views/newTaskAddScreen/add_task_screen.dart';
 import 'package:task_manager/views/splashScreen/splash_screen.dart';

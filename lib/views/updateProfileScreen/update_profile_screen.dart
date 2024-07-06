@@ -15,6 +15,7 @@ import 'package:task_manager/views/widgets/background_widget.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   final SharedPreferences? preferences;
+
   const UpdateProfileScreen({super.key, this.preferences});
 
   @override
@@ -119,8 +120,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                 builder: (_, viewModel, __) {
                                   if (viewModel.imageName.isEmpty) {
                                     return const Text(
-                                        overflow: TextOverflow.ellipsis,
-                                        AppStrings.chooseImageFileText,style: TextStyle(color: Colors.black),);
+                                      overflow: TextOverflow.ellipsis,
+                                      AppStrings.chooseImageFileText,
+                                      style: TextStyle(color: Colors.black),
+                                    );
                                   }
                                   return Text(
                                       overflow: TextOverflow.ellipsis,

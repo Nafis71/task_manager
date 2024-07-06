@@ -2,7 +2,7 @@ import 'package:task_manager/models/loginModels/user_data.dart';
 import 'package:task_manager/services/network_request.dart';
 import 'package:task_manager/utils/app_strings.dart';
 
-class AuthService{
+class AuthService {
   Future<Object> registration(UserData userData) async {
     return await NetworkRequest().postRequest(
       uri: "${AppStrings.baseUrl}${AppStrings.registrationEndpoint}",
@@ -17,11 +17,10 @@ class AuthService{
       "password": password,
     };
     return await NetworkRequest().postRequest(
-      uri: "${AppStrings.baseUrl}${AppStrings.signInEndpoint}",
-      body: signInCredentials,
-      headers: {"content-type": "application/json"},
-      shouldAuthenticateToken: false
-    );
+        uri: "${AppStrings.baseUrl}${AppStrings.signInEndpoint}",
+        body: signInCredentials,
+        headers: {"content-type": "application/json"},
+        shouldAuthenticateToken: false);
   }
 
   Future<Object> requestOTP(String email) async {

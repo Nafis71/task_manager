@@ -9,7 +9,8 @@ class DashboardViewModel extends ChangeNotifier {
     _index = index;
     notifyListeners();
   }
-  void refreshViewModel(){
+
+  void refreshViewModel() {
     notifyListeners();
   }
 }

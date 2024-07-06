@@ -75,7 +75,7 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<bool> sendOTP(String email, {bool isResending = false}) async {
     finalStatus = false;
-    if(!isResending) setLoading(true);
+    if (!isResending) setLoading(true);
     response = await authService.requestOTP(email);
     if (response is Success) {
       Map<String, dynamic> status =
@@ -85,7 +85,7 @@ class AuthViewModel extends ChangeNotifier {
         finalStatus = true;
       }
     }
-    if(!isResending) setLoading(false);
+    if (!isResending) setLoading(false);
     return finalStatus;
   }
 

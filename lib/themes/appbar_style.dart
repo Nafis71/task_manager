@@ -9,7 +9,6 @@ class AppbarStyle {
       elevation: 0,
       actionsIconTheme: IconThemeData(size: 27));
 
-  static AppBarTheme getDarkAppbarStyle() => getLightAppbarStyle().copyWith(
-    backgroundColor: AppColor.appBarBackgroundColorDark
-  );
+  static AppBarTheme getDarkAppbarStyle() => getLightAppbarStyle()
+      .copyWith(backgroundColor: AppColor.appBarBackgroundColorDark);
 }

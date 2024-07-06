@@ -36,26 +36,24 @@ class AppTextStyle {
       );
 
   static TextTheme getTextStyleDark() => getTextStyleLight().copyWith(
-        titleMedium: getDefaultTextStyle().copyWith(
-          fontSize: 15,
+      titleMedium: getDefaultTextStyle().copyWith(
+        fontSize: 15,
+        color: AppColor.headLineTextLargeColorDark,
+      ),
+      titleLarge: getDefaultTextStyle().copyWith(
+        fontSize: 20,
+        color: AppColor.headLineTextLargeColorDark,
+      ),
+      titleSmall: getDefaultTextStyle().copyWith(
+        fontSize: 10,
+        color: AppColor.headLineTextLargeColorDark,
+      ),
+      headlineLarge: getDefaultTextStyle().copyWith(
+          fontSize: 28,
           color: AppColor.headLineTextLargeColorDark,
-        ),
-        titleLarge: getDefaultTextStyle().copyWith(
-          fontSize: 20,
-          color: AppColor.headLineTextLargeColorDark,
-        ),
-        titleSmall: getDefaultTextStyle().copyWith(
-          fontSize: 10,
-          color: AppColor.headLineTextLargeColorDark,
-        ),
-        headlineLarge: getDefaultTextStyle().copyWith(
-            fontSize: 28,
-            color: AppColor.headLineTextLargeColorDark,
-            fontFamily: "Poppins Bold"),
-    bodyMedium: getDefaultTextStyle().copyWith(
-      color: AppColor.bodyMediumTextColorDark
-    )
-      );
+          fontFamily: "Poppins Bold"),
+      bodyMedium: getDefaultTextStyle()
+          .copyWith(color: AppColor.bodyMediumTextColorDark));
 
   static TextStyle getDefaultTextStyle() => const TextStyle(
       fontSize: 13,

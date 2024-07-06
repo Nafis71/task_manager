@@ -7,8 +7,8 @@ import '../../utils/app_color.dart';
 import '../../utils/app_strings.dart';
 import '../../viewModels/task_view_model.dart';
 import '../../viewModels/user_view_model.dart';
-import '../widgets/loading_layout.dart';
 import '../widgets/fallback_widget.dart';
+import '../widgets/loading_layout.dart';
 import '../widgets/task_list_card.dart';
 
 class TaskProgressScreen extends StatefulWidget {
@@ -19,7 +19,6 @@ class TaskProgressScreen extends StatefulWidget {
 }
 
 class _TaskProgressScreenState extends State<TaskProgressScreen> {
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -36,10 +35,12 @@ class _TaskProgressScreenState extends State<TaskProgressScreen> {
             children: [
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
-                if (viewModel.taskDataByStatus[AppStrings.taskStatusProgress] == null) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusProgress] ==
+                    null) {
                   return const LoadingLayout();
                 }
-                if (viewModel.taskDataByStatus[AppStrings.taskStatusProgress]!.isEmpty) {
+                if (viewModel
+                    .taskDataByStatus[AppStrings.taskStatusProgress]!.isEmpty) {
                   return const FallbackWidget(
                     noDataMessage: AppStrings.noProgressTaskData,
                     asset: AppAssets.emptyList,
@@ -47,7 +48,8 @@ class _TaskProgressScreenState extends State<TaskProgressScreen> {
                 }
                 return TaskListCard(
                   screenWidth: screenWidth,
-                  taskData: viewModel.taskDataByStatus[AppStrings.taskStatusProgress]!,
+                  taskData: viewModel
+                      .taskDataByStatus[AppStrings.taskStatusProgress]!,
                   chipColor: AppColor.progressChipColor,
                   currentScreen: AppStrings.taskStatusProgress,
                 );

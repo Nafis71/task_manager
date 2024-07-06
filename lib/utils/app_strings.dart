@@ -13,8 +13,7 @@ class AppStrings {
   static const String updateTaskEndpoint = "updateTaskStatus";
   static const String profileUpdateEndpoint = "profileUpdate";
   static const String unknownResponseText = "Unknown Error";
-  static const String serverConnectionErrorText =
-      "Server Connection error";
+  static const String serverConnectionErrorText = "Server Connection error";
 
   //regularExpression
   static const String nameRegEX = r'^[a-z A-Z]+$';

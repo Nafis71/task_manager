@@ -88,9 +88,13 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       return;
     }
     if (mounted) {
-      int statusCode = (context.read<AuthViewModel>().response as Failure).statusCode;
-      AppSnackBar().showSnackBar(title: AppStrings.sendOTPFailureTitle,
-          content: (statusCode == 600)? AppStrings.serverConnectionErrorText : AppStrings.sendOTPFailureMessage,
+      int statusCode =
+          (context.read<AuthViewModel>().response as Failure).statusCode;
+      AppSnackBar().showSnackBar(
+          title: AppStrings.sendOTPFailureTitle,
+          content: (statusCode == 600)
+              ? AppStrings.serverConnectionErrorText
+              : AppStrings.sendOTPFailureMessage,
           contentType: ContentType.failure,
           color: AppColor.snackBarFailureColor,
           context: context);

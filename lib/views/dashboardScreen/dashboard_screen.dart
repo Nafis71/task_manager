@@ -33,6 +33,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     pageController = PageController();
   }
+
   List<Widget> screens = const [
     NewTaskAddScreen(),
     TaskProgressScreen(),
@@ -46,39 +47,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: getApplicationAppBar(context: context, disableNavigation: false),
-      body: Consumer<ConnectivityChecker>(builder: (_,viewModel,__){
-        if(viewModel.isDeviceConnected){
-          return PageView.builder(
+      body: Consumer<ConnectivityChecker>(
+        builder: (_, viewModel, __) {
+          if (viewModel.isDeviceConnected) {
+            return PageView.builder(
               onPageChanged: (int value) {
                 context.read<DashboardViewModel>().setIndex = value;
-                context
-                    .read<TaskViewModel>()
-                    .removeBadgeCount(value, context.read<DashboardViewModel>());
+                context.read<TaskViewModel>().removeBadgeCount(
+                    value, context.read<DashboardViewModel>());
               },
               controller: pageController,
               itemCount: screens.length,
               itemBuilder: (context, index) {
                 return screens[index];
-              },);
-        }
-        return const Column(
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  FallbackWidget(noDataMessage: "Ooppss No Internet", asset: AppAssets.noInternet),
-                ],
+              },
+            );
+          }
+          return const Column(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    FallbackWidget(
+                        noDataMessage: "Ooppss No Internet",
+                        asset: AppAssets.noInternet),
+                  ],
+                ),
               ),
-            ),
-          ],
-        );
-      },),
+            ],
+          );
+        },
+      ),
       bottomNavigationBar: Consumer<DashboardViewModel>(
         builder: (context, viewModel, child) {
           return SalomonBottomBar(
             currentIndex: viewModel.index,
             onTap: (index) {
-              if(context.read<ConnectivityChecker>().isDeviceConnected){
+              if (context.read<ConnectivityChecker>().isDeviceConnected) {
                 pageController.jumpToPage(index);
               }
               viewModel.setIndex = index;

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -51,14 +52,8 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
@@ -79,7 +74,8 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                 initiatePinVerification();
                 return;
               }
-              AppSnackBar().showSnackBar(title: AppStrings.emptyPinVerificationFieldTitle,
+              AppSnackBar().showSnackBar(
+                  title: AppStrings.emptyPinVerificationFieldTitle,
                   content: AppStrings.emptyPinVerificationFieldMessage,
                   contentType: ContentType.warning,
                   color: AppColor.snackBarWarningColor,
@@ -101,9 +97,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: ResendPinLayout(
                       resendTimeLeft: viewModel.resendTimeLeft,
-                      email: context
-                          .read<AuthViewModel>()
-                          .recoveryEmail,
+                      email: context.read<AuthViewModel>().recoveryEmail,
                       restartTimer: startCountDownTimer,
                     ),
                   );

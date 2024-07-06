@@ -12,7 +12,9 @@ import '../../utils/app_assets.dart';
 import '../../viewModels/user_view_model.dart';
 
 AppBar getApplicationAppBar(
-    {required BuildContext context, required bool disableNavigation, SharedPreferences? preference}) {
+    {required BuildContext context,
+    required bool disableNavigation,
+    SharedPreferences? preference}) {
   return AppBar(
     automaticallyImplyLeading: false,
     title: Consumer<UserViewModel>(
@@ -62,13 +64,15 @@ AppBar getApplicationAppBar(
     actions: [
       IconButton(
         onPressed: () {
-          if (context.read<ThemeChanger>().getThemeMode(context) == ThemeMode.dark) {
+          if (context.read<ThemeChanger>().getThemeMode(context) ==
+              ThemeMode.dark) {
             context.read<ThemeChanger>().setThemeMode = ThemeMode.light;
             saveThemeData("light");
             print("changed");
             return;
           }
-          if (context.read<ThemeChanger>().getThemeMode(context) == ThemeMode.dark) {
+          if (context.read<ThemeChanger>().getThemeMode(context) ==
+              ThemeMode.dark) {
             context.read<ThemeChanger>().setThemeMode = ThemeMode.light;
             saveThemeData("light");
             return;
@@ -77,7 +81,8 @@ AppBar getApplicationAppBar(
           saveThemeData("dark");
         },
         splashColor: Colors.transparent,
-        icon: Icon((context.read<ThemeChanger>().getThemeMode(context) == ThemeMode.dark)
+        icon: Icon((context.read<ThemeChanger>().getThemeMode(context) ==
+                ThemeMode.dark)
             ? Icons.light_mode_outlined
             : Icons.dark_mode_outlined),
       ),
@@ -91,7 +96,7 @@ AppBar getApplicationAppBar(
   );
 }
 
-void saveThemeData(String theme) async{
+void saveThemeData(String theme) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setString("themeMode",theme);
+  preferences.setString("themeMode", theme);
 }

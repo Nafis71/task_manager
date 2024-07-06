@@ -10,7 +10,8 @@ class AppNavigation extends AuthViewModel {
 
   AppNavigation._();
 
-  factory AppNavigation() { //singleton pattern
+  factory AppNavigation() {
+    //singleton pattern
     _instance ??= AppNavigation._();
     return _instance!;
   }

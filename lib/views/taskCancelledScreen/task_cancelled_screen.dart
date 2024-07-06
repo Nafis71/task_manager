@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+
 import '../../utils/app_assets.dart';
 import '../../utils/app_color.dart';
 import '../../utils/app_strings.dart';
 import '../../viewModels/task_view_model.dart';
 import '../../viewModels/user_view_model.dart';
-import '../widgets/loading_layout.dart';
 import '../widgets/fallback_widget.dart';
+import '../widgets/loading_layout.dart';
 import '../widgets/task_list_card.dart';
 
 class TaskCancelledScreen extends StatefulWidget {
@@ -18,7 +19,6 @@ class TaskCancelledScreen extends StatefulWidget {
 }
 
 class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -35,10 +35,12 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
             children: [
               const Gap(5),
               Consumer<TaskViewModel>(builder: (_, viewModel, __) {
-                if (viewModel.taskDataByStatus[AppStrings.taskStatusCanceled] == null) {
+                if (viewModel.taskDataByStatus[AppStrings.taskStatusCanceled] ==
+                    null) {
                   return const LoadingLayout();
                 }
-                if (viewModel.taskDataByStatus[AppStrings.taskStatusCanceled]!.isEmpty) {
+                if (viewModel
+                    .taskDataByStatus[AppStrings.taskStatusCanceled]!.isEmpty) {
                   return const FallbackWidget(
                     noDataMessage: AppStrings.noNewCanceledData,
                     asset: AppAssets.emptyList,
@@ -46,7 +48,8 @@ class _TaskCancelledScreenState extends State<TaskCancelledScreen> {
                 }
                 return TaskListCard(
                   screenWidth: screenWidth,
-                  taskData: viewModel.taskDataByStatus[AppStrings.taskStatusCanceled]!,
+                  taskData: viewModel
+                      .taskDataByStatus[AppStrings.taskStatusCanceled]!,
                   chipColor: AppColor.canceledChipColor,
                   currentScreen: AppStrings.taskStatusCanceled,
                 );
