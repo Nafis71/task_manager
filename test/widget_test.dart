@@ -13,7 +13,7 @@ import 'package:task_manager/app/app.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const TaskManager());
+    await tester.pumpWidget(const TaskManager(userTheme: 'system',));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
