@@ -18,12 +18,11 @@ class TaskListCard extends StatefulWidget {
   final String currentScreen;
   final Color chipColor;
 
-  const TaskListCard(
-      {super.key,
-      required this.screenWidth,
-      required this.taskData,
-      required this.chipColor,
-      required this.currentScreen});
+  const TaskListCard({super.key,
+    required this.screenWidth,
+    required this.taskData,
+    required this.chipColor,
+    required this.currentScreen});
 
   @override
   State<TaskListCard> createState() => _TaskListCardState();
@@ -45,69 +44,89 @@ class _TaskListCardState extends State<TaskListCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Builder(
-                        builder: (context) {
-                          return ExpansionTile(
-                            initiallyExpanded: widget.taskData[index].isTileExpanded,
-                            dense: false,
-                            iconColor: widget.chipColor,
-                            leading: CircleAvatar(
-                              radius: 15,
-                              backgroundColor: widget.chipColor,
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "${index + 1}",
-                                style: Theme.of(context).textTheme.labelMedium,
+                          builder: (context) {
+                            return ExpansionTile(
+                              initiallyExpanded: widget.taskData[index]
+                                  .isTileExpanded,
+                              dense: false,
+                              iconColor: widget.chipColor,
+                              leading: CircleAvatar(
+                                radius: 15,
+                                backgroundColor: widget.chipColor,
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  "${index + 1}",
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .labelMedium,
+                                ),
                               ),
-                            ),
-                            onExpansionChanged: (value) {
-                              context.read<TaskViewModel>().setIsTileExpanded(
-                                  widget.taskData[index].status.toString(), index, value);
-                            },
-                            subtitle: !widget.taskData[index].isTileExpanded
-                                ? Text(
-                                    textAlign: TextAlign.start,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    widget.taskData[index].description.toString(),
-                                    style: Theme.of(context).textTheme.bodySmall,
-                                  )
-                                : null,
-                            title: Text(
-                              widget.taskData[index].title.toString(),
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            children: [
-                              Wrap(
-                                children: [
-                                  SizedBox(
-                                    width: widget.screenWidth * 0.8,
-                                    child: Text(
-                                      textAlign: TextAlign.justify,
-                                      widget.taskData[index].description.toString(),
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                  ),
-                                ],
+                              onExpansionChanged: (value) {
+                                context.read<TaskViewModel>().setIsTileExpanded(
+                                    widget.taskData[index].status.toString(),
+                                    index, value);
+                              },
+                              subtitle: !widget.taskData[index].isTileExpanded
+                                  ? Text(
+                                textAlign: TextAlign.start,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                widget.taskData[index].description.toString(),
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodySmall,
                               )
-                            ],
-                          );
-                        }
+                                  : null,
+                              title: Text(
+                                widget.taskData[index].title.toString(),
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .titleMedium,
+                              ),
+                              children: [
+                                Wrap(
+                                  children: [
+                                    SizedBox(
+                                      width: widget.screenWidth * 0.8,
+                                      child: Text(
+                                        textAlign: TextAlign.justify,
+                                        widget.taskData[index].description
+                                            .toString(),
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodySmall,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            );
+                          }
                       ),
                       const Gap(10),
                       Builder(
-                        builder: (context) {
-                          return Text(
-                            "Date: ${widget.taskData[index].createdDate.toString().replaceAll("-", "/")}",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          );
-                        }
+                          builder: (context) {
+                            return Text(
+                              "Date: ${widget.taskData[index].createdDate
+                                  .toString().replaceAll("-", "/")}",
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .titleSmall,
+                            );
+                          }
                       ),
                       const Gap(5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Chip(
-                            label: Text(widget.taskData[index].status.toString()),
+                            label: Text(
+                                widget.taskData[index].status.toString()),
                             backgroundColor: widget.chipColor,
                             labelPadding: const EdgeInsets.symmetric(
                                 horizontal: 33, vertical: 0),
@@ -134,12 +153,12 @@ class _TaskListCardState extends State<TaskListCard> {
                                         value: "Completed",
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.done_outline_rounded,
                                               color:
-                                                  AppColor.completedChipColor,
+                                              AppColor.completedChipColor,
                                             ),
                                             Gap(8),
                                             Text("Completed"),
@@ -150,7 +169,7 @@ class _TaskListCardState extends State<TaskListCard> {
                                         value: "Progress",
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.watch_later_outlined,
@@ -165,7 +184,7 @@ class _TaskListCardState extends State<TaskListCard> {
                                         value: "Canceled",
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.cancel_outlined,
@@ -180,7 +199,7 @@ class _TaskListCardState extends State<TaskListCard> {
                                         value: "New",
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                           children: [
                                             Icon(
                                               Icons.add,
@@ -237,22 +256,26 @@ class _TaskListCardState extends State<TaskListCard> {
   Future<void> updateItem(BuildContext context, int index, String value) async {
     if (value != widget.currentScreen) {
       bool status = await context.read<TaskViewModel>().updateTask(
-          token: context.read<UserViewModel>().token,
+          token: context
+              .read<UserViewModel>()
+              .token,
           taskId: widget.taskData[index].sId.toString(),
           taskStatus: value,
           currentScreenStatus: widget.currentScreen,
           index: index,
           dashboardViewModel: context.read<DashboardViewModel>());
       if (status && context.mounted) {
-        AppSnackBar().showSnackBar(title: AppStrings.taskStatusUpdateSuccessTitle,
+        AppSnackBar().showSnackBar(
+            title: AppStrings.taskStatusUpdateSuccessTitle,
             content: AppStrings.taskStatusUpdateSuccessMessage,
             contentType: ContentType.success,
             color: AppColor.snackBarSuccessColor,
             context: context);
         return;
       }
-      if(context.mounted){
-        AppSnackBar().showSnackBar(title: AppStrings.taskStatusUpdateFailureTitle,
+      if (context.mounted) {
+        AppSnackBar().showSnackBar(
+            title: AppStrings.taskStatusUpdateFailureTitle,
             content: AppStrings.taskStatusUpdateFailureMessage,
             contentType: ContentType.failure,
             color: AppColor.snackBarFailureColor,
@@ -263,29 +286,27 @@ class _TaskListCardState extends State<TaskListCard> {
 
   Future<void> itemDeletion(BuildContext context, int index) async {
     bool status = await context.read<TaskViewModel>().deleteTask(
-          context.read<UserViewModel>().token,
-          widget.taskData[index].sId.toString(),
-          widget.taskData[index].status.toString(),
-          index,
-        );
+      context
+          .read<UserViewModel>()
+          .token,
+      widget.taskData[index].sId.toString(),
+      widget.taskData[index].status.toString(),
+      index,
+    );
     if (status && context.mounted) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.taskItemDeleteSuccessTitle,
-            content: AppStrings.taskItemDeleteSuccessMessage,
-            contentType: ContentType.success,
-            color: AppColor.snackBarSuccessColor));
+      AppSnackBar().showSnackBar(title: AppStrings.taskItemDeleteSuccessTitle,
+          content: AppStrings.taskItemDeleteSuccessMessage,
+          contentType: ContentType.success,
+          color: AppColor.snackBarSuccessColor,
+          context: context);
       return;
     }
     if (context.mounted) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.taskItemDeleteFailedTitle,
-            content: AppStrings.taskItemDeleteFailureMessage,
-            contentType: ContentType.failure,
-            color: AppColor.snackBarFailureColor));
+      AppSnackBar().showSnackBar(title: AppStrings.taskItemDeleteFailedTitle,
+          content: AppStrings.taskItemDeleteFailureMessage,
+          contentType: ContentType.failure,
+          color: AppColor.snackBarFailureColor,
+          context: context);
     }
   }
 }
