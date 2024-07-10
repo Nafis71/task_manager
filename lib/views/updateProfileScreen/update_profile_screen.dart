@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -12,6 +14,8 @@ import 'package:task_manager/views/updateProfileScreen/update_profile_screen_for
 import 'package:task_manager/views/widgets/app_bar.dart';
 import 'package:task_manager/views/widgets/app_snackbar.dart';
 import 'package:task_manager/views/widgets/background_widget.dart';
+
+import '../../utils/app_assets.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   final SharedPreferences? preferences;
@@ -57,7 +61,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   }
 
   void getUserData() {
-    UserData userData = context.read<UserViewModel>().userData;
+    UserData userData = context
+        .read<UserViewModel>()
+        .userData;
     _emailTEController.text = userData.email.toString();
     _firstNameTEController.text = userData.firstName.toString();
     _lastNameTEController.text = userData.lastName.toString();
@@ -67,7 +73,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       appBar: getApplicationAppBar(context: context, disableNavigation: true),
       body: OrientationBuilder(
@@ -76,13 +85,44 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             childWidget: SingleChildScrollView(
               child: Container(
                 margin:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 60),
+                const EdgeInsets.symmetric(horizontal: 25, vertical: 60),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Center(
+                      child: Consumer<UserViewModel>(
+                          builder: (_, viewModel, __) {
+                            if (viewModel.base64Image.isNotEmpty) {
+                              return CircleAvatar(
+                                radius: 90,
+                                backgroundImage: MemoryImage(
+                                  base64Decode(
+                                    viewModel.base64Image,
+                                  ),
+                                ),
+                              );
+                            }
+                            return CircleAvatar(
+                              radius: 90,
+                              backgroundImage: (viewModel
+                                  .userData.photo!.isNotEmpty)
+                                  ? MemoryImage(
+                                base64Decode(
+                                  viewModel.userData.photo.toString(),
+                                ),
+                              )
+                                  : const AssetImage(
+                                  AppAssets.userDefaultImage),
+                            );
+                          }),
+                    ),
+                    const Gap(15),
                     Text(
                       AppStrings.updateProfileScreenTitle,
-                      style: Theme.of(context).textTheme.headlineLarge,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headlineLarge,
                     ),
                     const Gap(15),
                     InkWell(
@@ -110,7 +150,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               alignment: Alignment.center,
                               child: Text(
                                 AppStrings.photoPickerText,
-                                style: Theme.of(context).textTheme.labelMedium,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .labelMedium,
                               ),
                             ),
                             const Gap(20),
@@ -173,25 +216,21 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         mobile: _mobileNumberTEController.text.trim(),
         password: _passwordTEController.text);
     if (status && mounted) {
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.updateProfileScreenTitle,
-            content: AppStrings.updateUserProfileSuccessMessage,
-            contentType: ContentType.success,
-            color: AppColor.snackBarSuccessColor));
+      AppSnackBar().showSnackBar(title: AppStrings.updateUserProfileSuccessTitle,
+          content: AppStrings.updateUserProfileSuccessMessage,
+          contentType: ContentType.success,
+          color: AppColor.snackBarSuccessColor,
+          context: context);
       Navigator.pop(context);
       return;
     }
     if (mounted) {
       Failure failure = viewModel.response as Failure;
-      ScaffoldMessenger.of(context)
-        ..clearSnackBars()
-        ..showSnackBar(getSnackBar(
-            title: AppStrings.updateUserProfileFailureTitle,
-            content: failure.message,
-            contentType: ContentType.failure,
-            color: AppColor.snackBarFailureColor));
+      AppSnackBar().showSnackBar(title: AppStrings.updateUserProfileFailureTitle,
+          content: failure.message,
+          contentType: ContentType.failure,
+          color: AppColor.snackBarFailureColor,
+          context: context);
     }
   }
 
