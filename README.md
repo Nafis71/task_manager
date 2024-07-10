@@ -1,15 +1,49 @@
 # Task Manager
-<p align="justify">This Flutter application is a comprehensive task manager designed to empower users to stay organized and achieve their goals effectively. It offers a suite of features that cater to various task management needs, built with a focus on security and user experience.</p>
+<img align="right" alt ="coding" width ="300" src="https://user-images.githubusercontent.com/69011963/137184767-79a13ec7-1bb3-4341-a6da-3a149c9c159a.gif"></img><br />
+&nbsp;<p align="justify">This Flutter application is a comprehensive task manager designed to empower users to stay organized and achieve their goals effectively. It offers a suite of features that cater to various task management needs, built with a focus on security and user experience.</p>
+
+<br />
 
 ## Project APK Link
 `Download link-` https://shorturl.at/563SN
 <br />
 
+## Installation
+### Git Clone
+``` 
+git clone https://github.com/Nafis71/task_manager.git
+```
+### Flutter Version Management
+``` 
+fvm use
+```
+### Pub Get
+``` 
+fvm flutter pub get
+```
+*or*
+``` 
+flutter pub get
+```
+### Build Apk
+``` 
+fvm flutter build apk --release
+```
+
 ## Tech Stack
+
+<img align="right" alt ="coding" width ="500" src="https://miro.medium.com/v2/resize:fit:707/1*OwVqttusoA4WNezfsBV4sA.png"></img>
+<br />
+
 - Flutter
 - Dart
 - Rest API
 - Provider (State Management) <br />
+
+
+
+<br />
+<br />
 
 ## Screenshots
 `1. Splash Screen and Authentication` <br />
